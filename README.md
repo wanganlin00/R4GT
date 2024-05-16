@@ -1,2 +1,1 @@
-# RforGraph-TableinArticles
- 
+# R for Graph & Table in Articles
