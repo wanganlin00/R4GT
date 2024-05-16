@@ -1,0 +1,50 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "RforGraph&TableinArticles"
+  search: true
+  back-to-top-navigation: true
+  reader-mode: true
+  
+  navbar:
+    background: primary
+    left:
+      - href: index.qmd
+        text: "主页"
+      - about.qmd
+      
+  sidebar:
+   - title: "https://www.nature.com/articles/s41467-023-43462-1"
+     style: "floating"
+     background: light
+     contents: 
+       - 01.qmd
+       
+       
+       
+knitr: 
+  opts_chunk: 
+    comment: "#>"
+    collapse: TRUE
+execute:
+  message: false
+  cache: true
+  warning: true
+
+toc-depth: 4
+number-sections: true
+number-depth: 4
+code-fold: show
+code-link: true
+code-tools: true
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+

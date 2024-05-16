@@ -1,0 +1,7 @@
+---
+title: "RforGraph&TableinArticles"
+---
+
+这是R实现关于 *articles* 的图表的记录。
+
+作为速查电子笔记
