@@ -1,0 +1,11 @@
+# 图 {.unnumbered}
+
+分组条图添加显著性，误差棒
+
+分组排序条图
+
+生存曲线
+
+回归曲线
+
+[十六进制取色](https://encycolorpedia.cn/named)

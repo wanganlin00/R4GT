@@ -3,34 +3,47 @@ project:
   output-dir: docs
 
 website:
-  title: "RforGraph&TableinArticles"
+  title: "R for Graph and Table"
   search: true
   back-to-top-navigation: true
   reader-mode: true
   
   navbar:
-    background: primary
+    background: info
     left:
-      - href: index.qmd
-        text: "主页"
-      - about.qmd
-      
+      - text: "主页"
+        href: index.qmd
+      - text: "图"
+        href: Graph.qmd
+      - text: "表"
+        href: Table.qmd
+      - text: "引用"
+        href: about.qmd
+    
+        
   sidebar:
-   - title: "https://www.nature.com/articles/s41467-023-43462-1"
-     style: "floating"
-     background: light
-     contents: 
-       - 01.qmd
+    - title: "Graph"
+      style: "docked"
+      background: "#ffd9e6"
+      contents: 
+        - Graph.qmd
+        - 01.qmd
+        - 02.qmd
+        - section: "条图"
        
+    - title: "Table"
+      contents: 
+        - Table.qmd
        
        
 knitr: 
   opts_chunk: 
     comment: "#>"
     collapse: TRUE
+
 execute:
-  message: false
   cache: true
+  message: false
   warning: true
 
 toc-depth: 4
@@ -45,6 +58,7 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
+    fig-format: svg
 
 editor: visual
 
