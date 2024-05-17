@@ -25,7 +25,7 @@ website:
     - title: "Graph"
       style: "docked"
       background: "#ffd9e6"
-      foreground: dark
+      foreground: "#87cefa"
       border: true
       alignment: left
       collapse-level: 4
