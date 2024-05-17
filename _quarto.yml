@@ -24,7 +24,11 @@ website:
   sidebar:
     - title: "Graph"
       style: "docked"
-      background: info
+      background: "#ffd9e6"
+      foreground: dark
+      border: true
+      alignment: left
+      collapse-level: 4
       contents: 
         - Graph.qmd
         - 01.qmd
