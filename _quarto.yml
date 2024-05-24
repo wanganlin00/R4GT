@@ -32,7 +32,7 @@ website:
       contents: 
         - Graph.qmd
         - 01.qmd
-        - 02.qmd
+        - 热图.qmd
         - section: "条图"
        
     - title: "Table"
