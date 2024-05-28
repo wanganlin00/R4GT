@@ -1,1 +1,1 @@
-# R for Graph & Table in Articles
+# R for Graph & Table
