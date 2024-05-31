@@ -1,0 +1,59 @@
+# 条图
+
+```{r}
+df <- ToothGrowth |> rownames_to_column("id")
+```
+
+## 基础柱状图
+
+```{r}
+ggplot(df,aes(supp,len))+
+    geom_col()
+
+ggplot(df,aes(supp,len))+
+    geom_bar(stat = "identity")
+```
+
+## 颜色
+
+```{r}
+ggplot(df,aes(id,len,color=factor(dose)))+
+    geom_col(fill=NA)
+```
+
+## 标签
+
+```{r}
+ggplot(df,aes(id,len))+
+    geom_col()+
+   ggrepel::geom_text_repel(aes(y=len+3,label=len))
+```
+
+## 散点、抖动点
+
+```{r}
+
+ggplot(df, aes(x = supp, y = len)) +
+    geom_bar(
+        aes(fill = factor(dose)),
+        stat = "summary",
+        fun = mean,
+        position = position_dodge(width = 0.9)
+    ) +
+    geom_point(position = position_jitterdodge(jitter.width = 0.1),
+               aes(color = factor(dose)),
+               alpha = 0.7)+
+    scale_color_manual(values = c("red","green","blue"))|
+    ggplot(df, aes(x = supp, y = len)) +
+    geom_bar(
+        aes(fill = factor(dose)),
+        stat = "summary",
+        fun = mean,
+        position = position_dodge(width = 0.9)
+    ) +
+    geom_dotplot(position = position_dodge(width = 0.9),
+               aes(fill = factor(dose)),dotsize = 0.8,
+               binaxis = "y", stackdir = "center",color="black",
+               alpha = 0.7)+
+    scale_fill_manual(values = c("red","green","blue"))
+```

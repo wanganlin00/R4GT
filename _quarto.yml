@@ -17,8 +17,8 @@ website:
         href: Graph.qmd
       - text: "表"
         href: Table.qmd
-      - text: "引用"
-        href: about.qmd
+      - text: "参考文献"
+        href: references.qmd
     
         
   sidebar:
@@ -34,6 +34,8 @@ website:
         - 01.qmd
         - 热图.qmd
         - section: "条图"
+          contents: 
+            - barplot.qmd
        
     - title: "Table"
       contents: 

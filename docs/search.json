@@ -1,13 +1,20 @@
 [
   {
-    "objectID": "02.html",
-    "href": "02.html",
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "参考文献",
+    "section": "",
+    "text": "https://www.nature.com/articles/s41467-023-43462-1\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "热图.html",
+    "href": "热图.html",
     "title": "",
     "section": "",
-    "text": "Code\n\n\n\n\n\n1 02\n\n\n\n\n\n\n Back to top",
+    "text": "CodeShow All CodeHide All CodeView Source\n1 热图\n\nCodelibrary(pheatmap)\n# Create test matrix\ntest = matrix(rnorm(200), 20, 10)\ntest[1:10, seq(1, 10, 2)] = test[1:10, seq(1, 10, 2)] + 3\ntest[11:20, seq(2, 10, 2)] = test[11:20, seq(2, 10, 2)] + 2\ntest[15:20, seq(2, 10, 2)] = test[15:20, seq(2, 10, 2)] + 4\ncolnames(test) = paste(\"Test\", 1:10, sep = \"\")\nrownames(test) = paste(\"Gene\", 1:20, sep = \"\")\n\n\n\nCodetest\n#&gt;             Test1       Test2      Test3      Test4        Test5       Test6\n#&gt; Gene1   3.4429287  0.97405676  4.4357834  0.3224788  3.959653579  1.14771717\n#&gt; Gene2   3.2006674  0.11792875  1.4613751 -0.3849059  3.972309541  0.21047603\n#&gt; Gene3   4.4601198 -0.92312466  2.2693426  2.3718886  3.527453479  0.19021533\n#&gt; Gene4   1.2339105  1.61637157  3.3082871  1.6525814  2.022342854 -1.62034772\n#&gt; Gene5   2.1790582 -0.37872955  2.3858200 -2.8125301  4.133458727  1.81255543\n#&gt; Gene6   4.0014729 -0.58928840  4.6946429  0.1351052  1.371960602 -0.47986004\n#&gt; Gene7   3.1310768  2.26505523  1.4143726 -1.1725723  3.137056932 -0.33857356\n#&gt; Gene8   3.9210966 -0.02104079  2.6191355 -1.1113537  2.808879071 -1.20645174\n#&gt; Gene9   1.4902268  0.02593187  2.5762583 -1.5707492  3.452050096  0.47056390\n#&gt; Gene10  2.5231877 -0.24959168  3.2765207 -0.4759022  3.065790132 -0.07679065\n#&gt; Gene11  0.2730204  1.75662086  0.3661200  1.5016415 -0.008315358  1.84471034\n#&gt; Gene12  0.2946029  1.18322890  0.1872870  1.9551928  0.353299521  2.10969009\n#&gt; Gene13  0.6865864  0.92681840 -0.8363160  1.4949443  1.648903005  0.21834474\n#&gt; Gene14 -1.7751972  1.85028821 -0.1170845  1.2013545  1.772732621  1.40894900\n#&gt; Gene15  2.2055143  7.08885824 -0.4118041  6.8509326  0.106857695  5.96867879\n#&gt; Gene16 -0.5149111  6.66884291  0.6210717  6.9276024 -0.156758374  5.47149137\n#&gt; Gene17  0.1184209  6.84360528  0.3228722  5.3388866 -0.204087286  5.71306137\n#&gt; Gene18  0.2712415  7.47089835 -0.5530883  6.7712328  0.513814900  6.75025222\n#&gt; Gene19 -0.3862120  7.79844094  1.7250137  7.2911434  0.392667376  5.17807221\n#&gt; Gene20 -0.3521003  5.26787733 -0.4620397  5.6257023  0.259966705  9.11870360\n#&gt;              Test7       Test8       Test9     Test10\n#&gt; Gene1   3.55278268  0.77783277  2.69556033 0.12434258\n#&gt; Gene2   1.32566370  0.64811005  2.65979759 0.49321818\n#&gt; Gene3   1.90071574 -1.72052558  3.09946291 1.16979871\n#&gt; Gene4   3.02590057 -0.49874749  3.22199163 0.10592553\n#&gt; Gene5   2.89754882 -0.74640156  3.71248979 1.58454848\n#&gt; Gene6   3.60403948  1.29662642  3.20302114 0.47687989\n#&gt; Gene7   2.81893328 -2.61783937  4.85635818 0.34450700\n#&gt; Gene8   3.23926747 -0.03240268  3.70624294 0.13425822\n#&gt; Gene9   2.77659865 -1.99306256  4.84294633 0.97029484\n#&gt; Gene10  4.48264354  0.05895736  4.58244657 0.73559433\n#&gt; Gene11  0.79063808  2.13441751 -0.56382416 3.75244276\n#&gt; Gene12 -0.28802340  2.07276987  0.88947200 0.07798976\n#&gt; Gene13 -0.64628474  1.99340902  0.40449498 3.02254604\n#&gt; Gene14  1.24217340  2.64211001 -0.32139575 0.27588277\n#&gt; Gene15  0.32833567  7.16146277 -0.28005237 5.29992640\n#&gt; Gene16  0.36071925  4.67268287 -0.66359345 6.26553038\n#&gt; Gene17  0.32881496  6.15327226 -0.25939992 5.34586280\n#&gt; Gene18  0.15711300  6.51436728 -0.07801119 4.02704338\n#&gt; Gene19 -0.01190601  5.22954415 -1.24704802 6.15167940\n#&gt; Gene20 -1.06109607  4.49946035  1.07306571 4.95438164\n\n\n\nCodeannotation_col = data.frame(type=c(rep(\"normal\",5),rep(\"tumor\",5)))\nrownames(annotation_col) &lt;- colnames(test)\nanno_colors &lt;- list(type=c(normal=\"#1b9e77\",tumor=\"#d95f02\"))\n\npheatmap(test,show_rownames = T,show_colnames = F,cluster_rows = F,treeheight_col = 5,display_numbers = T,\n         gaps_col = 5,annotation_col = annotation_col,annotation_colors = anno_colors,annotation_legend = \n             F)\n\n\n\n\n\n\n\n均一化z-score\n\nCodepheatmap(test,scale = \"column\",border_color = \"green\",fontsize = 8)\n\n\n\n\n\n\n\n\nCodepheatmap(test,scale = \"row\",border_color = NA,color = colorRampPalette(c(\"blue\",\"white\",\"red\"))(200))\n\n\n\n\n\n\n\n\nCodelibrary(ComplexHeatmap)\n#&gt; Loading required package: grid\n#&gt; ========================================\n#&gt; ComplexHeatmap version 2.20.0\n#&gt; Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/\n#&gt; Github page: https://github.com/jokergoo/ComplexHeatmap\n#&gt; Documentation: http://jokergoo.github.io/ComplexHeatmap-reference\n#&gt; \n#&gt; If you use it in published research, please cite either one:\n#&gt; - Gu, Z. Complex Heatmap Visualization. iMeta 2022.\n#&gt; - Gu, Z. Complex heatmaps reveal patterns and correlations in multidimensional \n#&gt;     genomic data. Bioinformatics 2016.\n#&gt; \n#&gt; \n#&gt; The new InteractiveComplexHeatmap package can directly export static \n#&gt; complex heatmaps into an interactive Shiny app with zero effort. Have a try!\n#&gt; \n#&gt; This message can be suppressed by:\n#&gt;   suppressPackageStartupMessages(library(ComplexHeatmap))\n#&gt; ========================================\n#&gt; ! pheatmap() has been masked by ComplexHeatmap::pheatmap(). Most of the arguments\n#&gt;    in the original pheatmap() are identically supported in the new function. You \n#&gt;    can still use the original function by explicitly calling pheatmap::pheatmap().\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "图",
-      "02"
+      "热图"
     ]
   },
   {
@@ -19,13 +26,6 @@
     "crumbs": [
       "图"
     ]
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "引用",
-    "section": "",
-    "text": "https://www.nature.com/articles/s41467-023-43462-1\n\n\n\n\n\n\n Back to top"
   },
   {
     "objectID": "index.html",
@@ -153,6 +153,66 @@
     "crumbs": [
       "表",
       "表格"
+    ]
+  },
+  {
+    "objectID": "barplot.html",
+    "href": "barplot.html",
+    "title": "",
+    "section": "",
+    "text": "条图条图 CodeShow All CodeHide All CodeView Source",
+    "crumbs": [
+      "图",
+      "条图",
+      "条图"
+    ]
+  },
+  {
+    "objectID": "barplot.html#基础柱状图",
+    "href": "barplot.html#基础柱状图",
+    "title": "",
+    "section": "\n1.1 基础柱状图",
+    "text": "1.1 基础柱状图\n\nCodeggplot(df,aes(supp,len))+\n    geom_col()\n\n\n\n\n\n\nCode\nggplot(df,aes(supp,len))+\n    geom_bar(stat = \"identity\")",
+    "crumbs": [
+      "图",
+      "条图",
+      "条图"
+    ]
+  },
+  {
+    "objectID": "barplot.html#颜色",
+    "href": "barplot.html#颜色",
+    "title": "",
+    "section": "\n1.2 颜色",
+    "text": "1.2 颜色\n\nCodeggplot(df,aes(id,len,color=factor(dose)))+\n    geom_col(fill=NA)",
+    "crumbs": [
+      "图",
+      "条图",
+      "条图"
+    ]
+  },
+  {
+    "objectID": "barplot.html#标签",
+    "href": "barplot.html#标签",
+    "title": "",
+    "section": "\n1.3 标签",
+    "text": "1.3 标签\n\nCodeggplot(df,aes(id,len))+\n    geom_col()+\n   ggrepel::geom_text_repel(aes(y=len+3,label=len))",
+    "crumbs": [
+      "图",
+      "条图",
+      "条图"
+    ]
+  },
+  {
+    "objectID": "barplot.html#散点抖动点",
+    "href": "barplot.html#散点抖动点",
+    "title": "",
+    "section": "\n1.4 散点、抖动点",
+    "text": "1.4 散点、抖动点\n\nCode\nggplot(df, aes(x = supp, y = len)) +\n    geom_bar(\n        aes(fill = factor(dose)),\n        stat = \"summary\",\n        fun = mean,\n        position = position_dodge(width = 0.9)\n    ) +\n    geom_point(position = position_jitterdodge(jitter.width = 0.1),\n               aes(color = factor(dose)),\n               alpha = 0.7)+\n    scale_color_manual(values = c(\"red\",\"green\",\"blue\"))|\n    ggplot(df, aes(x = supp, y = len)) +\n    geom_bar(\n        aes(fill = factor(dose)),\n        stat = \"summary\",\n        fun = mean,\n        position = position_dodge(width = 0.9)\n    ) +\n    geom_dotplot(position = position_dodge(width = 0.9),\n               aes(fill = factor(dose)),dotsize = 0.8,\n               binaxis = \"y\", stackdir = \"center\",color=\"black\",\n               alpha = 0.7)+\n    scale_fill_manual(values = c(\"red\",\"green\",\"blue\"))\n#&gt; Bin width defaults to 1/30 of the range of the data. Pick better value with\n#&gt; `binwidth`.",
+    "crumbs": [
+      "图",
+      "条图",
+      "条图"
     ]
   }
 ]
