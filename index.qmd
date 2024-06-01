@@ -1,3 +1,5 @@
 这是R实现关于 *articles* 的图表的记录。
 
 作为速查电子笔记
+
+[ggpubr](https://www.datanovia.com/en/blog/author/kassambara/)

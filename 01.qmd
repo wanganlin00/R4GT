@@ -494,36 +494,46 @@ f4h |> pivot_longer(cols = -1,
                       levels = c("PBS", "SLAMF6+ PD-1+ CD8+ cells",
                                  "SLAMF6- PD-1+ CD8+ cells")
                   )) -> f4h
-f4h
+f4h <- rowid_to_column(f4h,var = "id")
 
 ```
 
-```{r}
-stat <- aov(volume ~ method, data = f4h)
-summary(stat)
-compare_aov <- TukeyHSD(stat)
-compare_aov
+统计p值
 
-pvalue <- compare_aov[["method"]] |> as.data.frame()
-pvalue$vs <- rownames(pvalue)
-pvalue <- tibble(
-    vs = pvalue$vs,
-    padj = format(pvalue$`p adj`, scientific = TRUE, digits = 4),
-    padj_4 = round(pvalue$`p adj`, digits = 4),
-)
+```{r}
+# 重复测量方差设计
+library(nlme)
+model <- lme(volume ~ method*Days, random = ~1|id/Days, data = f4h)
+summary(model)
+df_aov <- anova(model)
+df_aov
+
+#成对比较
+library(emmeans)
+method_means <- emmeans(model, ~method)  
+print(method_means)  
+method_comparisons <- pairs(method_means)  
+method_comparisons
+```
+
+```{r}
+pvalue <- method_comparisons |> broom::tidy() |> 
+    dplyr::select(contrast, adj.p.value) |> 
+    dplyr::mutate(padj=round(adj.p.value,digits = 4),
+                  p_adj_sci=format(adj.p.value,scientific = T,digits = 4))
+
 pvalue
 
+library(ggpubr)
 p <- f4h |> summarise(
     mean_volume = mean(volume),
     sd = sd(volume),
-    .by = c(Days, method)
-) |>
+    .by = c(Days, method),) |>
     ggplot(aes(
         x = Days,
         y = mean_volume,
         color = method,
-        group = method
-    )) +
+        group = method,)) +
     geom_errorbar(
         aes(ymin = mean_volume - sd, ymax = mean_volume + sd),
         position = position_dodge(0),
@@ -536,8 +546,7 @@ p <- f4h |> summarise(
         aes(shape = method),
         position = position_dodge(0),
         color = "black",
-        size = 2
-    ) +
+        size = 2) +
     theme_pubr() +
     theme(legend.title = element_blank())
 
@@ -557,7 +566,7 @@ p  +  annotate(geom = "segment",
                    x = 3.45,
                    y = (47.855824 + 2.876853) / 2,
                    angle = 270,
-                   label = pvalue$padj[1],
+                   label = pvalue$padj[2],
                ) +
     annotate(geom = "segment",
              x = 3.15,
@@ -567,7 +576,7 @@ p  +  annotate(geom = "segment",
                  x = 3.2,
                  y = (47.855824 + 37.805035) / 2,
                  angle = 270,
-                 label = pvalue$padj[2],
+                 label = pvalue$padj[1],
              ) +
     annotate(geom = "segment",
              x = 3.3,
