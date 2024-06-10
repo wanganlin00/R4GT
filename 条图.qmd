@@ -1,6 +1,12 @@
 # 条图
 
 ```{r}
+library(tidyverse)
+library(ggpubr)
+library(patchwork)
+```
+
+```{r}
 df <- ToothGrowth |> rownames_to_column("id")
 ```
 
@@ -42,7 +48,7 @@ ggplot(mpg, aes(x = drv, y = hwy, fill = as.factor(cyl))) +
 ```
 
 ```{r}
-
+df <- ToothGrowth
 ggplot(df, aes(x = supp, y = len)) +
     geom_bar(
         aes(fill = factor(dose)),

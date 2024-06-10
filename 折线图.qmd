@@ -1,0 +1,165 @@
+
+
+## 折线图
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(ggpubr)
+library(rstatix)
+```
+
+
+
+```{r}
+f4h <-
+    read_excel("data/01source.xlsx", sheet = "Fig.4", range = "A20:P23")
+colnames(f4h) <-
+    c("Days", rep(
+        c("PBS", "SLAMF6+ PD-1+ CD8+ cells", "SLAMF6- PD-1+ CD8+ cells"),
+        each = 5
+    ))
+
+f4h |> pivot_longer(cols = -1,
+                    names_to = "method",
+                    values_to = "volume",
+) |>
+    dplyr::mutate(Days = factor(Days, levels = c("-1", "7", "14")),
+                  method = factor(
+                      method,
+                      levels = c("PBS", "SLAMF6+ PD-1+ CD8+ cells",
+                                 "SLAMF6- PD-1+ CD8+ cells")
+                  )) -> f4h
+f4h <- rowid_to_column(f4h,var = "id")
+
+```
+
+统计p值
+
+```{r}
+# 重复测量方差设计
+library(nlme)
+model <- lme(volume ~ method*Days, random = ~1|id/Days, data = f4h)
+summary(model)
+df_aov <- anova(model)
+df_aov
+
+#成对比较
+library(emmeans)
+method_means <- emmeans(model, ~method)  
+print(method_means)  
+method_comparisons <- pairs(method_means)  
+method_comparisons
+```
+
+## ggplot2
+
+```{r}
+pvalue <- method_comparisons |> broom::tidy() |> 
+    dplyr::select(contrast, adj.p.value) |> 
+    dplyr::mutate(padj=round(adj.p.value,digits = 4),
+                  p_adj_sci=format(adj.p.value,scientific = T,digits = 4))
+
+pvalue
+
+p <- f4h |> summarise(
+    mean_volume = mean(volume),
+    sd = sd(volume),
+    .by = c(Days, method),) |>
+    ggplot(aes(
+        x = Days,
+        y = mean_volume,
+        color = method,
+        group = method,)) +
+    geom_errorbar(
+        aes(ymin = mean_volume - sd, ymax = mean_volume + sd),
+        position = position_dodge(0),
+        width = .2,
+        linewidth = 0.5,
+    ) +
+    geom_line(position = position_dodge(0),
+              linewidth = 0.8) +
+    geom_point(
+        aes(shape = method),
+        position = position_dodge(0),
+        color = "black",
+        size = 2) +
+    theme_pubr() +
+    theme(legend.title = element_blank())
+
+# 使用ggplot_build()获取图层数据
+plot_data <- ggplot_build(p)
+
+# 查看X轴的数值坐标
+plot_data$data
+
+
+
+p  +  annotate(geom = "segment",
+               x = 3.4,
+               y = 47.855824,
+               yend = 2.876853,) + annotate(
+                   geom = "text",
+                   x = 3.45,
+                   y = (47.855824 + 2.876853) / 2,
+                   angle = 270,
+                   label = pvalue$padj[2],
+               ) +
+    annotate(geom = "segment",
+             x = 3.15,
+             y = 47.855824,
+             yend = 37.805035,) + annotate(
+                 geom = "text",
+                 x = 3.2,
+                 y = (47.855824 + 37.805035) / 2,
+                 angle = 270,
+                 label = pvalue$padj[1],
+             ) +
+    annotate(geom = "segment",
+             x = 3.3,
+             y = 2.876853,
+             yend = 37.805035,) + annotate(
+                 geom = "text",
+                 x = 3.35,
+                 y = (2.876853 + 37.805035) / 2,
+                 angle = 270,
+                 label = pvalue$padj[3],
+             )
+
+#y=c(47.855824,37.805035,2.876853,),
+#yend = c(2.876853,47.855824,37.805035,),
+```
+
+<https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/>
+
+## ggplot2
+
+```{r}
+df <- ToothGrowth
+df$dose <- as.factor(df$dose)
+
+stat.test <- df %>%
+    group_by(dose) %>%
+    t_test(len ~ supp) %>%
+    adjust_pvalue(method = "bonferroni") %>%
+    add_significance("p.adj")
+
+
+lp <- ggline(
+    df,
+    x = "dose",
+    y = "len",
+    add = "mean_sd",
+    color = "supp",
+    palette = c("#00AFBB", "#E7B800")
+)
+lp
+# Add p-values onto the line plots
+# Remove brackets using linetype = "blank"
+stat.test <- stat.test %>%
+    add_xy_position(fun = "mean_sd", x = "dose")
+lp + stat_pvalue_manual(stat.test,
+                        label = "p.adj.signif",
+                        tip.length = 0,
+                        linetype  = "blank")
+```
