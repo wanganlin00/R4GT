@@ -1,7 +1,13 @@
-# 点图
+# dotplot
 
 ```{r}
+library(tidyverse)
+library(ggpubr)
 library(readxl)
+```
+
+```{r}
+
 f6d <-
     read_excel("data/01source.xlsx", sheet = "Fig.6", range = "D2:E18")
 f6d |> pivot_longer(
@@ -10,7 +16,9 @@ f6d |> pivot_longer(
     values_to = "Ratio",
 ) |> 
     tidyr::drop_na() ->f6d
+```
 
+```{r}
 ggdotplot(f6d,
           x="status",
           y="Ratio",
@@ -34,6 +42,5 @@ ggdotplot(f6d,
         xend=2.1,
         y=0.789463173,#均值
     )
-
 
 ```

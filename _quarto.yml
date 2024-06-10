@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "R for Graph and Table"
+  title: "R for Graphics and Tables"
   search: true
   back-to-top-navigation: true
   reader-mode: true
@@ -22,19 +22,20 @@ website:
     
         
   sidebar:
-    - title: "Graph"
+    - title: "Graphics"
       style: "docked"
       background: "#ffd9e6"
-      foreground: "#87cefa"
+      foreground: "#1919e6"
       border: true
       alignment: left
       collapse-level: 4
       contents: 
         - Graph.qmd
-
         - section: "条图"
           contents: 
             - 条图.qmd
+            # - 棒棒糖图.qmd
+            # - 环状图.qmd
         - section: "点图"
           contents: 
             - dotplot.qmd
@@ -46,12 +47,13 @@ website:
             - 折线图.qmd
             - 回归曲线.qmd
        
-        - section: "块图"
+        - section: "关系图"
           contents: 
             - 相关图.qmd
             - 热图.qmd
+            # - 韦恩图.qmd
             
-    - title: "Table"
+    - title: "Tables"
       contents: 
         - Table.qmd
        

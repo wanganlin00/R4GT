@@ -1,11 +1,13 @@
 # 图 {.unnumbered}
 
-分组条图添加显著性，误差棒
+条图
 
-分组排序条图
+点图
 
-生存曲线
+线图
 
-回归曲线
+关系图
 
-[十六进制取色](https://encycolorpedia.cn/named)
+[十六进制颜色](https://encycolorpedia.cn/named)
+
+[图像颜色提取器](https://imgonline.tools/zh/image-color-picker)

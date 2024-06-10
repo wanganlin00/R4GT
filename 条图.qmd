@@ -133,6 +133,8 @@ ggplot( c ,aes(x=id,y=changerate,fill=treatment))+
 
 ## 分组条形图添加 errorbar、significance 、dotplot
 
+[ggpubr](https://www.datanovia.com/en/blog/author/kassambara/)
+
 ```{r}
 g<-read_excel("data/01source.xlsx",sheet=1,range="G2:Z3") 
 colnames(g) <- rep(c('CON','LDRT','DPVB','LR_DPVB'),each=5)

@@ -1,0 +1,22 @@
+
+# 相关图
+
+
+
+```{r}
+library(tidyverse)
+library(ggcorrplot)
+```
+
+
+```{r}
+data("iris")
+cor<-cor(iris[,1:4])
+ggcorrplot(cor)
+p.mat <- ggcorrplot::cor_pmat(cor)
+ggcorrplot(cor,hc.order=TRUE,lab=TRUE)
+
+ggcorrplot(cor, hc.order = TRUE, p.mat = p.mat) + 
+    labs(title = "鸢尾花数据集指标相关性") +
+    theme(plot.title = element_text(hjust = 0.5))
+```
