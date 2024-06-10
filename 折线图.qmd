@@ -31,7 +31,6 @@ f4h |> pivot_longer(cols = -1,
                                  "SLAMF6- PD-1+ CD8+ cells")
                   )) -> f4h
 f4h <- rowid_to_column(f4h,var = "id")
-
 ```
 
 统计p值
