@@ -32,6 +32,16 @@ ggplot(df,aes(id,len))+
 ## 添加散点、抖动点
 
 ```{r}
+ggplot(mpg, aes(x = drv, y = hwy, fill = as.factor(cyl))) +  
+    geom_bar(stat = "summary",fun=mean, position = position_dodge(1)) +
+    stat_summary(fun.data = 'mean_sd',geom="errorbar",position = position_dodge(1),
+                 width=.2,linewidth=1)+
+    geom_point(position = position_dodge(1), 
+              size = 3,alpha=0.3
+             )  
+```
+
+```{r}
 
 ggplot(df, aes(x = supp, y = len)) +
     geom_bar(
@@ -115,7 +125,284 @@ ggplot( c ,aes(x=id,y=changerate,fill=treatment))+
 
 ```
 
-```{r}
+## 分组条形图添加 errorbar、significance 、dotplot
 
+```{r}
+g<-read_excel("data/01source.xlsx",sheet=1,range="G2:Z3") 
+colnames(g) <- rep(c('CON','LDRT','DPVB','LR_DPVB'),each=5)
+g<- g |>  pivot_longer(
+  cols = everything(),
+  names_to = "treatment",
+  values_to = "liverweight"
+  )|> 
+  mutate(
+    treatment=factor(treatment,levels=c('CON','LDRT','DPVB','LR_DPVB'))
+  )
+g
+```
+
+```{r}
+source("function/calculate_t_tests.R")
+calculate_t_tests(g,"treatment","liverweight")
+```
+
+::: callout-note
+函数calculate_t_tests
+
+```{r}
+#| label: calculate_t_tests()
+# 定义计算两两组之间t检验的函数
+calculate_t_tests <- function(data, group_by, value_column) {
+  # data: 数据框
+  # group_by: 组别的列名
+  # value_column: 要比较的数值的列名
+  
+  # 提取唯一的组别
+  groups <- unique(data[[group_by]])
+  
+  # 初始化结果矩阵
+  result_matrix <- matrix(NA, nrow = length(groups), ncol = length(groups),
+                          dimnames = list(groups, groups))
+  
+  # 循环遍历所有可能的组合
+  for (i in 1:(length(groups)-1)) {
+    for (j in (i+1):length(groups)) {
+      # 提取两组数据
+      group1_data <- data[data[[group_by]] == groups[i], value_column]
+      group2_data <- data[data[[group_by]] == groups[j], value_column]
+      
+      # 执行t检验
+      t_test_result <- t.test(group1_data, group2_data)
+      
+      # 提取p值
+      p_value <- t_test_result$p.value
+      
+      # 将p值存入结果矩阵
+      #result_matrix[groups[i], groups[j]] <- p_value
+      result_matrix[groups[j], groups[i]] <- p_value
+    }
+  }
+  
+  # 返回结果矩阵
+  return(result_matrix)
+}
+
+```
+:::
+
+### ggpubr
+
+```{r}
+library(ggpubr)
+ggbarplot(data = g,
+          x="treatment",y="liverweight",
+          add = c("mean_sd"),
+          fill = "treatment",
+          palette = "jco",
+          title = "DEN+CCl4 tumor",
+          xlab = "",
+          ylab='liver weight (g)',
+          legend='none',
+          )+
+  stat_compare_means(
+      #aes(label='p.format'),
+      comparisons = list(c('CON','LDRT'),c("DPVB",'LR_DPVB'), c("CON","LR_DPVB")),
+      method = 't.test',
+      tip.length = c(0,0,0,0,0,0),
+      bracket.size = 1,linewidth=1)+
+
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(angle = 45,vjust = 0.5))+
+  geom_dotplot(data = g,
+               mapping=aes(x=treatment,y=liverweight),
+               binaxis = 'y',stackdir = 'center',binwidth = 0.05)
+
+```
+
+### ggplot2+ggsignif
+
+```{r}
 library(ggsignif)
+g |> 
+  summarise(
+    n=n(),
+    mean=mean(liverweight),
+    sd=sd(liverweight),
+    .by=treatment
+  ) |> 
+    ggplot(aes(treatment,mean,fill=treatment))+
+    geom_bar(stat = "identity",width = .7,position = position_dodge())+#条形图
+    geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),
+                  width=.2,color="black",linewidth=.8)+#误差棒
+    geom_signif(data = g,
+              mapping=aes(x=treatment,y=liverweight),
+              comparisons = list(c('CON','LDRT'),c("DPVB",'LR_DPVB'),
+                                 c("CON","LR_DPVB")),
+              annotations = c("p=0.8639","p=0.0088","p=0.00034"),
+              map_signif_level=F,
+              tip_length=c(0.0,0.0,0.0,0.0,0.0,0.0),
+              y_position=c(2.1,1.8,2.35),size = .8,
+              textsize = 5,
+              test = "t.test"
+              )+
+    theme_pubr()+
+    scale_fill_jco()+
+    scale_y_continuous(limits = c(0,2.5))+
+    labs(
+        x='',
+        y='liver weight (g)',
+        title="DEN+CCl4 tumor"
+    )+
+    theme(
+        plot.title = element_text(hjust =0.5 ),
+        legend.position = 'none',
+        axis.text.x = element_text(angle = 45,vjust = .5)
+    )+  
+    geom_dotplot(data = g,
+                 mapping=aes(x=treatment,y=liverweight),
+                 binaxis = 'y',
+                 stackdir = 'center',#居中
+                 fill='black',
+                 binwidth = 0.05)
+  
+```
+
+### 分组并列，组内显著性p值
+
+<https://www.datanovia.com/en/blog/tag/ggpubr/>
+
+<https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/>
+
+```{r}
+f2e <- read_excel("data/01source.xlsx", sheet = 3, range = "A2:M4")
+colnames(f2e) <-
+    c("type", rep(c('CON', 'LDRT', 'DPVB', 'LR_DPVB'), each = 3))
+
+f2e |> pivot_longer(cols = -1,
+                    names_to = "trt",
+                    values_to = "pct",
+) |>
+    mutate(trt = factor(trt, levels = c('CON', 'LDRT', 'DPVB', 'LR_DPVB'))) -> f2e
+```
+
+```{r}
+library(ggpubr)
+library(rstatix)
+
+stat.test <- f2e %>%
+  group_by(type) %>%
+  t_test(pct ~ trt) |> 
+  adjust_pvalue(method = "bonferroni") %>%
+    add_significance("p.adj") |> 
+    add_significance("p") 
+
+
+stat.test <- stat.test %>%
+  add_xy_position(fun = "mean_sd", x = "type", dodge = 1)|> 
+  dplyr::filter(group1=="CON"&group2=="LR_DPVB")
+
+
+e_left <- ggbarplot(f2e, x = "type", y = "pct",
+                fill = "trt", palette = "jco",
+                add =c("mean_sd"), add.params = list(group = "trt"),
+                position = position_dodge(1),
+                #legend="none",
+          legend.title="",
+          )+
+    scale_y_continuous(limits = c(0,80))+
+    stat_pvalue_manual(
+        data = stat.test,
+        label = "p={p}({p.signif})",
+        tip.length = 0.05,
+        y.position = c(40,75),
+        #bracket.nudge.y = -2,
+)+labs(
+        x='',
+        y='% in live CD45+ cell',
+        #title="Hepa1-6 tumor"
+    )
+
+e_right <- e_left
+
+library(patchwork)
+(e_left + e_right)+
+    plot_annotation(
+        title = "Hepa1-6 tumor",
+    ) +
+    plot_layout(guides = "collect")& 
+    theme(
+        plot.title = element_text(hjust = 0.5),
+        legend.position = "top",
+    )
+```
+
+### 5 分组并列，组内组间显著性p值
+
+<https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/>
+
+```{r}
+library(ggpubr)
+library(rstatix)
+df <- ToothGrowth
+df$dose <- as.factor(df$dose)
+
+
+
+bp <- ggbarplot(
+    df,
+    x = "dose",
+    y = "len",
+    add = "mean_sd",
+    color = "supp",
+    palette = c("#00AFBB", "#E7B800"),
+    position = position_dodge(0.8)
+)
+
+
+# 统计检验
+stat.test <- df %>%
+    group_by(dose) %>%
+    t_test(len ~ supp) %>%
+    adjust_pvalue(method = "bonferroni") %>%
+    add_significance("p.adj")
+stat.test <- stat.test %>%
+    add_xy_position(fun = "mean_sd", x = "dose", dodge = 0.8)
+
+
+stat.test2 <- df %>%
+    t_test(len ~ dose, p.adjust.method = "bonferroni")
+stat.test2 <- stat.test2 %>%
+    add_xy_position(x = "dose")
+
+pwc <- df %>%
+    group_by(supp) %>%
+    t_test(len ~ dose, p.adjust.method = "bonferroni")
+pwc
+pwc <- pwc %>%
+    add_xy_position(
+        x = "dose",
+        fun = "mean_sd",
+        group = "supp",
+        dodge = 0.8
+    )
+
+# 组间组内复合
+
+
+bp +
+    stat_pvalue_manual(stat.test,  label = "p.adj.signif", tip.length = 0.01) +
+    stat_pvalue_manual(
+        stat.test2,
+        label = "p",
+        tip.length = 0.02,
+        step.increase = 0.05
+    ) +
+    scale_y_continuous(expand = expansion(mult = c(0.05, 0.1))) +
+    stat_pvalue_manual(
+        pwc,
+        color = "supp",
+        step.group.by = "supp",
+        tip.length = 0,
+        step.increase = 0.1
+    )
 ```
