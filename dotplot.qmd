@@ -1,0 +1,39 @@
+# 点图
+
+```{r}
+library(readxl)
+f6d <-
+    read_excel("data/01source.xlsx", sheet = "Fig.6", range = "D2:E18")
+f6d |> pivot_longer(
+    cols = everything(),
+    names_to = "status",
+    values_to = "Ratio",
+) |> 
+    tidyr::drop_na() ->f6d
+
+ggdotplot(f6d,
+          x="status",
+          y="Ratio",
+          add =c("mean_sd"),
+          color = "status",
+          fill = "status",
+          error.plot = "errorbar",
+)+
+    geom_signif(
+        comparisons = list(c("relapse","non-relapse")),
+    )+
+    ggplot2::annotate(
+        geom="segment",
+        x=0.9,
+        xend=1.1,
+        y=2.42019873,#均值
+    )+
+    ggplot2::annotate(
+        geom="segment",
+        x=1.9,
+        xend=2.1,
+        y=0.789463173,#均值
+    )
+
+
+```
