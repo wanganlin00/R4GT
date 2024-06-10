@@ -5,6 +5,8 @@
 ```{r}
 library(tidyverse)
 library(readxl)
+library(survival)
+library(ggsci)
 ```
 
 
@@ -23,10 +25,9 @@ d<-read_excel("data/01source.xlsx",sheet=1,range = "A19:E75") |>
         treatment=factor(treatment,levels=c('CON','LDRT','DPVB','LR_DPVB'))
     )
 # 加载包
-library(survival)
 
 # 使用 Kaplan-Meier 方法拟合生存曲线
-km_fit<-survfit(Surv(Days,status)~treatment,data=d)
+km_fit<-survfit2(Surv(Days,status)~treatment,data=d)
 summary(km_fit)
 ```
 
@@ -40,12 +41,12 @@ plot(km_fit,
 )
 ```
 
-## `ggsurvplot()`
+## `survminer::ggsurvplot()`
 
 ```{r}
 # 使用 ggplot2 和 survminer 绘制生存曲线图
 library(survminer)
-ggsurvplot(
+p <- ggsurvplot(
     fit  = km_fit,
     data = d,
     fun = "pct",  #event',累计死亡比列，'cumhaz':cumulative hazard累计风险
@@ -54,20 +55,21 @@ ggsurvplot(
     linetype = c(1,5,4,6),
     surv.median.line = 'none',
     
-    conf.int = TRUE,
-    conf.int.alpha=0.5,
+    conf.int = F,
+
     
     pval = TRUE,# "log rank p=0.0053"
     log.rank.weights='1',  
     pval.method = TRUE,
     pval.coord=c(40,75),
-    pval.method.coord=c(35,75),
+    pval.method.coord=c(32,75),
     
     risk.table = "abs_pct", # "nrisk_cumcensor" and "nrisk_cumevents"
     risk.table.col = "treatment",
+    risk.table.height=0.3,
     tables.theme = theme_cleantable(),
     ncensor.plot=T,
-    
+  
     
     axes.offset=F,  #(0,0)pos
     title = "Hepa1-6 tumor",
@@ -80,7 +82,30 @@ ggsurvplot(
     
     ggtheme = theme_survminer(),
 )
+p
+```
+
+## ggsurvfit
+
+```{r}
+library(ggsurvfit)
+km_fit
 
 
+km_fit |> tidy_survfit() |> 
+    ggplot(aes(time,estimate,min=conf.low,ymax=conf.low,
+               color=strata,fill=strata))+
+    scale_color_jco()+
+    geom_step()
+
+km_fit |> ggsurvfit()+
+    add_confidence_interval()+
+    # 添加删失点
+    add_censor_mark()  +
+    add_quantile()+
+    add_pvalue("annotation",size=3,x=5,y=0.25)+
+    #add_pvalue(caption = "Log-rank {p.value}")+
+    add_risktable(size = 3,risktable_height = 0.3)+
+    add_legend_title("treatment")
 ```
 
