@@ -3,6 +3,12 @@
 ## Kaplan-Meier curve
 
 ```{r}
+library(tidyverse)
+library(readxl)
+```
+
+
+```{r}
 ### 数据 三列 “group”分组列， “time”生存时间列，“status”事件状态列
 d<-read_excel("data/01source.xlsx",sheet=1,range = "A19:E75") |> 
     rename(
@@ -21,8 +27,10 @@ library(survival)
 
 # 使用 Kaplan-Meier 方法拟合生存曲线
 km_fit<-survfit(Surv(Days,status)~treatment,data=d)
-summary(km_fit,data=d)
+summary(km_fit)
 ```
+
+## `plot()`
 
 ```{r}
 plot(km_fit,
@@ -31,6 +39,8 @@ plot(km_fit,
      lwd = 2,
 )
 ```
+
+## `ggsurvplot()`
 
 ```{r}
 # 使用 ggplot2 和 survminer 绘制生存曲线图
@@ -65,7 +75,7 @@ ggsurvplot(
     ylab="Percent survival (%)",
     
     legend.title = "",
-    legend = c(0.2,0.25),
+    legend = c(0.2,0.35),
     legend.labs=c('CON','LDRT','DPVB','LR_DPVB'),
     
     ggtheme = theme_survminer(),
