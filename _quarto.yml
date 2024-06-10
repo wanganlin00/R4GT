@@ -31,12 +31,24 @@ website:
       collapse-level: 4
       contents: 
         - Graph.qmd
-        - 01.qmd
-        - 热图.qmd
+
         - section: "条图"
           contents: 
-            - barplot.qmd
+            - 条图.qmd
+        - section: "点图"
+          contents: 
+            - dotplot.qmd
+            # - 曼哈顿图.qmd
+            # - 克利夫兰点图.qmd
+        - section: "线图"
+          contents: 
+            - 生存曲线.qmd            
        
+        - section: "块图"
+          contents: 
+            - 相关图.qmd
+            - 热图.qmd
+            
     - title: "Table"
       contents: 
         - Table.qmd
