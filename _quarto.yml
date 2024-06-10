@@ -42,7 +42,9 @@ website:
             # - 克利夫兰点图.qmd
         - section: "线图"
           contents: 
-            - 生存曲线.qmd            
+            - 生存曲线.qmd
+            - 折线图.qmd
+            - 回归曲线.qmd
        
         - section: "块图"
           contents: 

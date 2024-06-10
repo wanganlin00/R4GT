@@ -1,0 +1,76 @@
+# 生存曲线
+
+## Kaplan-Meier curve
+
+```{r}
+### 数据 三列 “group”分组列， “time”生存时间列，“status”事件状态列
+d<-read_excel("data/01source.xlsx",sheet=1,range = "A19:E75") |> 
+    rename(
+        LR_DPVB=`LR-DPVB`
+    )  |> 
+    pivot_longer(
+        cols = CON:LR_DPVB,
+        names_to = "treatment",
+        values_to = "status"
+    ) |> drop_na() |> 
+    mutate(
+        treatment=factor(treatment,levels=c('CON','LDRT','DPVB','LR_DPVB'))
+    )
+# 加载包
+library(survival)
+
+# 使用 Kaplan-Meier 方法拟合生存曲线
+km_fit<-survfit(Surv(Days,status)~treatment,data=d)
+summary(km_fit,data=d)
+```
+
+```{r}
+plot(km_fit,
+     lty = 1,
+     col = c("gray","blue","orange3","darkred"),
+     lwd = 2,
+)
+```
+
+```{r}
+# 使用 ggplot2 和 survminer 绘制生存曲线图
+library(survminer)
+ggsurvplot(
+    fit  = km_fit,
+    data = d,
+    fun = "pct",  #event',累计死亡比列，'cumhaz':cumulative hazard累计风险
+    
+    palette = "jco",
+    linetype = c(1,5,4,6),
+    surv.median.line = 'none',
+    
+    conf.int = TRUE,
+    conf.int.alpha=0.5,
+    
+    pval = TRUE,# "log rank p=0.0053"
+    log.rank.weights='1',  
+    pval.method = TRUE,
+    pval.coord=c(40,75),
+    pval.method.coord=c(35,75),
+    
+    risk.table = "abs_pct", # "nrisk_cumcensor" and "nrisk_cumevents"
+    risk.table.col = "treatment",
+    tables.theme = theme_cleantable(),
+    ncensor.plot=T,
+    
+    
+    axes.offset=F,  #(0,0)pos
+    title = "Hepa1-6 tumor",
+    xlab="Days",
+    ylab="Percent survival (%)",
+    
+    legend.title = "",
+    legend = c(0.2,0.25),
+    legend.labs=c('CON','LDRT','DPVB','LR_DPVB'),
+    
+    ggtheme = theme_survminer(),
+)
+
+
+```
+
