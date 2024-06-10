@@ -1,0 +1,121 @@
+# 条图
+
+```{r}
+df <- ToothGrowth |> rownames_to_column("id")
+```
+
+## 基础柱状图
+
+```{r}
+ggplot(df,aes(supp,len))+
+    geom_col()
+
+ggplot(df,aes(supp,len))+
+    geom_bar(stat = "identity")
+```
+
+## 修改边框和填充颜色
+
+```{r}
+ggplot(df,aes(id,len,color=factor(dose)))+
+    geom_col(fill=NA)
+```
+
+## 添加标签
+
+```{r}
+ggplot(df,aes(id,len))+
+    geom_col()+
+   ggrepel::geom_text_repel(aes(y=len+3,label=len))
+```
+
+## 添加散点、抖动点
+
+```{r}
+
+ggplot(df, aes(x = supp, y = len)) +
+    geom_bar(
+        aes(fill = factor(dose)),
+        stat = "summary",
+        fun = mean,
+        position = position_dodge(width = 0.9)
+    ) +
+    geom_point(position = position_jitterdodge(jitter.width = 0.1),
+               aes(color = factor(dose)),
+               alpha = 0.7)+
+    scale_color_manual(values = c("red","green","blue"))|
+    ggplot(df, aes(x = supp, y = len)) +
+    geom_bar(
+        aes(fill = factor(dose)),
+        stat = "summary",
+        fun = mean,
+        position = position_dodge(width = 0.9)
+    ) +
+    geom_dotplot(position = position_dodge(width = 0.9),
+               aes(fill = factor(dose)),dotsize = 0.8,
+               binaxis = "y", stackdir = "center",color="black",
+               alpha = 0.7)+
+    scale_fill_manual(values = c("red","green","blue"))
+```
+
+## 分组排序条图 waterfall barplot
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(ggsci)
+library(readxl)
+c <- read_excel("data/01source.xlsx",sheet=1,range = "A2:D16") |> 
+  rename(
+    LR_DPVB=`LR-DPVB`
+  )  |> 
+  pivot_longer(
+    cols = CON:LR_DPVB,
+    names_to = "treatment",
+    values_to = "changerate"
+  ) |> 
+  mutate(
+    treatment=factor(treatment,levels=c('CON','LDRT','DPVB','LR_DPVB')),
+    changerate=if_else(changerate>=1,100,changerate*100)
+  ) |> 
+  arrange(treatment)|>
+  drop_na() |> 
+  mutate(
+    id=1:52
+    ) 
+```
+
+```{r}
+
+ggplot( c ,aes(x=id,y=changerate,fill=treatment))+ 
+  geom_bar(stat = "identity",position = "dodge",width =0.8)+
+    scale_fill_jco()+
+    scale_y_continuous(name = "MRI tumor volume change from baseline (%)",
+                       limits = c(-100,100),
+                       breaks = seq(-100,100,50),
+                       )+
+    theme_pubr()+
+    theme(
+        legend.position = c(0.8,0.8),
+        legend.title = element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.line.x = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+    )+
+    ggtitle("Hepa1-6 tumor")+
+    geom_hline(yintercept = 0,color = "black",linetype =1,linewidth=0.8)+
+    geom_hline(yintercept=c(20,-30), colour="gray15", linetype=3,linewidth=0.8)+                # 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 
+            # 4 = dotdash, 5 = longdash, 6 = twodash
+    annotate(geom = "text",x=c(2,50),y=c(-30,20),
+             label = c("PR:-30%","PD:20%"),
+             vjust = -0.5,
+             )   
+
+```
+
+```{r}
+
+library(ggsignif)
+```
