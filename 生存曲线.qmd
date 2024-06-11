@@ -7,8 +7,8 @@ library(tidyverse)
 library(readxl)
 library(survival)
 library(ggsci)
+library(ggsurvfit)
 ```
-
 
 ```{r}
 ### 数据 三列 “group”分组列， “time”生存时间列，“status”事件状态列
@@ -108,4 +108,3 @@ km_fit |> ggsurvfit()+
     add_risktable(size = 3,risktable_height = 0.3)+
     add_legend_title("treatment")
 ```
-

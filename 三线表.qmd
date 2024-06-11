@@ -1,5 +1,6 @@
-
 # 三线表
+
+## tableone
 
 ```{r}
 options(digits = 2)
@@ -15,148 +16,153 @@ tbl1
 
 ```
 
-复现 @fig-三线表
+## gtsummary
 
-![](images/statistical-table.png){#fig-三线表 fig-align="center" width="80%"}
+<https://www.danieldsjoberg.com/gtsummary/index.html>
 
 ```{r}
-data <- readRDS("data/brfss_tg_2014_raw.rds")
-data <- data |> 
-    tidyr::drop_na() |>
-    dplyr::filter(TRNSGNDR <= 3) |> 
-    dplyr::filter(`_AGEG5YR` >= 5 & `_AGEG5YR` <= 11) |> 
-    dplyr::select(- c(HADMAM, `_AGE80`))
+library(gtsummary)
+library(gt)
+head(trial)
+data("trial")
+```
 
-data_recoded <- data |> 
-    dplyr::mutate(TRNSGNDR = forcats::as_factor(TRNSGNDR)) |> 
-    dplyr::mutate(TRNSGNDR = 
-          forcats::fct_recode(TRNSGNDR, "Male to female" = "1")) |> 
-    dplyr::mutate(TRNSGNDR = 
-          forcats::fct_recode(TRNSGNDR, "Female to male" = "2")) |> 
-    dplyr::mutate(TRNSGNDR = 
-            forcats::fct_recode(TRNSGNDR, "Gender non-conforming" = "3")) |> 
-    
-    dplyr::mutate(`_AGEG5YR` = forcats::as_factor(`_AGEG5YR`)) |> 
-    dplyr::mutate(`_AGEG5YR` = 
-          forcats::fct_recode(`_AGEG5YR`, "40-44" = "5")) |> 
-    dplyr::mutate(`_AGEG5YR` = 
-          forcats::fct_recode(`_AGEG5YR`, "45-49" = "6")) |> 
-    dplyr::mutate(`_AGEG5YR` = 
-          forcats::fct_recode(`_AGEG5YR`, "50-54" = "7")) |> 
-    dplyr::mutate(`_AGEG5YR` = 
-          forcats::fct_recode(`_AGEG5YR`, "55-59" = "8")) |> 
-    dplyr::mutate(`_AGEG5YR` = 
-          forcats::fct_recode(`_AGEG5YR`, "60-64" = "9")) |> 
-    dplyr::mutate(`_AGEG5YR` = 
-          forcats::fct_recode(`_AGEG5YR`, "65-69" = "10")) |> 
-        dplyr::mutate(`_AGEG5YR` = 
-          forcats::fct_recode(`_AGEG5YR`, "70-74" = "11")) |> 
-    
-    dplyr::mutate(`_RACE` = forcats::as_factor(`_RACE`)) |> 
-    dplyr::mutate(`_RACE` = 
-          forcats::fct_recode(`_RACE`, "White" = "1")) |> 
-    dplyr::mutate(`_RACE` = 
-          forcats::fct_recode(`_RACE`, "Black" = "2")) |> 
-    dplyr::mutate(`_RACE` = 
-          forcats::fct_recode(`_RACE`, "Native American" = "3")) |> 
-    dplyr::mutate(`_RACE` = 
-          forcats::fct_recode(`_RACE`, "Asian/Pacific Islander" = "4")) |> 
-    dplyr::mutate(`_RACE` = 
-          forcats::fct_collapse(`_RACE`, "Other" = 
-                c("5", "7", "8", "9"))) |> 
-    
-    dplyr::mutate(`_INCOMG` = forcats::as_factor(`_INCOMG`)) |> 
-    dplyr::mutate(`_INCOMG` = 
-          forcats::fct_recode(`_INCOMG`, "Less than $15,000" = "1")) |> 
-    dplyr::mutate(`_INCOMG` = 
-          forcats::fct_recode(`_INCOMG`, "$15,000 to less than $25,000" = "2")) |> 
-    dplyr::mutate(`_INCOMG` = 
-          forcats::fct_recode(`_INCOMG`, "$25,000 to less than $35,000" = "3")) |> 
-    dplyr::mutate(`_INCOMG` = 
-          forcats::fct_recode(`_INCOMG`, "$35,000 to less than $50,000" = "4")) |> 
-    dplyr::mutate(`_INCOMG` = 
-          forcats::fct_recode(`_INCOMG`, "$50,000 or more" = "5")) |> 
-    dplyr::mutate(`_INCOMG` = 
-          forcats::fct_recode(`_INCOMG`, "Don't know/not sure/missing" = "9")) |>  
+数据框中的每个变量都被分配了一个 `"label"` 属性
 
-    dplyr::mutate(`_EDUCAG` = forcats::as_factor(`_EDUCAG`)) |> 
-    dplyr::mutate(`_EDUCAG` = 
-          forcats::fct_recode(`_EDUCAG`, "Did not graduate highschool" = "1")) |> 
-    dplyr::mutate(`_EDUCAG` = 
-          forcats::fct_recode(`_EDUCAG`, "Graduated highschool" = "2")) |> 
-    dplyr::mutate(`_EDUCAG` = 
-          forcats::fct_recode(`_EDUCAG`, "Attended college/technical school" = "3")) |> 
-    dplyr::mutate(`_EDUCAG` = 
-          forcats::fct_recode(`_EDUCAG`, "Graduated from college/technical school" = "4")) |> 
-    
-    dplyr::mutate(HLTHPLN1 = forcats::as_factor(HLTHPLN1)) |> 
-    dplyr::mutate(HLTHPLN1 = 
-          forcats::fct_recode(HLTHPLN1, "Yes" = "1")) |> 
-    dplyr::mutate(HLTHPLN1 = 
-          forcats::fct_recode(HLTHPLN1, "No" = "2")) |> 
-    
-    dplyr::mutate(PHYSHLTH = dplyr::case_match(PHYSHLTH, 
-                 77 ~ NA,
-                 99 ~ NA,
-                 88 ~ 0,
-                 .default = PHYSHLTH)) |> 
-
-    labelled::set_variable_labels(
-        TRNSGNDR = "Transition status",
-        `_AGEG5YR` = "Age category",
-        `_RACE` = "Race/ethnicity",
-        `_INCOMG` = "Income category",
-        `_EDUCAG` = "Education category",
-        HLTHPLN1 = "Health insurance?",
-        PHYSHLTH = "Days poor physical health per month"
-    )
-
-
-tbl1_gtsummary <- data_recoded |> 
-    gtsummary::tbl_summary(
-        statistic = list(
-            gtsummary::all_continuous() ~ "{median}",
-            gtsummary::all_categorical() ~ "{n}"
-            ), 
-         label = PHYSHLTH ~ "Days poor physical health per month (median, IQR)"
-    )
-
-tbl2_gtsummary <- data_recoded |> 
-    gtsummary::tbl_summary(
-        statistic = list(
-            gtsummary::all_continuous() ~ "({p25}, {p75})",
-            gtsummary::all_categorical() ~ "{p}%"
-            ),
-        digits = list(gtsummary::all_categorical() ~ 1),
-        label = PHYSHLTH ~ "Days poor physical health per month (median, IQR)"
-    )
-
-tbl_merge_gtsummary <- gtsummary::tbl_merge(
-    list(tbl1_gtsummary, tbl2_gtsummary)
-) |> 
-    gtsummary::bold_labels() |> 
-    gtsummary::modify_header(
-        list(
-            label ~ "**Survey participants demographics (N = {n})**",
-            stat_0_1 ~ "**Frequency**", 
-            stat_0_2 ~ "**Percent**"
-        )
-    ) |> 
-    gtsummary::modify_spanning_header(gtsummary::everything() ~ NA) |> 
-    gtsummary::modify_footnote(gtsummary::everything() ~ NA) 
-
-tbl_merge_gtsummary
+```{r}
+attr(trial$trt,"label")
+attr(trial$age,"label")
 ```
 
 ```{r}
-tbl_merge_gtsummary_small <- tbl_merge_gtsummary |> 
-    gtsummary::as_gt() |> 
-    gt::tab_options(table.font.size = "14px")
+trial2 <- trial %>% select(trt, age, grade)
+str(trial2)
+trial2 %>% tbl_summary()
+```
 
-tbl_merge_gtsummary_small
+-   **Label attributes** from the data set are automatically printed.
+
+-   **Missing values** are listed as “Unknown” in the table.
+
+### 自定义输出
+
+| argument        | 描述                                        |
+|:----------------|:--------------------------------------------|
+| `label=`        | 指定表格中打印的变量标签                    |
+| `type=`         | 指定变量类型（例如continuous, categorical等 |
+| `statistic=`    | 更改显示的汇总统计数据                      |
+| `digits=`       | 汇总统计数据将四舍五入的位数                |
+| `missing=`      | 是否显示包含缺失观测值数的行                |
+| `missing_text=` | 缺失数字行的文本标签                        |
+| `sort=`         | 按频率更改分类级别的排序                    |
+| `percent=`      | 打印列、行或单元格百分比                    |
+| `include=`      | 要包含在汇总表中的变量列表                  |
+
+```{r}
+trial2 %>%
+  tbl_summary(
+    by = trt,
+    statistic = list(
+      all_continuous() ~ c("{median} ({p25},{p75})"),
+      all_categorical() ~ "{n} / {N} ({p}%)"
+    ),
+    digits = list(starts_with("age") ~ 0,
+                  grade ~ 2
+    ),
+    label = list(age ~ "Patient age",
+                 grade ~ "Tumor Grade"),
+    missing_text = "(NA)"
+  )
+```
+
+| 函数                                                                                                         | 描述                                     |
+|:-----------------------------------|:-----------------------------------|
+| [`add_p()`](https://www.danieldsjoberg.com/gtsummary/reference/add_p.html)                                   | 将 p 值添加到输出中，比较各组的值        |
+| [`add_overall()`](https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html)                       | 添加包含总体汇总统计数据的列             |
+| [`add_n()`](https://www.danieldsjoberg.com/gtsummary/reference/add_n.html)                                   | 为每个变量添加一个包含 N（或缺少 N）的列 |
+| [`add_difference()`](https://www.danieldsjoberg.com/gtsummary/reference/add_difference.html)                 | 为两组之间的差值、置信区间和 p 值添加列  |
+| [`add_stat_label()`](https://www.danieldsjoberg.com/gtsummary/reference/add_stat_label.html)                 | 为每行中显示的汇总统计数据添加标签       |
+| [`add_stat()`](https://www.danieldsjoberg.com/gtsummary/reference/add_stat.html)                             | 泛型函数，用于添加具有用户定义值的列     |
+| [`add_q()`](https://www.danieldsjoberg.com/gtsummary/reference/add_q.html)                                   | 添加一列 Q 值以控制多个比较              |
+| [`modify_header()`](https://www.danieldsjoberg.com/gtsummary/reference/modify.html)                          | 更新列标题                               |
+| [`modify_footnote()`](https://www.danieldsjoberg.com/gtsummary/reference/modify.html)                        | 更新列脚注                               |
+| [`modify_spanning_header()`](https://www.danieldsjoberg.com/gtsummary/reference/modify.html)                 | 更新跨标头                               |
+| [`modify_caption()`](https://www.danieldsjoberg.com/gtsummary/reference/modify.html)                         | 更新表格标题/标题                        |
+| [`bold_labels()`](https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html)      | 粗体变量标签                             |
+| [`bold_levels()`](https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html)      | 粗体可变级别                             |
+| [`italicize_labels()`](https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html) | 将变量标签斜体化                         |
+| [`italicize_levels()`](https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html) | 斜体变量级别                             |
+| [`bold_p()`](https://www.danieldsjoberg.com/gtsummary/reference/bold_p.html)                                 | 粗体显著性 p 值                          |
+
+```{r}
+trial2 |> 
+    tbl_summary(by = trt) |> 
+    add_p(
+        
+        test=list(all_continuous() ~ "wilcox.test", 
+                  all_categorical() ~ "chisq.test"),
+        pvalue_fun = ~ style_pvalue(.x, digits = 3)
+        # pvalue_fun =purrr::partial(style_pvalue, digits = 3)
+    ) 
+
+
 ```
 
 ```{r}
-gtsummary::theme_gtsummary_compact() 
-tbl_merge_gtsummary
+wilcox.test(age~trt,data = trial2)
+table(trial2$grade,trial2$trt) |> as.matrix() |> chisq.test()
+```
+
+```{r}
+x <- "333323222222323222222222223222222333344442323222344554554535444411111111111111111111122233434441534434433435456444533222233444444343331111222222222233333333333333344444444444444344444444444444"
+str_split_1(x,pattern = "") |> parse_number() |> sum()
+```
+
+```{r}
+trial2 %>%
+    tbl_summary(by = trt) %>%
+    add_overall() |>   # t添加总和
+    add_n() |>
+    # 修改注释
+    modify_header(label ~ "**变量**") %>%
+    modify_spanning_header(c("stat_1", "stat_2") ~ "**药物**") %>%
+    modify_footnote(all_stat_cols() ~ "Median (IQR) or Frequency (%)") %>%
+    modify_caption("**Table 1. Patient Characteristics**") %>%
+    bold_labels()
+```
+
+### 主题
+
+```{r}
+library(gtsummary)
+library(gt)
+library(dplyr)
+
+trial %>%
+  select(trt, age, grade) %>%
+  tbl_summary(by = trt) %>%
+  add_p()
+theme_gtsummary_journal(journal = "jama")
+theme_gtsummary_compact()
+
+#  清除所有先前设置的主题
+reset_gtsummary_theme()
+```
+
+```{r}
+my_theme <-
+  list(
+    # round large p-values to two places
+    "pkgwide-fn:pvalue_fun" = function(x) style_pvalue(x, digits = 2),
+    "pkgwide-fn:prependpvalue_fun" = function(x) style_pvalue(x, digits = 2, prepend_p = TRUE),
+    # report median (IQR) and n (percent) as default stats in `tbl_summary()`
+    "tbl_summary-str:continuous_stat" = "{median} ({p25} - {p75})",
+    "tbl_summary-str:categorical_stat" = "{n} ({p})"
+  )
+
+trial %>%
+  select(trt, age, grade) %>%
+  tbl_summary(by = trt) %>%
+  add_p()
+set_gtsummary_theme(my_theme)
 ```
