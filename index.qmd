@@ -1,3 +1,17 @@
 这是R实现科学绘图的学习笔记。
 
 作为速查电子笔记
+
+## 推荐阅读
+
+-   [ggplot2：用于数据分析的优雅图形](https://ggplot2-book.org/mastery)
+
+-   <https://exts.ggplot2.tidyverse.org/gallery/>
+
+-   <https://rpkgs.datanovia.com/ggpubr/>
+
+-   <https://www.datanovia.com/en/blog/tag/ggpubr/>
+
+-   <https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/>
+
+-   <https://plotly.com/ggplot2/>
