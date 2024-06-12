@@ -295,6 +295,11 @@ ggplot(data = mpg) +
 ggplot(data = mpg) + 
     geom_col(mapping = aes(x=factor(cyl),y=hwy,fill=drv),
              position = "stack")
+
+ggplot(data = mpg) + 
+    geom_col(mapping = aes(x=factor(cyl),y=hwy,fill=drv),
+             position = "fill")+
+    scale_y_continuous(labels = scales::label_percent())
 ```
 
 有序条形图
@@ -842,8 +847,10 @@ RColorBrewer::display.brewer.all()
 ```{r}
 
 
-p <- ggplot(mtcars, aes(x=wt, y=mpg, color=disp)) +
+p <- ggplot(mtcars, aes(x=wt, y=mpg, color=factor(cyl))) +
   geom_point(shape=19, size=3) 
+p + ggthemes::scale_color_colorblind()
+
 
 p + ggtitle("A. Default color gradient")|
 p + scale_color_gradient(low="grey", high="black") +
@@ -1167,6 +1174,15 @@ p123 + plot_annotation(tag_levels = c("I","a"))
   p12 & theme_bw()
   p12 + plot_annotation(tag_levels = "A")
 ```
+
+## 保存和删除
+
+```{r}
+library(svglite)
+ggsave("ggsave.svg", width = 20, height = 20, units = "cm")
+base::unlink("ggsave.svg")
+```
+
 
 ## ggplot2 的内部结构
 
