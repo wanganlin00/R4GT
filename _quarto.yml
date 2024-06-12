@@ -31,6 +31,8 @@ website:
       collapse-level: 4
       contents: 
         - Graph.qmd
+        - ggplot2_graphics.qmd
+        - ggplot2_extensions.qmd
         - section: "条图"
           contents: 
             - 条图.qmd
