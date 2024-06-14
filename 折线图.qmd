@@ -12,8 +12,7 @@ library(rstatix)
 
 
 ```{r}
-f4h <-
-    read_excel("data/01source.xlsx", sheet = "Fig.4", range = "A20:P23")
+f4h <-read_excel("data/01source.xlsx", sheet = "Fig.4", range = "A20:P23")
 colnames(f4h) <-
     c("Days", rep(
         c("PBS", "SLAMF6+ PD-1+ CD8+ cells", "SLAMF6- PD-1+ CD8+ cells"),
@@ -22,15 +21,15 @@ colnames(f4h) <-
 
 f4h |> pivot_longer(cols = -1,
                     names_to = "method",
-                    values_to = "volume",
-) |>
-    dplyr::mutate(Days = factor(Days, levels = c("-1", "7", "14")),
+                    values_to = "volume",) |>
+    dplyr::mutate(id=factor(rep(1:15,3)),
+                  Days = factor(Days, levels = c("-1", "7", "14")),
                   method = factor(
                       method,
                       levels = c("PBS", "SLAMF6+ PD-1+ CD8+ cells",
                                  "SLAMF6- PD-1+ CD8+ cells")
                   )) -> f4h
-f4h <- rowid_to_column(f4h,var = "id")
+f4h
 ```
 
 统计p值
@@ -102,7 +101,7 @@ p  +  annotate(geom = "segment",
                    x = 3.45,
                    y = (47.855824 + 2.876853) / 2,
                    angle = 270,
-                   label = pvalue$padj[2],
+                   label = pvalue$padj[1],
                ) +
     annotate(geom = "segment",
              x = 3.15,
@@ -112,7 +111,7 @@ p  +  annotate(geom = "segment",
                  x = 3.2,
                  y = (47.855824 + 37.805035) / 2,
                  angle = 270,
-                 label = pvalue$padj[1],
+                 label = pvalue$padj[2],
              ) +
     annotate(geom = "segment",
              x = 3.3,
