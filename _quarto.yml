@@ -47,6 +47,7 @@ website:
           contents: 
             - 生存曲线.qmd
             - 折线图.qmd
+            - confident_interval.qmd
             - 回归曲线.qmd
        
         - section: "关系图"
