@@ -1,36 +1,71 @@
-# ggplot2 Graphics {#sec-ggplot2}
+# ggplot2 Graphics {#sec-ggplot2 style="color:red"}
 
 [ggplot2：用于数据分析的优雅图形](https://ggplot2-book.org/mastery)
 
 gg 为 grammar of graphics 的缩写。
 
+```{r}
+library(patchwork)
+library(ggplot2)
+```
+
 ## `ggplot(data =  ,mapping = aes(x,y,…))`
 
 ### data
 
-数据应使用数据框格式，例如ggplot2包自动的数据集mpg，其中发动机排量 `displ`，油耗 `cty`，发动机驱动方式 `drv`，
+ggplot2包的内置数据集 `mpg` 和 `diamonds`
 
 ```{r}
-data(mpg,package = "ggplot2")
 head(mpg)
+ggplot(data = mpg)
 ```
 
 ### aesthetics mapping
 
-`mapping=aes(x,y,z,..,color,fill,shape,linetype,alpha,size,group,linewidth)`
+`mapping=aes(x,y,z,..,color,fill,shape,size,group,linewidth,linetype,alpha,...)`
+
+#### 坐标
 
 ```{r}
-mpg %>% 
-  distinct(class)  # 7种汽车类型
+ggplot(data = mpg,
+       mapping = aes(x = displ, y =hwy ))
+```
 
+#### shape
+
+```{r}
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +#颜色 名义型变量
   geom_point(shape=".") #像素点
 
+
 ggplot(mpg, aes(x = displ, y = hwy, shape = class)) + #形状最多可以映射6个
   geom_point()
-ggplot(mpg, aes(x = displ, y = hwy, size = class)) +#大小 有序型变量
+
+
+ggplot(mpg, aes(x = displ, y = hwy)) + #形状共有26个
+  geom_point(shape=22,color="red",fill="green")
+
+
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_point(
+    data = mpg |> dplyr::filter(class == "2seater"), 
+    color = "red"
+  ) +
+  geom_point(
+    data = mpg |> dplyr::filter(class == "2seater"), 
+    shape = "circle open",# shape = 1
+    size = 3, color = "red"
+  )
+```
+
+![](images/shape.png){fig-align="center" width="80%"}
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, size =cty)) +#大小 有序型变量
   geom_point()
-ggplot(mpg, aes(x = displ, y = hwy, alpha = class)) +#透明度 有序型变量
+
+ggplot(mpg, aes(x = displ, y = hwy, alpha = cty)) +#透明度 有序型变量
   geom_point(color="red") #更改外观
 ggplot(mpg, aes(x = displ, y = hwy, linetype = drv)) + #线条类型
   geom_smooth()
@@ -153,32 +188,26 @@ df <- data.frame(
 p <- ggplot(df, aes(x, y, label = label)) + 
   labs(x = NULL, y = NULL) + # Hide axis label
   theme(plot.title = element_text(size = 12)) # Shrink plot title
-p + geom_point() + ggtitle("point")|
-p + geom_text() + ggtitle("text")+
-p + geom_bar(stat = "identity") + ggtitle("bar")|
-p + geom_tile() + ggtitle("raster")
 
-p + geom_line() + ggtitle("line")|
-p + geom_area() + ggtitle("area")+
-p + geom_path() + ggtitle("path")|
-p + geom_polygon() + ggtitle("polygon")
+(p + geom_point() + ggtitle("point") +
+        p + geom_text() + ggtitle("text") +
+        p + geom_bar(stat = "identity") + ggtitle("bar") )/
+(p + geom_tile() + ggtitle("tile") +
+     p + geom_raster() + ggtitle("raster")+
+     p + geom_line() + ggtitle("line")) /
+(p + geom_area() + ggtitle("area") +
+    p + geom_path() + ggtitle("path") +
+    p + geom_polygon() + ggtitle("polygon"))
 ```
 
 ### X=连续型变量
 
-```{r}
-p <- ggplot(data = mpg,aes(x=displ))
-p
-```
-
 #### geom_point
 
 ```{r}
-p + geom_point(mapping = aes(x=displ,y=hwy),
-               stat = "identity",position = "identity")+
-    geom_smooth(mapping = aes(x=displ,y=hwy),
-                formula = "y~x",
-                method = "lm", se =T)
+ggplot(data = mpg) + 
+    geom_point(mapping = aes(x=displ,y=hwy),
+               stat = "identity",position = "identity")
 ```
 
 ```{r}
@@ -201,13 +230,13 @@ ggplot(economics,aes(date,pop))+
 
 ```
 
-#### geom_smooth geom_ribbon
+#### geom_smooth 
 
 ```{r}
 q <- ggplot(mpg, aes(displ, hwy)) +
     geom_point()
 
-q+geom_smooth(method = "loess",span = 0.2) # loess 平滑局部回归   small n
+q+geom_smooth(method = "loess",span = 0.2,se=T) # loess 平滑局部回归   small n
                                    #span 0非常摆动，1不那么摆动
 
 q+ geom_smooth(span = 1)  #不很摆动
@@ -216,33 +245,59 @@ library(MASS)
 q+geom_smooth(method = "rlm")   # robust linear model  稳健线性模型
 
 library(mgcv)
-q+ geom_smooth(method = "gam", formula = y ~ s(x)) #gam 广义相加模型   n>1000
+q+ geom_smooth(method = "gam", formula = y ~ s(x)) # gam 广义相加模型   n>1000
+```
+
+```{r}
+binomial_smooth <- function(...) {
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), ...)
+}
+
+
+
+ggplot(rpart::kyphosis,aes(Age,as.numeric(Kyphosis)-1))+
+    geom_point()+
+    binomial_smooth()
+
+
+
 ```
 
 #### geom_histogram
 
 ```{r}
-p <- ggplot(data = mpg)
-p + geom_histogram(aes(x=displ,y=after_stat(density)),
+ggplot(mpg, aes(hwy)) + geom_histogram(binwidth = 2.5)
+
+
+ggplot(mpg, aes(hwy)) +
+  geom_histogram(binwidth = 1) |
+ggplot(mpg, aes(hwy)) +
+  geom_histogram(aes(weight = displ), binwidth = 1) # 加权
+
+ggplot(data = mpg) + 
+    geom_histogram(aes(x=displ,y=after_stat(density)),
                    stat = "bin",position = "stack",
                    binwidth = 0.5
                    ) +
-    scale_y_continuous(labels=scales::dollar) +
+    scale_y_continuous(labels=scales::percent) +
     geom_density(aes(x=displ,y=after_stat(density)),
                  color="red", linewidth=1)
 
-ggplot(mpg, aes(hwy)) + geom_histogram(binwidth = 2.5)
+
 
 ```
 
-加权
+#### geom_bin2d()
 
 ```{r}
-ggplot(mpg, aes(hwy)) +
-  geom_histogram(binwidth = 1) |
+smaller <- diamonds |> 
+  dplyr::filter(carat < 3)
+ggplot(smaller, aes(x = carat, y = price)) +
+  geom_bin2d()
 
-ggplot(mpg, aes(hwy)) +
-  geom_histogram(aes(weight = displ), binwidth = 1) 
+# install.packages("hexbin")
+ggplot(smaller, aes(x = carat, y = price)) +
+  geom_hex()
 ```
 
 #### geom_freqpoly
@@ -260,7 +315,7 @@ p + geom_density(aes(displ,fill=drv),
                  alpha=0.3
                  )+
     scale_y_continuous(labels = scales::percent)+
-    labs(fill="图例名")+ # 与映射aes()有关
+    labs(fill="图例名")+
     theme(legend.position = "top")
 
 ```
@@ -290,11 +345,15 @@ p + geom_jitter(mapping = aes(x=displ,y=hwy),
 ```{r}
 ggplot(data = mpg) + 
     geom_bar(mapping = aes(x=factor(cyl),fill=drv),
-             stat = "count",position = "stack")
+             stat = "count",position = "stack") |
+ggplot(data = mpg) + 
+    geom_bar(mapping = aes(x=factor(cyl),fill=drv),
+             position = "dodge")
+
 
 ggplot(data = mpg) + 
     geom_col(mapping = aes(x=factor(cyl),y=hwy,fill=drv),
-             position = "stack")
+             position = "stack") |
 
 ggplot(data = mpg) + 
     geom_col(mapping = aes(x=factor(cyl),y=hwy,fill=drv),
@@ -309,9 +368,15 @@ ggplot(mpg, aes(x = fct_infreq(class))) +  #降序条形图
   geom_bar()
 ```
 
-#### geom_errorbar errorbarh
+#### geom_errorbar 
 
-geom_linerange geom_crossbar geom_pointrange
+-   geom_errorbarh
+
+-   geom_linerange
+
+-   geom_crossbar
+
+-   geom_pointrange
 
 ```{r}
 y <- c(18, 11, 16)
@@ -341,7 +406,7 @@ read_csv("data/g.csv") |>
 #### geom_dotplot
 
 ```{r}
-p + geom_dotplot(mapping = aes(x=drv,y=hwy),
+ggplot(mpg)+geom_dotplot(mapping = aes(x=drv,y=hwy),
                  position = "identity",
                  stackdir = "center",binaxis = 'y',# stacking along y axis
                  fill="red",binwidth = 0.7)
@@ -350,7 +415,7 @@ p + geom_dotplot(mapping = aes(x=drv,y=hwy),
 #### geom_boxplot
 
 ```{r}
-p + geom_boxplot(mapping = aes(x=drv,y=hwy),
+ggplot(mpg) + geom_boxplot(mapping = aes(x=drv,y=hwy),
              stat = "boxplot",position = "dodge",
              notch=TRUE, varwidth=TRUE,
              width=0.1,fill="green"
@@ -362,7 +427,7 @@ p + geom_boxplot(mapping = aes(x=drv,y=hwy),
 #### geom_violin
 
 ```{r}
-p + geom_violin(mapping = aes(x=drv,y=hwy),
+ggplot(mpg) + geom_violin(mapping = aes(x=drv,y=hwy),
              stat = "ydensity",position = "dodge")
 ```
 
@@ -498,21 +563,10 @@ bar <- ggplot(data = diamonds) +
     width = 1
   ) + 
   theme(aspect.ratio = 1)
-bar|
+bar
+bar + coord_cartesian() |#笛卡尔坐标
 bar + coord_flip()| #水平条形图
 bar + coord_polar()#极坐标
-```
-
-```{r}
-library(maps)
-world <- map_data("world")
-
-ggplot(world, aes(x = long, y = lat, group = group)) +
-  geom_polygon(fill = "white", color = "black")|
-
-ggplot(world, aes(x = long, y = lat, group = group)) +
-  geom_polygon(fill = "white", color = "black") +
-  coord_quickmap() #正确设置地理地图的纵横比
 ```
 
 ## 坐标轴 axis
@@ -565,15 +619,16 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = drv)) +
-  geom_smooth() +
+  geom_smooth() |
+    ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = drv)) +
+  geom_smooth()+
   coord_cartesian(xlim = c(5, 6), ylim = c(10, 25))   #放大局部
 ```
 
 ### 共享
 
-shared
-
-坐标轴相同
+shared 坐标轴相同
 
 ```{r}
 x_scale <- scale_x_continuous(limits = range(mpg$displ))
@@ -842,16 +897,14 @@ p | p + scale_x_discrete(name = "drv",
 
 ```{r}
 RColorBrewer::display.brewer.all()
+p <- ggplot(mpg, aes(x=displ, y=hwy, color=drv)) +
+  geom_point(shape=19, size=3) 
+p + ggthemes::scale_color_colorblind()
 ```
 
 ```{r}
-
-
-p <- ggplot(mtcars, aes(x=wt, y=mpg, color=factor(cyl))) +
-  geom_point(shape=19, size=3) 
-p + ggthemes::scale_color_colorblind()
-
-
+p <- ggplot(mpg, aes(x=displ, y=hwy, color=cty)) +
+  geom_point() 
 p + ggtitle("A. Default color gradient")|
 p + scale_color_gradient(low="grey", high="black") +
   ggtitle("B. Greyscale gradient")|
@@ -939,6 +992,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ### 内置主题
 
 ```{r}
+p <- ggplot(mpg,aes(displ,hwy))
 p + theme_grey() + labs(title = "theme_grey")  |
 p + theme_bw() + labs(title = "theme_bw")  
 p + theme_minimal() + labs(title = "theme_minimal")|  
@@ -961,7 +1015,7 @@ font_add(family = "Times New Roman", regular = "C:\\Windows\\Fonts\\Times New Ro
          italic = "C:\\Windows\\Fonts\\Times New Roman\\timesi.ttf",
          bolditalic = "C:\\Windows\\Fonts\\Times New Roman\\timesbi.ttf")
 findfont("Times New Roman")
-font.families()
+font_families()
 ```
 
 ### 自定义主题
@@ -1123,7 +1177,7 @@ p1 + p2 + p3 + plot_layout(ncol = 2, guides = "collect")
   p12[[2]] <- p12[[2]] + theme_light()
   p12
   p1 + p4 & theme_minimal()
-  p1 + p4 & scale_y_continuous(limits = c(10, 45))
+  p1 + p4 & scale_y_continuous(limits = c(NA, 45))
 ```
 
 ### 添加注释
@@ -1167,7 +1221,7 @@ p123 + plot_annotation(tag_levels = c("I","a"))
 ### 图形插入
 
 ```{r}
-  p1 + inset_element(p2, left = 0.5, bottom = 0.4, right = 0.9, top = 0.95)
+  p1 + inset_element(p2, left = 0.6, bottom = 0.6, right = 1, top = 1)
   p24 <- p2 / p4 + plot_layout(guides = "collect")
   p1 + inset_element(p24, left = 0.5, bottom = 0.05, right = 0.95, top = 0.9)
   p12 <- p1 + inset_element(p2, left = 0.5, bottom = 0.5, right = 0.9, top = 0.95)
@@ -1182,7 +1236,6 @@ library(svglite)
 ggsave("ggsave.svg", width = 20, height = 20, units = "cm")
 base::unlink("ggsave.svg")
 ```
-
 
 ## ggplot2 的内部结构
 
