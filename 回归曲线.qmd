@@ -27,3 +27,19 @@ p + ggpmisc::stat_poly_eq(formula = y ~ x,
                  ggpmisc::use_label(c("eq", "adj.R2", "P")))
 
 ```
+
+
+```{r}
+library(tidyverse)
+
+data(crickets, package = "modeldata")
+names(crickets)
+
+ggplot(crickets, 
+       aes(x = temp, y = rate, color = species, pch = species, lty = species)) + 
+  geom_point(size = 2) + 
+  geom_smooth(method = lm, se = FALSE, alpha = 0.5) + 
+  scale_color_brewer(palette = "Paired") +
+  labs(x = "Temperature (C)", y = "Chirp Rate (per minute)")
+```
+
