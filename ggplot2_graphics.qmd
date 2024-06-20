@@ -230,7 +230,7 @@ ggplot(economics,aes(date,pop))+
 
 ```
 
-#### geom_smooth 
+#### geom_smooth
 
 ```{r}
 q <- ggplot(mpg, aes(displ, hwy)) +
@@ -368,7 +368,7 @@ ggplot(mpg, aes(x = fct_infreq(class))) +  #降序条形图
   geom_bar()
 ```
 
-#### geom_errorbar 
+#### geom_errorbar
 
 -   geom_errorbarh
 
