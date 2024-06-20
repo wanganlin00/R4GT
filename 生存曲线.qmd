@@ -25,7 +25,7 @@ d<-read_excel("data/01source.xlsx",sheet=1,range = "A19:E75") |>
         treatment=factor(treatment,levels=c('CON','LDRT','DPVB','LR_DPVB'))
     )
 # 加载包
-
+d
 # 使用 Kaplan-Meier 方法拟合生存曲线
 km_fit<-survfit2(Surv(Days,status)~treatment,data=d)
 summary(km_fit)
