@@ -46,6 +46,7 @@ website:
         - section: "线图"
           contents: 
             - 生存曲线.qmd
+            - ROC.qmd
             - 折线图.qmd
             - confident_interval.qmd
             - 回归曲线.qmd
@@ -55,6 +56,7 @@ website:
             - 相关图.qmd
             - 热图.qmd
             # - 韦恩图.qmd
+            # - 网络图.qmd
             
     - title: "Tables"
       contents: 

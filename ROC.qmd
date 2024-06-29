@@ -1,0 +1,90 @@
+# ROC
+
+```{r}
+library(tidymodels)
+data(two_class_example,package = "yardstick")
+tibble(two_class_example)
+```
+
+## 混淆矩阵
+
+```{r}
+conf_mat(two_class_example, truth = truth, estimate = predicted)
+
+sensitivity(two_class_example,truth,predicted)
+```
+
+## 准确性
+
+```{r}
+accuracy(two_class_example, truth, predicted)
+```
+
+## ROC
+
+```{r}
+two_class_curve <- roc_curve(two_class_example, truth, Class1)
+two_class_curve
+
+
+ggplot(two_class_curve,aes(1-specificity,sensitivity))+
+    geom_path()+
+    geom_abline(lty=3)+
+    coord_equal()+
+    theme_bw()
+```
+
+## AUC
+
+```{r}
+auc1 <- roc_auc(two_class_example, truth, Class1,event_level = "first")
+auc2 <- roc_auc(two_class_example, truth, Class1,event_level = "second")
+
+autoplot(two_class_curve)+
+    annotate("text",x=0.5,y=0.25,label=str_glue("AUC={round(auc1$.estimate,3)}"))
+```
+
+## pROC
+
+```{r}
+library(pROC)
+df <- two_class_example
+roc_obj <- roc(response = df$truth, predictor = df$Class1,ci=TRUE,auc=TRUE)
+roc_obj
+
+# roc_obj$specificities
+# roc_obj$sensitivities
+# roc_obj$thresholds
+ci(roc_obj)
+auc(roc_obj)
+
+
+# 最佳截断值（Youden's index）
+best_cutoff <- coords(roc_obj, x = "best",input="threshold", 
+                      ret=c("threshold","specificity","sensitivity","ppv","npv"),
+                      best.method="youden")
+best_cutoff
+
+
+coords(roc_obj, x = "best",input="threshold", 
+                      ret="all",
+                      best.method="youden")
+```
+
+```{r}
+plot(roc_obj, print.thres = "best", 
+     print.thres.pattern = "Best cutoff: %.5f", main = "ROC Curve")
+```
+
+```{r}
+plot(specificity + sensitivity ~ threshold,
+     coords(roc_obj, "all", transpose = FALSE),
+     type = "l", log="x",
+     subset = is.finite(threshold))
+```
+
+```{r}
+plot(roc_obj, col = "blue",main = "Multiple ROC Curves", print.thres = "best", print.thres.pattern = "Optimal threshold: %.5f")
+lines(roc_obj, col = "red",lwd=2,lty=3)
+legend("bottomright", legend = c("Model 1", "Model 2"), col = c("blue", "red"), lwd = 2)
+```
