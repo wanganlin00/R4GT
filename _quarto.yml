@@ -41,6 +41,7 @@ website:
         - section: "点图"
           contents: 
             - dotplot.qmd
+            - Q-Q图.qmd
             # - 曼哈顿图.qmd
             # - 克利夫兰点图.qmd
         - section: "线图"

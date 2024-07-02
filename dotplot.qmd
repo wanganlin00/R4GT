@@ -30,6 +30,10 @@ ggdotplot(f6d,
     geom_signif(
         comparisons = list(c("relapse","non-relapse")),
     )+
+    
+    stat_summary(
+        fun.data = "mean_sd",geom = "pointrange",width=.3
+    )+
     ggplot2::annotate(
         geom="segment",
         x=0.9,
@@ -44,3 +48,11 @@ ggdotplot(f6d,
     )
 
 ```
+
+```{r}
+ggplot(mtcars,aes(mpg))+
+    geom_dotplot()
+```
+
+
+
