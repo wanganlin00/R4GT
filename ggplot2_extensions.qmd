@@ -235,7 +235,7 @@ ggplot(data = mtcars, aes(x= wt, y = mpg)) +
 
 ## 山脊图
 
-```{r}
+```{r eval=FALSE}
 library(ggridges)
 ggplot(mpg, aes(x = hwy, y = drv, fill = drv, color = drv)) +
   geom_density_ridges(alpha = 0.5, show.legend = FALSE)
@@ -251,7 +251,7 @@ ggplot(mpg, aes(x = hwy, y = drv, fill = drv, color = drv)) +
 
 Converting a ggplot2 graph to an interactive plotly graph
 
-```{r}
+```{r eval=FALSE}
 library(plotly)
 mtcars$cyl <- factor(mtcars$cyl)
 mtcars$name <- row.names(mtcars)
@@ -276,7 +276,7 @@ p <- ggplot(mtcars,
 
 ## 边际图 Marginal Histogram / Boxplot
 
-```{r}
+```{r eval=FALSE}
 library(ggExtra)
 ```
 
