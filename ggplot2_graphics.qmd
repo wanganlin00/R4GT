@@ -310,6 +310,8 @@ ggplot(mpg, aes(hwy)) +
 #### geom_density
 
 ```{r}
+
+p <- ggplot(data = mpg)
 p + geom_density(aes(displ,fill=drv),
                  stat = "density",position = "identity",
                  alpha=0.3

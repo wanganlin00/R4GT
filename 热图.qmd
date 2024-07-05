@@ -1,9 +1,10 @@
 # 热图
 
+## `pheatmap`
+
 ```{r}
 library(pheatmap)
 ```
-
 
 ```{r}
 # Create test matrix
@@ -28,7 +29,6 @@ pheatmap(test, cluster_row = FALSE)
 pheatmap(test, legend = FALSE)
 ```
 
-
 ```{r}
 # Show text within cells
 pheatmap(test, display_numbers = TRUE)
@@ -43,9 +43,18 @@ annotation_col = data.frame(type=c(rep("normal",5),rep("tumor",5)))
 rownames(annotation_col) <- colnames(test)
 anno_colors <- list(type=c(normal="#1b9e77",tumor="#d95f02"))
 
-pheatmap(test,show_rownames = T,show_colnames = F,cluster_rows = F,treeheight_col = 5,display_numbers = T,
-         gaps_col = 5,annotation_col = annotation_col,annotation_colors = anno_colors,annotation_legend = 
-             F)
+pheatmap(
+    test,
+    show_rownames = T,
+    show_colnames = F,
+    cluster_rows = F,
+    treeheight_col = 5,
+    display_numbers = T,
+    #gaps_col = 5,
+    annotation_col = annotation_col,
+    annotation_colors = anno_colors,
+    annotation_legend =F
+)
 ```
 
 均一化z-score
@@ -53,7 +62,6 @@ pheatmap(test,show_rownames = T,show_colnames = F,cluster_rows = F,treeheight_co
 ```{r}
 pheatmap(test,scale = "column",border_color = "green",fontsize = 8)
 ```
-
 
 ```{r}
 pheatmap(test,scale = "row",border_color = NA,color = colorRampPalette(c("blue","white","red"))(200))
@@ -91,7 +99,45 @@ ggplot(mydata, aes(year, cancer)) +
   scale_fill_gradient(low = "white", high = "red")
 ```
 
+## `ComplexHeatmap`
+
+<https://jokergoo.github.io/ComplexHeatmap-reference/book/>
 
 ```{r}
-library(ComplexHeatmap)
+if(!require(ComplexHeatmap)) BiocManager::install("ComplexHeatmap")
+
+```
+
+```{r}
+set.seed(123)
+nr1 = 4; nr2 = 8; nr3 = 6; nr = nr1 + nr2 + nr3
+nc1 = 6; nc2 = 8; nc3 = 10; nc = nc1 + nc2 + nc3
+mat = cbind(rbind(matrix(rnorm(nr1*nc1, mean = 1,   sd = 0.5), nrow  = nr1),
+          matrix(rnorm(nr2*nc1, mean = 0,   sd = 0.5), nrow = nr2),
+          matrix(rnorm(nr3*nc1, mean = 0,   sd = 0.5), nrow = nr3)),
+    rbind(matrix(rnorm(nr1*nc2, mean = 0,   sd = 0.5), nrow = nr1),
+          matrix(rnorm(nr2*nc2, mean = 1,   sd = 0.5), nrow = nr2),
+          matrix(rnorm(nr3*nc2, mean = 0,   sd = 0.5), nrow = nr3)),
+    rbind(matrix(rnorm(nr1*nc3, mean = 0.5, sd = 0.5), nrow = nr1),
+          matrix(rnorm(nr2*nc3, mean = 0.5, sd = 0.5), nrow = nr2),
+          matrix(rnorm(nr3*nc3, mean = 1,   sd = 0.5), nrow = nr3))
+   )
+mat = mat[sample(nr, nr), sample(nc, nc)] # random shuffle rows and columns
+rownames(mat) = paste0("row", seq_len(nr))
+colnames(mat) = paste0("column", seq_len(nc))
+
+```
+
+```{r}
+Heatmap(mat)
+```
+
+```{r}
+set.seed(123)
+mat = matrix(rnorm(100), 10)
+rownames(mat) = paste0("R", 1:10)
+colnames(mat) = paste0("C", 1:10)
+column_ha = HeatmapAnnotation(foo1 = runif(10), bar1 = anno_barplot(runif(10)))
+row_ha = rowAnnotation(foo2 = runif(10), bar2 = anno_barplot(runif(10)))
+Heatmap(mat, name = "mat", top_annotation = column_ha, right_annotation = row_ha)
 ```

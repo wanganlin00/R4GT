@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: docs
+  output-dir: _dynamic_docs
 
 website:
   title: "R for Graphics and Tables"
@@ -33,6 +33,7 @@ website:
         - Graph.qmd
         - ggplot2_graphics.qmd
         - ggplot2_extensions.qmd
+        
         - section: "条图"
           contents: 
             - 条图.qmd

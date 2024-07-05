@@ -1,4 +1,3 @@
-
 # 回归曲线
 
 ## 简单线性回归
@@ -8,7 +7,6 @@ R^2^ ,p值：f6c
 ```{r}
 library(tidyverse)
 ```
-
 
 ```{r}
 # 示例数据
@@ -28,7 +26,6 @@ p + ggpmisc::stat_poly_eq(formula = y ~ x,
 
 ```
 
-
 ```{r}
 library(tidyverse)
 
@@ -42,4 +39,3 @@ ggplot(crickets,
   scale_color_brewer(palette = "Paired") +
   labs(x = "Temperature (C)", y = "Chirp Rate (per minute)")
 ```
-

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>R for Graphics and Tables</title>
 <style>
@@ -155,6 +155,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">图</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggplot2_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggplot2 Graphics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggplot2_extensions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggplot2 extensions</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -187,6 +199,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">dotplot</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Q-Q图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Q-Q图</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -206,8 +224,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ROC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ROC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./折线图.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">折线图</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confident_interval.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">置信区间</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -279,18 +309,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span></span>
 <span>        LR_DPVB<span class="op">=</span><span class="va">`LR-DPVB`</span></span>
 <span>    <span class="op">)</span>  <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>        cols <span class="op">=</span> <span class="va">CON</span><span class="op">:</span><span class="va">LR_DPVB</span>,</span>
 <span>        names_to <span class="op">=</span> <span class="st">"treatment"</span>,</span>
 <span>        values_to <span class="op">=</span> <span class="st">"status"</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>        treatment<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">treatment</span>,levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'CON'</span>,<span class="st">'LDRT'</span>,<span class="st">'DPVB'</span>,<span class="st">'LR_DPVB'</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span><span class="co"># 加载包</span></span>
-<span></span>
+<span><span class="va">d</span></span>
+<span><span class="co">#&gt; # A tibble: 56 × 3</span></span>
+<span><span class="co">#&gt;     Days treatment status</span></span>
+<span><span class="co">#&gt;    &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1    11 CON            1</span></span>
+<span><span class="co">#&gt;  2    13 CON            1</span></span>
+<span><span class="co">#&gt;  3    14 CON            1</span></span>
+<span><span class="co">#&gt;  4    14 CON            1</span></span>
+<span><span class="co">#&gt;  5    15 CON            1</span></span>
+<span><span class="co">#&gt;  6    17 CON            1</span></span>
+<span><span class="co">#&gt;  7    17 CON            1</span></span>
+<span><span class="co">#&gt;  8    17 CON            1</span></span>
+<span><span class="co">#&gt;  9    20 CON            1</span></span>
+<span><span class="co">#&gt; 10    20 CON            1</span></span>
+<span><span class="co">#&gt; # ℹ 46 more rows</span></span>
 <span><span class="co"># 使用 Kaplan-Meier 方法拟合生存曲线</span></span>
-<span><span class="va">km_fit</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/ggsurvfit/man/survfit2.html">survfit2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">Days</span>,<span class="va">status</span><span class="op">)</span><span class="op">~</span><span class="va">treatment</span>,data<span class="op">=</span><span class="va">d</span><span class="op">)</span></span>
+<span><span class="va">km_fit</span><span class="op">&lt;-</span><span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/survfit2.html">survfit2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">Days</span>,<span class="va">status</span><span class="op">)</span><span class="op">~</span><span class="va">treatment</span>,data<span class="op">=</span><span class="va">d</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">km_fit</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Call: survfit(formula = Surv(Days, status) ~ treatment, data = d)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -403,10 +447,95 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/survfit.html">survfit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">lung</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Basic survival curves</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/survminer/man/ggsurvplot.html">ggsurvplot</a></span><span class="op">(</span><span class="va">fit</span>, data <span class="op">=</span> <span class="va">lung</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="生存曲线_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># Customized survival curves</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survminer/man/ggsurvplot.html">ggsurvplot</a></span><span class="op">(</span><span class="va">fit</span>, data <span class="op">=</span> <span class="va">lung</span>,</span>
+<span>           surv.median.line <span class="op">=</span> <span class="st">"hv"</span>, <span class="co"># Add medians survival</span></span>
+<span>           </span>
+<span>           <span class="co"># Change legends: title &amp; labels</span></span>
+<span>           legend.title <span class="op">=</span> <span class="st">"Sex"</span>,</span>
+<span>           legend.labs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
+<span>           <span class="co"># Add p-value and tervals</span></span>
+<span>           pval <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>           </span>
+<span>           conf.int <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>           <span class="co"># Add risk table</span></span>
+<span>           risk.table <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>           tables.height <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>           tables.theme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/survminer/man/ggsurvtheme.html">theme_cleantable</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>           </span>
+<span>           <span class="co"># Color palettes. Use custom color: c("#E7B800", "#2E9FDF"),</span></span>
+<span>           <span class="co"># or brewer color (e.g.: "Dark2"), or ggsci color (e.g.: "jco")</span></span>
+<span>           palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#E7B800"</span>, <span class="st">"#2E9FDF"</span><span class="op">)</span>,</span>
+<span>           ggtheme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Change ggplot2 theme</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in geom_segment(aes(x = 0, y = max(y2), xend = max(x1), yend = max(y2)), : All aesthetics have length 1, but the data has 2 rows.</span></span>
+<span><span class="co">#&gt; ℹ Please consider using `annotate()` or provide this layer with data containing</span></span>
+<span><span class="co">#&gt;   a single row.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survminer/man/ggsurvplot.html">ggsurvplot</a></span><span class="op">(</span><span class="va">fit</span>, data <span class="op">=</span> <span class="va">lung</span>,</span>
+<span>                surv.median.line <span class="op">=</span> <span class="st">"hv"</span>, <span class="co"># Add medians survival</span></span>
+<span>                </span>
+<span>                <span class="co"># Change legends: title &amp; labels</span></span>
+<span>                legend.title <span class="op">=</span> <span class="st">"Sex"</span>,</span>
+<span>                legend.labs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
+<span>                <span class="co"># Add p-value and tervals</span></span>
+<span>                pval <span class="op">=</span> <span class="cn">F</span>,    <span class="co">##不默认显示P</span></span>
+<span>                conf.int <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                <span class="co"># Add risk table</span></span>
+<span>                risk.table <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                tables.height <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>                tables.theme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/survminer/man/ggsurvtheme.html">theme_cleantable</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                </span>
+<span>                <span class="co"># Color palettes. Use custom color: c("#E7B800", "#2E9FDF"),</span></span>
+<span>                <span class="co"># or brewer color (e.g.: "Dark2"), or ggsci color (e.g.: "jco")</span></span>
+<span>                palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#E7B800"</span>, <span class="st">"#2E9FDF"</span><span class="op">)</span>,</span>
+<span>                ggtheme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Change ggplot2 theme</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in geom_segment(aes(x = 0, y = max(y2), xend = max(x1), yend = max(y2)), : All aesthetics have length 1, but the data has 2 rows.</span></span>
+<span><span class="co">#&gt; ℹ Please consider using `annotate()` or provide this layer with data containing</span></span>
+<span><span class="co">#&gt;   a single row.</span></span>
+<span><span class="co">##计算公式</span></span>
+<span><span class="va">data.survdiff</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/survdiff.html">survdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">sex</span>,data <span class="op">=</span> <span class="va">lung</span><span class="op">)</span></span>
+<span><span class="va">p.val</span> <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">pchisq</a></span><span class="op">(</span><span class="va">data.survdiff</span><span class="op">$</span><span class="va">chisq</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">data.survdiff</span><span class="op">$</span><span class="va">n</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">HR</span> <span class="op">=</span> <span class="op">(</span><span class="va">data.survdiff</span><span class="op">$</span><span class="va">obs</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">/</span><span class="va">data.survdiff</span><span class="op">$</span><span class="va">exp</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">data.survdiff</span><span class="op">$</span><span class="va">obs</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">/</span><span class="va">data.survdiff</span><span class="op">$</span><span class="va">exp</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">up95</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">HR</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">data.survdiff</span><span class="op">$</span><span class="va">exp</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="fl">1</span><span class="op">/</span><span class="va">data.survdiff</span><span class="op">$</span><span class="va">exp</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">low95</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">HR</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">data.survdiff</span><span class="op">$</span><span class="va">exp</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="fl">1</span><span class="op">/</span><span class="va">data.survdiff</span><span class="op">$</span><span class="va">exp</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ci</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%.3f"</span>,<span class="va">HR</span><span class="op">)</span>,<span class="st">" ["</span>,<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%.3f"</span>,<span class="va">low95</span><span class="op">)</span>,<span class="st">", "</span>,<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%.3f"</span>,<span class="va">up95</span><span class="op">)</span>,<span class="st">"]"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">$</span><span class="va">plot</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0.05</span>, </span>
+<span>                            label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"P value = "</span>,<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%.3f"</span>,<span class="va">p.val</span><span class="op">)</span>,<span class="st">"\n HR (95% CI) = "</span>,<span class="va">ci</span><span class="op">)</span>,   <span class="co">###添加P和HR 95%CI</span></span>
+<span>                            size <span class="op">=</span> <span class="fl">5</span>, color <span class="op">=</span> <span class="st">"black"</span>, hjust <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="va">plot</span></span>
+<span><span class="co">#&gt; Warning in geom_segment(aes(x = 0, y = max(y2), xend = max(x1), yend = max(y2)), : All aesthetics have length 1, but the data has 2 rows.</span></span>
+<span><span class="co">#&gt; ℹ Please consider using `annotate()` or provide this layer with data containing</span></span>
+<span><span class="co">#&gt;   a single row.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="生存曲线_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section><section id="ggsurvfit" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="ggsurvfit">
 <span class="header-section-number">1.4</span> ggsurvfit</h2>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pharmaverse/ggsurvfit">ggsurvfit</a></span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pharmaverse/ggsurvfit">ggsurvfit</a></span><span class="op">)</span></span>
 <span><span class="va">km_fit</span></span>
 <span><span class="co">#&gt; Call: survfit(formula = Surv(Days, status) ~ treatment, data = d)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -417,30 +546,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; treatment=LR_DPVB 14      2     NA      NA      NA</span></span>
 <span></span>
 <span></span>
-<span><span class="va">km_fit</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/ggsurvfit/man/tidy_survfit.html">tidy_survfit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">km_fit</span> <span class="op">|&gt;</span> <span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/tidy_survfit.html">tidy_survfit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">time</span>,<span class="va">estimate</span>,min<span class="op">=</span><span class="va">conf.low</span>,ymax<span class="op">=</span><span class="va">conf.low</span>,</span>
 <span>               color<span class="op">=</span><span class="va">strata</span>,fill<span class="op">=</span><span class="va">strata</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggsci/man/scale_jco.html">scale_color_jco</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://nanx.me/ggsci/reference/scale_jco.html">scale_color_jco</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_step</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="生存曲线_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="生存曲线_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
-<span><span class="va">km_fit</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/ggsurvfit/man/ggsurvfit.html">ggsurvfit</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggsurvfit/man/add_confidence_interval.html">add_confidence_interval</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="va">km_fit</span> <span class="op">|&gt;</span> <span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/ggsurvfit.html">ggsurvfit</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/add_confidence_interval.html">add_confidence_interval</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
 <span>    <span class="co"># 添加删失点</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggsurvfit/man/add_censor_mark.html">add_censor_mark</a></span><span class="op">(</span><span class="op">)</span>  <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggsurvfit/man/add_quantile.html">add_quantile</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggsurvfit/man/add_pvalue.html">add_pvalue</a></span><span class="op">(</span><span class="st">"annotation"</span>,size<span class="op">=</span><span class="fl">3</span>,x<span class="op">=</span><span class="fl">5</span>,y<span class="op">=</span><span class="fl">0.25</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/add_censor_mark.html">add_censor_mark</a></span><span class="op">(</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>    <span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/add_quantile.html">add_quantile</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/add_pvalue.html">add_pvalue</a></span><span class="op">(</span><span class="st">"annotation"</span>,size<span class="op">=</span><span class="fl">3</span>,x<span class="op">=</span><span class="fl">5</span>,y<span class="op">=</span><span class="fl">0.25</span><span class="op">)</span><span class="op">+</span></span>
 <span>    <span class="co">#add_pvalue(caption = "Log-rank {p.value}")+</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggsurvfit/man/add_risktable.html">add_risktable</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span>,risktable_height <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span><span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggsurvfit/man/add_legend_title.html">add_legend_title</a></span><span class="op">(</span><span class="st">"treatment"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/add_risktable.html">add_risktable</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span>,risktable_height <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/add_legend_title.html">add_legend_title</a></span><span class="op">(</span><span class="st">"treatment"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="生存曲线_files/figure-html/unnamed-chunk-5-2.svg" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="生存曲线_files/figure-html/unnamed-chunk-7-2.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -909,116 +1038,189 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 生存曲线</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kaplan-Meier curve</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggsci)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggsurvfit)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="do">### 数据 三列 “group”分组列， “time”生存时间列，“status”事件状态列</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>d<span class="ot">&lt;-</span><span class="fu">read_excel</span>(<span class="st">"data/01source.xlsx"</span>,<span class="at">sheet=</span><span class="dv">1</span>,<span class="at">range =</span> <span class="st">"A19:E75"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">LR_DPVB=</span><span class="st">`</span><span class="at">LR-DPVB</span><span class="st">`</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    )  <span class="sc">|&gt;</span> </span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">cols =</span> CON<span class="sc">:</span>LR_DPVB,</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">"treatment"</span>,</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">"status"</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">treatment=</span><span class="fu">factor</span>(treatment,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">'CON'</span>,<span class="st">'LDRT'</span>,<span class="st">'DPVB'</span>,<span class="st">'LR_DPVB'</span>))</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载包</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 Kaplan-Meier 方法拟合生存曲线</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>km_fit<span class="ot">&lt;-</span><span class="fu">survfit2</span>(<span class="fu">Surv</span>(Days,status)<span class="sc">~</span>treatment,<span class="at">data=</span>d)</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(km_fit)</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## `plot()`</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(km_fit,</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">1</span>,</span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"gray"</span>,<span class="st">"blue"</span>,<span class="st">"orange3"</span>,<span class="st">"darkred"</span>),</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## `survminer::ggsurvplot()`</span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 ggplot2 和 survminer 绘制生存曲线图</span></span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggsurvplot</span>(</span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">fit  =</span> km_fit,</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d,</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> <span class="st">"pct"</span>,  <span class="co">#event',累计死亡比列，'cumhaz':cumulative hazard累计风险</span></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">palette =</span> <span class="st">"jco"</span>,</span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">6</span>),</span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">surv.median.line =</span> <span class="st">'none'</span>,</span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf.int =</span> F,</span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">pval =</span> <span class="cn">TRUE</span>,<span class="co"># "log rank p=0.0053"</span></span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">log.rank.weights=</span><span class="st">'1'</span>,  </span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">pval.method =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">pval.coord=</span><span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">75</span>),</span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">pval.method.coord=</span><span class="fu">c</span>(<span class="dv">32</span>,<span class="dv">75</span>),</span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">risk.table =</span> <span class="st">"abs_pct"</span>, <span class="co"># "nrisk_cumcensor" and "nrisk_cumevents"</span></span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">risk.table.col =</span> <span class="st">"treatment"</span>,</span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">risk.table.height=</span><span class="fl">0.3</span>,</span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">tables.theme =</span> <span class="fu">theme_cleantable</span>(),</span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">ncensor.plot=</span>T,</span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">axes.offset=</span>F,  <span class="co">#(0,0)pos</span></span>
-<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Hepa1-6 tumor"</span>,</span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">"Days"</span>,</span>
-<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">"Percent survival (%)"</span>,</span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="st">""</span>,</span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">0.35</span>),</span>
-<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.labs=</span><span class="fu">c</span>(<span class="st">'CON'</span>,<span class="st">'LDRT'</span>,<span class="st">'DPVB'</span>,<span class="st">'LR_DPVB'</span>),</span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">ggtheme =</span> <span class="fu">theme_survminer</span>(),</span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>p</span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## ggsurvfit</span></span>
-<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggsurvfit)</span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>km_fit</span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>km_fit <span class="sc">|&gt;</span> <span class="fu">tidy_survfit</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(time,estimate,<span class="at">min=</span>conf.low,<span class="at">ymax=</span>conf.low,</span>
-<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>               <span class="at">color=</span>strata,<span class="at">fill=</span>strata))<span class="sc">+</span></span>
-<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_jco</span>()<span class="sc">+</span></span>
-<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_step</span>()</span>
-<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>km_fit <span class="sc">|&gt;</span> <span class="fu">ggsurvfit</span>()<span class="sc">+</span></span>
-<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_confidence_interval</span>()<span class="sc">+</span></span>
-<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 添加删失点</span></span>
-<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_censor_mark</span>()  <span class="sc">+</span></span>
-<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_quantile</span>()<span class="sc">+</span></span>
-<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_pvalue</span>(<span class="st">"annotation"</span>,<span class="at">size=</span><span class="dv">3</span>,<span class="at">x=</span><span class="dv">5</span>,<span class="at">y=</span><span class="fl">0.25</span>)<span class="sc">+</span></span>
-<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>    <span class="co">#add_pvalue(caption = "Log-rank {p.value}")+</span></span>
-<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_risktable</span>(<span class="at">size =</span> <span class="dv">3</span>,<span class="at">risktable_height =</span> <span class="fl">0.3</span>)<span class="sc">+</span></span>
-<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_legend_title</span>(<span class="st">"treatment"</span>)</span>
-<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 生存曲线</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kaplan-Meier curve</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggsci)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggsurvfit)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="do">### 数据 三列 “group”分组列， “time”生存时间列，“status”事件状态列</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>d<span class="ot">&lt;-</span><span class="fu">read_excel</span>(<span class="st">"data/01source.xlsx"</span>,<span class="at">sheet=</span><span class="dv">1</span>,<span class="at">range =</span> <span class="st">"A19:E75"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">LR_DPVB=</span><span class="st">`</span><span class="at">LR-DPVB</span><span class="st">`</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    )  <span class="sc">|&gt;</span> </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">cols =</span> CON<span class="sc">:</span>LR_DPVB,</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">"treatment"</span>,</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">"status"</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">treatment=</span><span class="fu">factor</span>(treatment,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">'CON'</span>,<span class="st">'LDRT'</span>,<span class="st">'DPVB'</span>,<span class="st">'LR_DPVB'</span>))</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>d</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 Kaplan-Meier 方法拟合生存曲线</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>km_fit<span class="ot">&lt;-</span><span class="fu">survfit2</span>(<span class="fu">Surv</span>(Days,status)<span class="sc">~</span>treatment,<span class="at">data=</span>d)</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(km_fit)</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## `plot()`</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(km_fit,</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">1</span>,</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"gray"</span>,<span class="st">"blue"</span>,<span class="st">"orange3"</span>,<span class="st">"darkred"</span>),</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## `survminer::ggsurvplot()`</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 ggplot2 和 survminer 绘制生存曲线图</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggsurvplot</span>(</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">fit  =</span> km_fit,</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d,</span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> <span class="st">"pct"</span>,  <span class="co">#event',累计死亡比列，'cumhaz':cumulative hazard累计风险</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">palette =</span> <span class="st">"jco"</span>,</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">6</span>),</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">surv.median.line =</span> <span class="st">'none'</span>,</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf.int =</span> F,</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">pval =</span> <span class="cn">TRUE</span>,<span class="co"># "log rank p=0.0053"</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">log.rank.weights=</span><span class="st">'1'</span>,  </span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">pval.method =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">pval.coord=</span><span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">75</span>),</span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">pval.method.coord=</span><span class="fu">c</span>(<span class="dv">32</span>,<span class="dv">75</span>),</span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">risk.table =</span> <span class="st">"abs_pct"</span>, <span class="co"># "nrisk_cumcensor" and "nrisk_cumevents"</span></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">risk.table.col =</span> <span class="st">"treatment"</span>,</span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">risk.table.height=</span><span class="fl">0.3</span>,</span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">tables.theme =</span> <span class="fu">theme_cleantable</span>(),</span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">ncensor.plot=</span>T,</span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">axes.offset=</span>F,  <span class="co">#(0,0)pos</span></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Hepa1-6 tumor"</span>,</span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">"Days"</span>,</span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">"Percent survival (%)"</span>,</span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="st">""</span>,</span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">0.35</span>),</span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.labs=</span><span class="fu">c</span>(<span class="st">'CON'</span>,<span class="st">'LDRT'</span>,<span class="st">'DPVB'</span>,<span class="st">'LR_DPVB'</span>),</span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">ggtheme =</span> <span class="fu">theme_survminer</span>(),</span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>p</span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>fit<span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> sex, <span class="at">data =</span> lung)</span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic survival curves</span></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(fit, <span class="at">data =</span> lung)</span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Customized survival curves</span></span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggsurvplot</span>(fit, <span class="at">data =</span> lung,</span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a>           <span class="at">surv.median.line =</span> <span class="st">"hv"</span>, <span class="co"># Add medians survival</span></span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a>           </span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Change legends: title &amp; labels</span></span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.title =</span> <span class="st">"Sex"</span>,</span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.labs =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>),</span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Add p-value and tervals</span></span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a>           <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a>           </span>
+<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a>           <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Add risk table</span></span>
+<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a>           <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>           <span class="at">tables.height =</span> <span class="fl">0.2</span>,</span>
+<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a>           <span class="at">tables.theme =</span> <span class="fu">theme_cleantable</span>(),</span>
+<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a>           </span>
+<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Color palettes. Use custom color: c("#E7B800", "#2E9FDF"),</span></span>
+<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a>           <span class="co"># or brewer color (e.g.: "Dark2"), or ggsci color (e.g.: "jco")</span></span>
+<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a>           <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#E7B800"</span>, <span class="st">"#2E9FDF"</span>),</span>
+<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a>           <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>() <span class="co"># Change ggplot2 theme</span></span>
+<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggsurvplot</span>(fit, <span class="at">data =</span> lung,</span>
+<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a>                <span class="at">surv.median.line =</span> <span class="st">"hv"</span>, <span class="co"># Add medians survival</span></span>
+<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Change legends: title &amp; labels</span></span>
+<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a>                <span class="at">legend.title =</span> <span class="st">"Sex"</span>,</span>
+<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a>                <span class="at">legend.labs =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>),</span>
+<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Add p-value and tervals</span></span>
+<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a>                <span class="at">pval =</span> F,    <span class="do">##不默认显示P</span></span>
+<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a>                <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Add risk table</span></span>
+<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a>                <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a>                <span class="at">tables.height =</span> <span class="fl">0.2</span>,</span>
+<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a>                <span class="at">tables.theme =</span> <span class="fu">theme_cleantable</span>(),</span>
+<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Color palettes. Use custom color: c("#E7B800", "#2E9FDF"),</span></span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>                <span class="co"># or brewer color (e.g.: "Dark2"), or ggsci color (e.g.: "jco")</span></span>
+<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a>                <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#E7B800"</span>, <span class="st">"#2E9FDF"</span>),</span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a>                <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>() <span class="co"># Change ggplot2 theme</span></span>
+<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a><span class="do">##计算公式</span></span>
+<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a>data.survdiff <span class="ot">&lt;-</span> <span class="fu">survdiff</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> sex,<span class="at">data =</span> lung)</span>
+<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a>p.val <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(data.survdiff<span class="sc">$</span>chisq, <span class="fu">length</span>(data.survdiff<span class="sc">$</span>n) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a>HR <span class="ot">=</span> (data.survdiff<span class="sc">$</span>obs[<span class="dv">2</span>]<span class="sc">/</span>data.survdiff<span class="sc">$</span>exp[<span class="dv">2</span>])<span class="sc">/</span>(data.survdiff<span class="sc">$</span>obs[<span class="dv">1</span>]<span class="sc">/</span>data.survdiff<span class="sc">$</span>exp[<span class="dv">1</span>])</span>
+<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a>up95 <span class="ot">=</span> <span class="fu">exp</span>(<span class="fu">log</span>(HR) <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span>data.survdiff<span class="sc">$</span>exp[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">1</span><span class="sc">/</span>data.survdiff<span class="sc">$</span>exp[<span class="dv">1</span>]))</span>
+<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a>low95 <span class="ot">=</span> <span class="fu">exp</span>(<span class="fu">log</span>(HR) <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span>data.survdiff<span class="sc">$</span>exp[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">1</span><span class="sc">/</span>data.survdiff<span class="sc">$</span>exp[<span class="dv">1</span>]))</span>
+<span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a>ci <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">sprintf</span>(<span class="st">"%.3f"</span>,HR),<span class="st">" ["</span>,<span class="fu">sprintf</span>(<span class="st">"%.3f"</span>,low95),<span class="st">", "</span>,<span class="fu">sprintf</span>(<span class="st">"%.3f"</span>,up95),<span class="st">"]"</span>)</span>
+<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>plot <span class="ot">&lt;-</span> p<span class="sc">$</span>plot <span class="sc">+</span> </span>
+<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="fl">0.05</span>, </span>
+<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a>                            <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"P value = "</span>,<span class="fu">sprintf</span>(<span class="st">"%.3f"</span>,p.val),<span class="st">"</span><span class="sc">\n</span><span class="st"> HR (95% CI) = "</span>,ci),   <span class="do">###添加P和HR 95%CI</span></span>
+<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a>                            <span class="at">size =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">hjust =</span> <span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb10-163"><a href="#cb10-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>))</span>
+<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>plot</span>
+<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## ggsurvfit</span></span>
+<span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggsurvfit)</span>
+<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a>km_fit</span>
+<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a>km_fit <span class="sc">|&gt;</span> <span class="fu">tidy_survfit</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(time,estimate,<span class="at">min=</span>conf.low,<span class="at">ymax=</span>conf.low,</span>
+<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a>               <span class="at">color=</span>strata,<span class="at">fill=</span>strata))<span class="sc">+</span></span>
+<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_jco</span>()<span class="sc">+</span></span>
+<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_step</span>()</span>
+<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a>km_fit <span class="sc">|&gt;</span> <span class="fu">ggsurvfit</span>()<span class="sc">+</span></span>
+<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_confidence_interval</span>()<span class="sc">+</span></span>
+<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 添加删失点</span></span>
+<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_censor_mark</span>()  <span class="sc">+</span></span>
+<span id="cb10-189"><a href="#cb10-189" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_quantile</span>()<span class="sc">+</span></span>
+<span id="cb10-190"><a href="#cb10-190" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_pvalue</span>(<span class="st">"annotation"</span>,<span class="at">size=</span><span class="dv">3</span>,<span class="at">x=</span><span class="dv">5</span>,<span class="at">y=</span><span class="fl">0.25</span>)<span class="sc">+</span></span>
+<span id="cb10-191"><a href="#cb10-191" aria-hidden="true" tabindex="-1"></a>    <span class="co">#add_pvalue(caption = "Log-rank {p.value}")+</span></span>
+<span id="cb10-192"><a href="#cb10-192" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_risktable</span>(<span class="at">size =</span> <span class="dv">3</span>,<span class="at">risktable_height =</span> <span class="fl">0.3</span>)<span class="sc">+</span></span>
+<span id="cb10-193"><a href="#cb10-193" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_legend_title</span>(<span class="st">"treatment"</span>)</span>
+<span id="cb10-194"><a href="#cb10-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
