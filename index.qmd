@@ -2,7 +2,7 @@
 
 作为速查电子笔记
 
-## 推荐阅读
+## 推荐阅读 {.unnumbered}
 
 -   [ggplot2：用于数据分析的优雅图形](https://ggplot2-book.org/mastery)
 
