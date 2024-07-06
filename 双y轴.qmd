@@ -1,0 +1,91 @@
+# 双y轴
+
+```{r}
+library(ggpubr)
+library(cowplot)
+set.seed(1234)
+wdata = data.frame(
+  sex = factor(rep(c("F", "M"), each=200)),
+  weight = c(rnorm(200, 55), rnorm(200, 58)))
+head(wdata)
+
+gghistogram(
+  wdata, x = "weight", 
+  add = "mean", rug = TRUE,
+  fill = "sex", palette = c("#00AFBB", "#E7B800")
+  )
+```
+
+```{r}
+# 1. Create the histogram plot
+phist <- gghistogram(
+  wdata, x = "weight", 
+  add = "mean", rug = TRUE,
+  fill = "sex", palette = c("#00AFBB", "#E7B800")
+)
+
+# 2. Create the density plot with y-axis on the right
+# Remove x axis elements
+pdensity <- ggdensity(
+  wdata, x = "weight", 
+  color= "sex", palette = c("#00AFBB", "#E7B800"),
+  alpha = 0
+) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), position = "right")  +
+  theme_half_open(11, rel_small = 1) +
+  rremove("x.axis")+
+  rremove("xlab") +
+  rremove("x.text") +
+  rremove("x.ticks") +
+  rremove("legend")
+
+# 3. Align the two plots and then overlay them.
+aligned_plots <- cowplot::align_plots(phist, pdensity, align="hv", axis="tblr")
+ggdraw(aligned_plots[[1]]) + draw_plot(aligned_plots[[2]])
+```
+
+```{r}
+df <- read_excel("data/对流数据.xlsx")
+
+df
+
+
+p1 <- 
+
+    
+p2 <- ggplot(df)+
+    geom_point(aes(Re/(10^4),光滑管摩擦系数))+
+    scale_y_continuous(expand = expansion(mult = c(0, 0.05)), position = "right")  +
+  theme_half_open(11, rel_small = 1) +
+  rremove("x.axis")+
+  rremove("xlab") +
+  rremove("x.text") +
+  rremove("x.ticks") +
+  rremove("legend")
+
+ggplot(df)+
+    geom_point(aes(Re/(10^4),粗糙管摩擦系数)) +  ggplot(df)+
+    geom_point(aes(Re/(10^4),光滑管摩擦系数))+
+    scale_y_continuous(breaks = c(seq(0.01,0.025,0.005),seq(0.03,0.09,0.01),seq(0.10,0.20,0.5)))+
+    scale_x_continuous(breaks = c(seq(2,10,2),seq(20,100,20),seq(200,1000,200)),
+                       labels = c(seq(2,10,2),seq(20,100,20),seq(200,1000,200)))
+```
+
+```{r}
+aligned_plots <- cowplot::align_plots(p1, p2, align="hv", axis="tblr")
+ggdraw(aligned_plots[[1]]) + draw_plot(aligned_plots[[2]])
+```
+
+```{r}
+ggplot(df)+
+    geom_point(aes(Re/(10^4),光滑管摩擦系数))+
+    scale_y_continuous(breaks = c(seq(0.001,0.025,0.005),seq(0.03,0.09,0.01),seq(0.10,0.20,0.5)),labels = c(seq(0.001,0.025,0.005),seq(0.03,0.09,0.01),seq(0.10,0.20,0.5))
+                       )+
+    scale_x_continuous(breaks = c(seq(2,10,2),seq(20,100,20),seq(200,1000,200)),
+                       labels = c(seq(2,10,2),seq(20,100,20),seq(200,1000,200)))+
+    theme(
+        axis.line.y.right = element_line(colour = "black"),
+        axis.ticks.y = element_line(colour = "black"), # 确保y轴刻度线可见
+  axis.title.y = element_text(angle = 90, vjust = 0.5) # 调整y轴标题位置
+    )
+```
