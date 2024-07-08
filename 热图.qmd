@@ -7,68 +7,60 @@ library(pheatmap)
 ```
 
 ```{r}
-# Create test matrix
-options(digits = 3)
-set.seed(10)
-test = matrix(rnorm(200), 20, 10)
-test[1:10, seq(1, 10, 2)] = test[1:10, seq(1, 10, 2)] + 3
-test[11:20, seq(2, 10, 2)] = test[11:20, seq(2, 10, 2)] + 2
-test[15:20, seq(2, 10, 2)] = test[15:20, seq(2, 10, 2)] + 4
-colnames(test) = paste("Test", 1:10, sep = "")
-rownames(test) = paste("Gene", 1:20, sep = "")
-
+# read test matrix
+test <- read.delim("data/heatmap/heatmap.txt",header = T,row.names = 1,sep = "\t")
 test
+
+sample_group <- read.delim("data/heatmap/sample.class.txt",header = T,row.names = 1,sep = "\t")
+gene_group <- read.delim("data/heatmap/gene.class.txt",header = T,row.names = 1,sep = "\t")
 ```
 
 ```{r}
-pheatmap(test)
-pheatmap(test, kmeans_k = 2)
-pheatmap(test, scale = "row", clustering_distance_rows = "correlation")
-pheatmap(test, color = colorRampPalette(c("navy", "white", "firebrick3"))(50))
-pheatmap(test, cluster_row = FALSE)
-pheatmap(test, legend = FALSE)
+#| fig-width: 25
+#| fig-asp: 0.75
+pheatmap(test,
+         annotation_legend = T,#legend_breaks = seq(-1,1,0.2), legend_labels = seq(-1,1,0.2),
+         show_rownames = T,show_colnames = T,
+         fontsize = 12,
+         color = colorRampPalette(c("#0000ff","#ffffff","#ff0000"))(200),
+         border_color = NA,
+         scale = "row",       # 归一化
+         cluster_rows = T,cluster_cols = T,clustering_distance_rows = "correlation",
+         display_numbers = TRUE, number_format = "%.1e",
+         
+ 
+         
+         treeheight_row = 12,
+         treeheight_col = 12,
+         
+         annotation_row = gene_group,annotation_col = sample_group,
+         )
+```
+
+
+## 相关性热图
+
+```{r}
+r <- cor(test,method = "pearson",use = "pairwise.complete.obs")
+
+r
+
+pheatmap(r,fontsize = 12,
+         color = colorRampPalette(c("#0000ff","#ffffff","#ff0000"))(200),)
+```
+
+
+```{r}
+pheatmap(test, kmeans_k = 2,
+                 cellwidth = 30,cellheight = 25,)
 ```
 
 ```{r}
 # Show text within cells
 pheatmap(test, display_numbers = TRUE)
-pheatmap(test, display_numbers = TRUE, number_format = "\\%.1e")
 pheatmap(test, display_numbers = matrix(ifelse(test > 5, "*", ""), nrow(test)))
-pheatmap(test, cluster_row = FALSE, legend_breaks = -1:4, legend_labels = c("0",
-"1e-4", "1e-3", "1e-2", "1e-1", "1"))
 ```
 
-```{r}
-annotation_col = data.frame(type=c(rep("normal",5),rep("tumor",5)))
-rownames(annotation_col) <- colnames(test)
-anno_colors <- list(type=c(normal="#1b9e77",tumor="#d95f02"))
-
-pheatmap(
-    test,
-    show_rownames = T,
-    show_colnames = F,
-    cluster_rows = F,
-    treeheight_col = 5,
-    display_numbers = T,
-    #gaps_col = 5,
-    annotation_col = annotation_col,
-    annotation_colors = anno_colors,
-    annotation_legend =F
-)
-```
-
-均一化z-score
-
-```{r}
-pheatmap(test,scale = "column",border_color = "green",fontsize = 8)
-```
-
-```{r}
-pheatmap(test,scale = "row",border_color = NA,color = colorRampPalette(c("blue","white","red"))(200))
-
-pheatmap(test,scale = "row",border_color = NA,color = colorRampPalette(c("darkblue", "green", "yellow"))(10))
-
-```
 
 ## `geom_tile()`
 

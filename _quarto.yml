@@ -32,11 +32,18 @@ website:
       contents: 
         - Graph.qmd
         - ggplot2_graphics.qmd
+        - ggproto.qmd
         - ggplot2_extensions.qmd
+        - patchwork.qmd
+        - ggprism.qmd
+        - 双y轴.qmd
+        
         
         - section: "条图"
           contents: 
             - 条图.qmd
+            - 双向条图.qmd
+            - diverging_bar.qmd
             # - 棒棒糖图.qmd
             # - 环状图.qmd
         - section: "点图"

@@ -22,6 +22,9 @@ accuracy(two_class_example, truth, predicted)
 
 ## ROC
 
+
+
+
 ```{r}
 two_class_curve <- roc_curve(two_class_example, truth, Class1)
 two_class_curve
@@ -48,6 +51,79 @@ autoplot(two_class_curve)+
 
 ```{r}
 library(pROC)
+```
+
+
+```{r}
+set.seed(10)
+df <- tibble(
+    group = sample(c("1","0"),size = 100,replace = T),
+    value = rnorm(100,10,3)
+)
+
+roc <- roc(df$group,df$value, smooth = F,ci=T,auc=T)
+
+roc
+
+# 计算最佳截断值
+cutoff <- coords(roc,"best")
+cutoff
+
+cutoff_text <- paste0(round(cutoff$threshold,3),"(",round(cutoff$specificity,3),",",round(cutoff$sensitivity,3),")")
+cutoff_text
+
+
+# 计算AUC
+
+auc <- auc(roc)[1]
+auc_low <- ci(roc,of="auc")[1]
+auc_up <- ci(roc,of="auc")[3]
+
+
+# 计算置信区间
+
+ci <- ci.se(roc,specificities=seq(0,1,0.01))
+
+df_ci <- ci[1:101,1:3]
+df_ci <-  as.data.frame(df_ci)
+
+df_ci <- tibble(
+    x=rownames(df_ci) |> as.numeric(),
+    df_ci,
+)
+
+# 绘图
+
+ggroc(roc,
+      color="red",size=1,legacy.axes = T)+
+    theme_classic()+
+    scale_x_continuous(expand = expansion(mult = c(0,0)))+
+    scale_y_continuous(expand = expansion(mult = c(0,0)))+
+    # 对角线
+    geom_abline(slope = 1,linetype=3)+
+    # 置信区间
+    geom_ribbon(
+        mapping = aes(x=1-x,ymin=`2.5%`,ymax=`97.5%`),
+        data = df_ci,
+        fill="lightblue",alpha=0.3,
+    )+
+    # 截断值
+    geom_point(
+        aes(x=1-specificity,y=sensitivity),
+        data = cutoff,
+        size=2)+
+    # 截断值文字注释
+    geom_text(
+        aes(x=1-specificity,y=sensitivity,label=cutoff_text),
+        data = cutoff,
+        vjust=-1,
+    )
+
+```
+
+
+```{r}
+
 df <- two_class_example
 roc_obj <- roc(response = df$truth, predictor = df$Class1,ci=TRUE,auc=TRUE)
 roc_obj
@@ -88,3 +164,11 @@ plot(roc_obj, col = "blue",main = "Multiple ROC Curves", print.thres = "best", p
 lines(roc_obj, col = "red",lwd=2,lty=3)
 legend("bottomright", legend = c("Model 1", "Model 2"), col = c("blue", "red"), lwd = 2)
 ```
+
+
+
+
+
+
+
+

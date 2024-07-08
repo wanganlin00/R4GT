@@ -1,8 +1,127 @@
 # 双y轴
 
+## ggplot
+
+```{r}
+df <- ggplot2::economics
+y1 <- df$psavert
+y2 <- df$unemploy
+target.range <- range(y1)
+origin.range <- range(y2)
+a <- (target.range[2] - target.range[1]) / (origin.range[2] - origin.range[1])
+b <- target.range[1] - a * origin.range[1]
+plot.df <- data.table(
+  date=as.POSIXct(df$date),
+  psavert=df$psavert,
+  unemploy=df$unemploy*a+b) %>% 
+  melt(id="date")
+b_date <- as.POSIXct("1967-07-01", tz = "UTC")
+e_date <- as.POSIXct("2015-04-01", tz = "UTC")
+dat.color <- c("#B03834", "#698DBD")
+# 四周边框
+dat.bor <- data.table(x1=c(rep(b_date-lubridate::years(1), 2), b_date-lubridate::years(1), e_date+lubridate::years(1)),
+                      x2=c(rep(e_date+lubridate::years(1), 2), b_date-lubridate::years(1), e_date+lubridate::years(1)),
+                      y1=c(18,0,0,0),
+                      y2=c(18,0,18,18))
+# 内部网格线
+dat.gri <- data.table(x1=c(seq(b_date, e_date, "5 year"), rep(b_date-lubridate::years(1), 8)),
+                      x2=c(seq(b_date, e_date, "5 year"), rep(e_date+lubridate::years(1), 8)),
+                      y1=c(rep(0,10),  seq(2,16,2)),
+                      y2=c(rep(18,10), seq(2,16,2)))
+# y轴标签
+dat.y1.tex <- data.table(x=rep(b_date-lubridate::years(1), 8), y=seq(2,16,2), lab=seq(2,16,2)) 
+y2.lab <- ((seq(2,16,2)-b)/a) %>% round()
+dat.y2.tex <- data.table(x=rep(e_date+lubridate::years(1), 8), y=seq(2,16,2), lab=y2.lab) 
+# y轴标题
+dat.y1.tit <- data.table(x=b_date-lubridate::years(6), y=9, lab="Personal Savings Rate")
+dat.y2.tit <- data.table(x=e_date+lubridate::years(7), y=9, lab="# Unemployed (1000's)")
+
+ggplot(plot.df, aes(date, value))+
+  geom_line(aes(color=variable),show.legend = F)+
+  geom_segment(data=dat.bor, aes(x=x1, xend=x2, y=y1, yend=y2))+ #border
+  geom_segment(data=dat.gri, aes(x=x1, xend=x2, y=y1, yend=y2), linewidth=0.2, color="gray", alpha=0.4)+ #grid
+  geom_text(data=dat.y1.tex, aes(x,y,label=lab), color=dat.color[1], size=3, hjust=1.2)+
+  geom_text(data=dat.y2.tex, aes(x,y,label=lab), color=dat.color[2], size=3, hjust=-0.1)+
+  geom_text(data=dat.y1.tit, aes(x,y,label=lab), color=dat.color[1], size=5, vjust=1.5, angle=90)+
+  geom_text(data=dat.y2.tit, aes(x,y,label=lab), color=dat.color[2], size=5, vjust=1.5, angle=-90)+
+  scale_color_manual(values = dat.color)+
+  scale_x_datetime(date_labels = "%Y-%m-%d", breaks = seq(b_date, e_date, by = "5 year"), 
+                   limits = c(b_date-lubridate::years(6), e_date+lubridate::years(7)), expand = c(0,0))+
+  scale_y_continuous(breaks = seq(2,16,2), limits = c(0,18), expand = c(0,0))+
+  labs(x= NULL, y=NULL,title = "Personal Savings Rate vs Unemployed: Plotting in Secondary Y Axis", color=NULL)+
+  theme_bw()+
+  theme(aspect.ratio = 1/1.8, 
+        panel.border = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size=6.2),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank(), 
+        plot.title = element_text(hjust = 0.5))
+```
+
+## cowplot
+
+<https://wilkelab.org/cowplot/index.html>
+
+```{r}
+library(cowplot)
+city_mpg <- mpg %>%
+  mutate(class = fct_lump(class, 4, other_level = "other")) %>%
+  group_by(class) %>%
+  summarize(
+    mean_mpg = mean(cty),
+    count = n()
+  ) %>% mutate(
+    class = fct_reorder(class, count)
+  )
+
+
+city_mpg <- city_mpg %>%
+  mutate(class = fct_reorder(class, -mean_mpg))
+
+p1 <- ggplot(city_mpg, aes(class, count)) +
+  geom_col(fill = "#6297E770") + 
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.05)),
+    position = "right"
+  ) +
+  theme_minimal_hgrid(11, rel_small = 1) +
+  theme(
+    panel.grid.major = element_line(color = "#6297E770"),
+    axis.line.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.ticks = element_blank(),
+    axis.ticks.length = grid::unit(0, "pt"),
+    axis.text.y = element_text(color = "#6297E7"),
+    axis.title.y = element_text(color = "#6297E7")
+  )
+p1
+```
+
+```{r}
+p2 <- ggplot(city_mpg, aes(class, mean_mpg)) + 
+  geom_point(size = 3, color = "#D5442D") + 
+  scale_y_continuous(limits = c(10, 21)) +
+  theme_half_open(11, rel_small = 1) +
+  theme(
+    axis.ticks.y = element_line(color = "#BB2D05"),
+    axis.text.y = element_text(color = "#BB2D05"),
+    axis.title.y = element_text(color = "#BB2D05"),
+    axis.line.y = element_line(color = "#BB2D05")
+  )
+p2
+```
+
+```{r}
+aligned_plots <- cowplot::align_plots(p1, p2, align="hv", axis="tblr")
+ggdraw(aligned_plots[[1]]) + draw_plot(aligned_plots[[2]])
+```
+
+## ggpubr
+
 ```{r}
 library(ggpubr)
-library(cowplot)
 set.seed(1234)
 wdata = data.frame(
   sex = factor(rep(c("F", "M"), each=200)),
@@ -45,47 +164,61 @@ ggdraw(aligned_plots[[1]]) + draw_plot(aligned_plots[[2]])
 ```
 
 ```{r}
-df <- read_excel("data/对流数据.xlsx")
-
-df
 
 
-p1 <- 
+p1 <- ggplot(mpg, aes(manufacturer, hwy)) + stat_summary(fun.y ="median", geom = "bar") +
+  theme_half_open() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust= 1))
 
-    
-p2 <- ggplot(df)+
-    geom_point(aes(Re/(10^4),光滑管摩擦系数))+
-    scale_y_continuous(expand = expansion(mult = c(0, 0.05)), position = "right")  +
-  theme_half_open(11, rel_small = 1) +
-  rremove("x.axis")+
-  rremove("xlab") +
-  rremove("x.text") +
-  rremove("x.ticks") +
-  rremove("legend")
+p2 <- ggplot(mpg, aes(manufacturer, displ)) + geom_point(color="red") +
+  scale_y_continuous(position = "right") +
+  theme_half_open() + theme(axis.text.x = element_blank())
 
-ggplot(df)+
-    geom_point(aes(Re/(10^4),粗糙管摩擦系数)) +  ggplot(df)+
-    geom_point(aes(Re/(10^4),光滑管摩擦系数))+
-    scale_y_continuous(breaks = c(seq(0.01,0.025,0.005),seq(0.03,0.09,0.01),seq(0.10,0.20,0.5)))+
-    scale_x_continuous(breaks = c(seq(2,10,2),seq(20,100,20),seq(200,1000,200)),
-                       labels = c(seq(2,10,2),seq(20,100,20),seq(200,1000,200)))
-```
-
-```{r}
+p1+p2
+# manually align and plot on top of each other
 aligned_plots <- cowplot::align_plots(p1, p2, align="hv", axis="tblr")
+
+# Note: In most cases two y-axes should not be used, but this example
+# illustrates how one could accomplish it.
 ggdraw(aligned_plots[[1]]) + draw_plot(aligned_plots[[2]])
 ```
 
 ```{r}
-ggplot(df)+
-    geom_point(aes(Re/(10^4),光滑管摩擦系数))+
-    scale_y_continuous(breaks = c(seq(0.001,0.025,0.005),seq(0.03,0.09,0.01),seq(0.10,0.20,0.5)),labels = c(seq(0.001,0.025,0.005),seq(0.03,0.09,0.01),seq(0.10,0.20,0.5))
-                       )+
-    scale_x_continuous(breaks = c(seq(2,10,2),seq(20,100,20),seq(200,1000,200)),
-                       labels = c(seq(2,10,2),seq(20,100,20),seq(200,1000,200)))+
+
+
+tibble(
+    id=1:20,
+    y1=1,
+    y2=2,
+    y3=3,
+    y4=4,
+    ca199=runif(20,0,1000),
+    ca125=runif(20,0,1000),
+    age=round(runif(20,0,100)),
+    FIGO=sample(c("1","2","3","4"),size = 20,replace = T)
+) |> 
+    ggplot(aes(x=id))+
+    geom_tile(aes(y=y1,fill=ca199))+
+    geom_tile(aes(y=y2,fill=ca125))+
+    geom_tile(aes(y=y3,fill=age))
+
+tibble(
+    id=1:20,
+    y1=1,
+    y2=2,
+    y3=3,
+    y4=4,
+    ca199=runif(20,0,1000),
+    ca125=runif(20,0,1000),
+    age=round(runif(20,0,100)),
+    FIGO=sample(c("1","2","3","4"),size = 20,replace = T)
+) |> 
+    ggplot(aes(x=id))+
+    geom_tile(aes(y=y4,fill=FIGO))+
+    scale_y_discrete(name = "")+
     theme(
-        axis.line.y.right = element_line(colour = "black"),
-        axis.ticks.y = element_line(colour = "black"), # 确保y轴刻度线可见
-  axis.title.y = element_text(angle = 90, vjust = 0.5) # 调整y轴标题位置
+        axis.line.y = element_blank()
     )
+
+align_patches()
 ```

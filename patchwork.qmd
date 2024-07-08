@@ -1,0 +1,132 @@
+
+# 图形布局
+
+[patchwork](https://patchwork.data-imaginist.com/index.html)
+
+## 布局方式
+
+```{r}
+p1 <- ggplot(mpg, aes(x = drv, y = cty, color = drv)) + 
+    geom_boxplot(show.legend = FALSE) + 
+    labs(title = "Plot 1")
+
+p2 <- ggplot(mpg, aes(x = drv, y = hwy, color = drv)) + 
+    geom_boxplot(show.legend = FALSE) + 
+    labs(title = "Plot 2")
+
+p3 <- ggplot(mpg, aes(x = cty, color = drv, fill = drv)) + 
+    geom_density(alpha = 0.5) + 
+    labs(title = "Plot 3")
+
+p4 <- ggplot(mpg, aes(x = hwy, color = drv, fill = drv)) + 
+    geom_density(alpha = 0.5) + 
+    labs(title = "Plot 4")
+
+p5 <- ggplot(mpg, aes(x = cty, y = hwy, color = drv)) + 
+    geom_point(show.legend = FALSE) + 
+    facet_wrap(~drv) +
+    labs(title = "Plot 5")
+
+```
+
+```{r}
+p1 + p2
+p1 | p2
+
+p1 / p2
+```
+
+```{r}
+p1 + p2 / p3 + p4
+```
+
+```{r}
+p1 + p2 + p3 + plot_layout(ncol = 2)
+```
+
+
+
+```{r}
+p1 | (p2 / (p3 | p4))
+```
+
+```{r}
+layout <- "
+AAB
+C#B
+CDD
+"
+p1 + p2 + p3 + p4 + plot_layout(design = layout)
+```
+
+```{r}
+p1 + p2 + p3 + plot_layout(ncol = 2, guides = "collect")
+```
+
+## 修改子图
+
+```{r}
+p12 <- p1 + p2
+p12[[2]] <- p12[[2]] + theme_light()
+p12
+p1 + p4 & theme_minimal()
+p1 + p4 & scale_y_continuous(limits = c(NA, 45))
+```
+
+## 添加注释
+
+```{r}
+(p1 | p2) / p3 +                                      
+    plot_annotation(title = '主标题',caption = "脚注",
+                    theme = theme_gray(base_family = "mono")) &theme_minimal()+
+    theme(axis.title = element_text(size=8),
+          axis.text = element_text(size=8)
+    )
+
+(guide_area() / (p1 + p2) / (p3 + p4) / p5) +
+    plot_annotation(
+        title = "City and highway mileage for cars with different drive trains",
+        caption = "Source: https://fueleconomy.gov."
+    ) +
+    plot_layout(
+        guides = "collect",
+        heights = c(1, 3, 2, 4)
+    ) &
+    theme(legend.position = "top",
+          plot.title = element_text(hjust = 0.5))
+```
+
+## 图形编号
+
+```{r}
+p123 <- p1 | (p2 / p3)
+p123 + plot_annotation(tag_levels = "I") # Uppercase roman numerics i
+
+
+p123 + plot_annotation(tag_levels = "a") # lowercase letters A
+p123 + plot_annotation(tag_levels = "1") #  numbers
+
+p123[[2]] 
+p123[[2]] <- p123[[2]] + plot_layout(tag_level = "new")
+p123 + plot_annotation(tag_levels = c("I","a"))
+```
+
+## 图形插入
+
+```{r}
+p1 + inset_element(p2, left = 0.6, bottom = 0.6, right = 1, top = 1)
+p24 <- p2 / p4 + plot_layout(guides = "collect")
+p1 + inset_element(p24, left = 0.5, bottom = 0.05, right = 0.95, top = 0.9)
+p12 <- p1 + inset_element(p2, left = 0.5, bottom = 0.5, right = 0.9, top = 0.95)
+p12 & theme_bw()
+p12 + plot_annotation(tag_levels = "A")
+```
+
+# 保存和删除
+
+```{r}
+library(svglite)
+ggsave("ggsave.svg", width = 20, height = 20, units = "cm")
+base::unlink("ggsave.svg")
+```
+

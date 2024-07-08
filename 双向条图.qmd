@@ -1,0 +1,26 @@
+# 双向条图
+
+```{r}
+set.seed(10)
+df <- tibble(
+    id=paste0("Pathway",rep(1:10,2)),
+    group = rep(c("Up","Down"),each=10),
+    y=round(rnorm(20,50,10)),
+)
+```
+
+```{r}
+ggplot(df,
+       aes(x=factor(id,levels = unique(id)),
+           y=if_else(group=="Up",y,-y),
+           fill=group))+
+    geom_bar(stat = "identity")+
+    coord_flip()+
+    
+    geom_text(aes(label=y,hjust=if_else(group=="Up",-0.5,1),
+                  #vjust=if_else(group=="Up",-0.5,0.5)
+                  )
+              )+
+    scale_x_discrete(name = "")+
+    scale_y_continuous(name = "expenssion",expand = expansion(mult = c(0.1,0.1)))
+```
