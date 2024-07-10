@@ -1,4 +1,4 @@
-# 发散条形图
+# 发散条图
 
 Diverging Bars
 

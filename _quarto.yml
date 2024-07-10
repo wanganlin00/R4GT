@@ -43,7 +43,7 @@ website:
           contents: 
             - 条图.qmd
             - 双向条图.qmd
-            - diverging_bar.qmd
+            - 发散条图.qmd
             # - 棒棒糖图.qmd
             # - 环状图.qmd
         - section: "点图"
@@ -64,8 +64,9 @@ website:
           contents: 
             - 相关图.qmd
             - 热图.qmd
+
+            - 网络图.qmd
             # - 韦恩图.qmd
-            # - 网络图.qmd
             
     - title: "Tables"
       contents: 
