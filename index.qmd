@@ -6,6 +6,7 @@
 
 -   [ggplot2：用于数据分析的优雅图形](https://ggplot2-book.org/mastery)
 
+-   [The R Graph Gallery](https://r-graph-gallery.com/)
 -   [R Graphics Cookbook, 2nd edition](https://r-graphics.org/)
 
 -   [现代统计图形（2）](https://bookdown.org/xiangyun/msg2nd/)
