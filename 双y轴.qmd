@@ -222,3 +222,79 @@ tibble(
 
 align_patches()
 ```
+
+## 知乎
+
+```{r}
+set.seed(1)
+df1 <- tibble(
+    width = round(rnorm(5,10,15),digits = 0) %>% abs() %>% sort(decreasing = T),
+    unit = rep(c("shear_stress"),each=5),
+    value = round(runif(5,0.0001,0.1),8) %>% abs() %>% sort()
+)
+df1
+
+
+set.seed(100)
+df2 <- tibble(
+    width = round(runif(20,0,50),digits = 0) %>% abs() %>% sort(),
+    unit = rep(c("velocity"),each=20),
+    value = round(runif(20,0.0001,1),8) %>% abs() %>% sort()
+)
+df2
+```
+
+### 左y
+
+```{r}
+
+left <- ggplot(df1,aes(x=width,value))+
+    geom_point(pch=21, size=3, fill="red")+
+    geom_line()+
+    scale_x_continuous(expand = c(0,0),
+                       breaks = c(0,1,2,5,10,20,50),
+                       labels = c(0,1,2,5,10,20,50),
+                       limits = c(0,50),
+                       )+
+    scale_y_log10(expand = c(0,0),
+                  labels = scales::trans_format("log10",scales::math_format()),
+                  breaks = c(0.001,0.01,0.1,1),
+                  limits = c(0.001,1)
+                  )+
+    annotation_logticks(sides = "l")+
+    theme_void()+ # 去掉主题
+    theme(
+        axis.line.y = element_line(colour = "black")
+    )+
+    ylab("shear stress (Pa)")
+
+left
+```
+
+### 右y
+
+```{r}
+ggplot(df2,aes(width,value))+
+    geom_point(pch=25, size=3, fill="blue")+
+    annotation_custom(ggplotGrob(left))+
+    scale_y_continuous(
+        name = "velocity",
+        expand = c(0,0),
+        breaks = seq(0,1,0.1),
+        limits = c(0,1),
+        position = "right",
+        sec.axis = sec_axis(
+            ~ .,
+            name = "shear stress (Pa)",
+            breaks = rescale(c(-3, -2, -1, 0), c(0, 1)),
+            labels = c(expression("10" ^ "-3", "10" ^
+                                      "-2", "10" ^ "-1", 1))
+        )
+    )+
+    scale_x_continuous(expand = c(0,0),
+                       breaks = c(0,1,2,5,10,20,50),
+                       labels = c(0,1,2,5,10,20,50),
+                       limits = c(0,50),
+                       )
+    
+```
