@@ -1,0 +1,196 @@
+# `ggproto` 对象
+
+
+
+## ggplot2 的内部结构
+
+```{r}
+p <- ggplot(mpg, aes(displ, hwy, color = drv)) + 
+  geom_point(position = "jitter") +
+  geom_smooth(method = "lm", formula = y ~ x) + 
+  facet_wrap(vars(year)) + 
+  ggtitle("A plot for expository purposes")
+p
+
+```
+
+```{r}
+ggprint <- function(x) {
+  data <- ggplot_build(x)
+  gtable <- ggplot_gtable(data)
+  grid::grid.newpage()
+  grid::grid.draw(gtable)
+  return(invisible(x))
+}
+ggprint(p)
+```
+
+```{r}
+p_built <- ggplot_build(p)
+
+p_built $data
+p_built $layout
+p_built $plot
+```
+
+```{r}
+p_gtable <- ggplot_gtable(p_built)
+p_gtable
+```
+
+
+```{r}
+grid::grid.newpage()
+```
+
+```{r}
+grid::grid.newpage()
+grid::grid.draw(p_gtable)
+```
+
+
+## `ggproto`
+
+```{r}
+prototype()
+```
+
+[参考 ggplot2-book.org/internals#sec-ggproto](https://ggplot2-book.org/internals#sec-ggproto)
+
+```{r }
+
+# 创建新类，子类继承
+NewObject <- ggproto(
+  `_class` = NULL, # 类
+  `_inherits` = NULL # 继承
+)
+NewObject 
+```
+
+```{r}
+# 新类
+NewClass <- ggproto("NewClass", NULL,
+                    # fields     默认值 
+                    geom=NA,
+                    # methods
+                    
+                    )
+
+NewClass
+```
+
+```{r}
+# 实例
+instance <- ggproto(NULL, NewClass,
+                    # 字段赋值
+                    geom="point"
+                    )
+instance
+```
+
+```{r}
+# 继承
+NewSubClass <- ggproto("NewSubClass", NewClass)
+NewSubClass
+```
+
+
+
+## 自定义geom_signif
+
+
+```{r}
+library(ggplot2)
+library(grid)
+
+# 自定义 GeomSignif 对象
+GeomSignif <- ggproto(`_class` = "GeomSignif",
+                      `_inherits` = Geom,
+  required_aes = c("x", "y"),
+  
+  default_aes = aes(
+    comparisons = NULL, step_increase = 0.1,
+    map_signif_level = TRUE, test = "t.test",
+    test.args = list(), y_position = NULL,
+    annotations = NULL, tip_length = 0.03
+  ),
+  
+  draw_group = function(data, panel_scales, coord, comparisons, step_increase,
+                        map_signif_level, test, test.args, y_position, annotations, tip_length) {
+    
+    # 提取比较组
+    if (is.null(comparisons)) {
+      stop("Comparisons must be provided.")
+    }
+    
+    # 计算每组的 y 坐标位置
+    y_max <- max(data$y, na.rm = TRUE)
+    if (is.null(y_position)) {
+      y_position <- y_max + seq(step_increase, by = step_increase, length.out = length(comparisons))
+    }
+    
+    # 创建标记的绘图对象列表
+    grobs <- list()
+    for (i in seq_along(comparisons)) {
+      comp <- comparisons[[i]]
+      group1 <- data[data$x == comp[1], "y"]
+      group2 <- data[data$x == comp[2], "y"]
+      
+      # 进行显著性测试
+      test_result <- do.call(test, c(list(group1, group2), test.args))
+      p_value <- test_result$p.value
+      label <- if (map_signif_level) {
+        if (p_value < 0.001) "***"
+        else if (p_value < 0.01) "**"
+        else if (p_value < 0.05) "*"
+        else "ns"
+      } else {
+        format(p_value, digits = 2)
+      }
+      
+      # 绘制显著性标记线条和标签
+      grobs <- c(grobs, list(
+        grid::linesGrob(
+          x = c(mean(comp[1]), mean(comp[2])),
+          y = rep(y_position[i], 2),
+          gp = grid::gpar(col = "black", lwd = 0.5)
+        ),
+        grid::textGrob(
+          label, x = mean(comp), y = y_position[i] + tip_length,
+          gp = grid::gpar(col = "black", fontsize = 10)
+        )
+      ))
+    }
+    
+    # 返回绘图对象列表
+    grid::grobTree(grobs = grobs)
+  }
+)
+
+# 创建自定义 geom_signif 函数
+geom_signif <- function(mapping = NULL, data = NULL, stat = "identity", position = "identity",
+                        na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    geom = GeomSignif, mapping = mapping, data = data, stat = stat,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, ...)
+  )
+}
+
+# 示例数据
+data <- data.frame(
+  group = rep(c("A", "B", "C"), each = 20),
+  value = c(rnorm(20, mean = 5), rnorm(20, mean = 6), rnorm(20, mean = 7))
+)
+
+# 使用自定义的 geom_signif 绘制显著性标记
+p <- ggplot(data, aes(x = group, y = value)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  geom_signif(comparisons = list(c("A", "B"), c("A", "C")), step_increase = 0.1)
+
+# 打印图形
+print(p)
+
+```
+
