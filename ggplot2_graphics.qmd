@@ -94,7 +94,7 @@ ggplot(mpg, aes(x = displ, y = hwy, linewidth = drv)) + #线条粗细
 
     -   `geom_text()`: text.
 
-<!-- -->
+
 
 -   One variable:
 
@@ -516,7 +516,7 @@ ggplot(mpg, aes(trans, cty)) +
 
 ### 位置调整 position adjustments
 
-#### 条
+#### 条偏移
 
 ```{r}
 ggplot(mpg, aes(x = drv, fill = class)) + 
@@ -532,7 +532,7 @@ ggplot(mpg, aes(x = drv, fill = class)) +
   geom_bar(position = "dodge")
 ```
 
-#### 点
+#### 点偏移
 
 position_nudge()：按固定偏移量移动点。
 

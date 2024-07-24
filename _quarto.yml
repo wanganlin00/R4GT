@@ -13,9 +13,9 @@ website:
     left:
       - text: "主页"
         href: index.qmd
-      - text: "图"
+      - text: "图形"
         href: Graph.qmd
-      - text: "表"
+      - text: "表格"
         href: Table.qmd
       - text: "参考文献"
         href: references.qmd
@@ -39,32 +39,32 @@ website:
         - 双y轴.qmd
         
         
-        - section: "条图"
+        - section: "条形图"
           contents: 
             - 条图.qmd
             - 双向条图.qmd
             - 发散条图.qmd
             # - 棒棒糖图.qmd
             # - 环状图.qmd
-        - section: "点图"
+        - section: "散点图"
           contents: 
             - dotplot.qmd
             - Q-Q图.qmd
+            - 误差棒点图.qmd
             # - 曼哈顿图.qmd
             # - 克利夫兰点图.qmd
-        - section: "线图"
+        - section: "曲线图"
           contents: 
             - 生存曲线.qmd
             - ROC.qmd
             - 折线图.qmd
-            - confident_interval.qmd
+
             - 回归曲线.qmd
        
         - section: "关系图"
           contents: 
             - 相关图.qmd
             - 热图.qmd
-
             - 网络图.qmd
             # - 韦恩图.qmd
             
