@@ -9,74 +9,58 @@ library(patchwork)
 library(ggplot2)
 ```
 
-## `ggplot(data =  ,mapping = aes(x,y,…))`
-
-### data
-
-ggplot2包的内置数据集 `mpg` 和 `diamonds`
+## 初始化图形对象
 
 ```{r}
-head(mpg)
-ggplot(data = mpg)
+df <- tibble(
+    index = 1:26,
+    pch = 0:25,
+    type = c( rep("hollow_color",15),rep("soild_color",6),rep("fill_color",5)),
+    height = rep(c(1,2,3), times = c(15,6,5)),
+    
+)
+```
+
+`ggplot(data =  ,mapping = aes(x,y,…))`
+
+创建一个基础图形对象`gg`，并指定数据集和美学映射。
+
+### 空白图层
+
+```{r}
+ggplot(data = df)
 ```
 
 ### aesthetics mapping
 
 `mapping=aes(x,y,z,..,color,fill,shape,size,group,linewidth,linetype,alpha,...)`
 
-#### 坐标
-
 ```{r}
-ggplot(data = mpg,
-       mapping = aes(x = displ, y =hwy ))
+ggplot(data = df,
+       mapping = aes(x = index, y = pch ))
 ```
+
+#### color
+
+#### fill
 
 #### shape
 
 ```{r}
-ggplot(mpg, aes(x = displ, y = hwy, color = class)) +#颜色 名义型变量
-  geom_point(shape=".") #像素点
+ggplot(data = df, mapping = aes(x = index, y = pch)) +
+    geom_point(shape = ".") #像素点
 
 
-ggplot(mpg, aes(x = displ, y = hwy, shape = class)) + #形状最多可以映射6个
-  geom_point()
+ggplot(data = df, aes(index, pch)) +
+  geom_point(aes(shape = factor(pch)), fill ="red",size = 4) +
+  scale_shape_manual(values = 0:25) +
+  labs(shape = "点形状" )
 
-
-ggplot(mpg, aes(x = displ, y = hwy)) + #形状共有26个
-  geom_point(shape=22,color="red",fill="green")
-
-
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_point() + 
-  geom_point(
-    data = mpg |> dplyr::filter(class == "2seater"), 
-    color = "red"
-  ) +
-  geom_point(
-    data = mpg |> dplyr::filter(class == "2seater"), 
-    shape = "circle open",# shape = 1
-    size = 3, color = "red"
-  )
 ```
 
-![](images/shape.png){fig-align="center" width="80%"}
+## Geometry
 
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy, size =cty)) +#大小 有序型变量
-  geom_point()
-
-ggplot(mpg, aes(x = displ, y = hwy, alpha = cty)) +#透明度 有序型变量
-  geom_point(color="red") #更改外观
-ggplot(mpg, aes(x = displ, y = hwy, linetype = drv)) + #线条类型
-  geom_smooth()
-
-ggplot(mpg, aes(x = displ, y = hwy, linewidth = drv)) + #线条粗细
-  geom_smooth()
-```
-
-## geometry
-
--   Graphical primitives:
+-   图形基元（Graphical primitives）:
 
     -   `geom_blank()`: display nothing. Most useful for adjusting axes limits using data.
 
@@ -94,7 +78,27 @@ ggplot(mpg, aes(x = displ, y = hwy, linewidth = drv)) + #线条粗细
 
     -   `geom_text()`: text.
 
+```{r}
+df <- data.frame(
+  x = c(3, 1, 5), 
+  y = c(2, 4, 6), 
+  label = c("a","b","c")
+)
 
+p <- ggplot(df, aes(x, y, label = label)) + 
+  labs(x = NULL, y = NULL) + # Hide axis label
+  theme(plot.title = element_text(size = 12)) # Shrink plot title
+
+(p + geom_point() + ggtitle("point") +
+        p + geom_text() + ggtitle("text") +
+        p + geom_bar(stat = "identity") + ggtitle("bar") )/
+(p + geom_tile() + ggtitle("tile") +
+     p + geom_raster() + ggtitle("raster")+
+     p + geom_line() + ggtitle("line")) /
+(p + geom_area() + ggtitle("area") +
+    p + geom_path() + ggtitle("path") +
+    p + geom_polygon() + ggtitle("polygon"))
+```
 
 -   One variable:
 
@@ -168,7 +172,7 @@ ggplot(mpg, aes(x = displ, y = hwy, linewidth = drv)) + #线条粗细
 
     -   Spatial:
 
-        -   `geom_map()`: fast version of for map data.`geom_polygon()`
+        -   `geom_map()`: fast version of for map data.
 
 -   Three variables:
 
@@ -176,29 +180,7 @@ ggplot(mpg, aes(x = displ, y = hwy, linewidth = drv)) + #线条粗细
 
     -   `geom_tile()`: tile the plane with rectangles.
 
-    -   `geom_raster()`: fast version of for equal sized tiles.`geom_tile()`
-
-```{r}
-df <- data.frame(
-  x = c(3, 1, 5), 
-  y = c(2, 4, 6), 
-  label = c("a","b","c")
-)
-
-p <- ggplot(df, aes(x, y, label = label)) + 
-  labs(x = NULL, y = NULL) + # Hide axis label
-  theme(plot.title = element_text(size = 12)) # Shrink plot title
-
-(p + geom_point() + ggtitle("point") +
-        p + geom_text() + ggtitle("text") +
-        p + geom_bar(stat = "identity") + ggtitle("bar") )/
-(p + geom_tile() + ggtitle("tile") +
-     p + geom_raster() + ggtitle("raster")+
-     p + geom_line() + ggtitle("line")) /
-(p + geom_area() + ggtitle("area") +
-    p + geom_path() + ggtitle("path") +
-    p + geom_polygon() + ggtitle("polygon"))
-```
+    -   `geom_raster()`: fast version of for equal sized tiles.
 
 ### X=连续型变量
 
@@ -1109,4 +1091,3 @@ ggplot(data=mtcars, aes(x = disp, y = mpg)) +
         legend.position = "bottom",
         legend.key = element_blank())
 ```
-

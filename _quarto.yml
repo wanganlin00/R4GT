@@ -51,7 +51,7 @@ website:
             - dotplot.qmd
             - Q-Q图.qmd
             - 误差棒点图.qmd
-            # - 曼哈顿图.qmd
+            - 曼哈顿图.qmd
             # - 克利夫兰点图.qmd
         - section: "曲线图"
           contents: 
@@ -72,6 +72,7 @@ website:
       contents: 
         - Table.qmd
         - 三线表.qmd
+        - gtsummary.qmd
        
        
 knitr: 

@@ -1,3 +1,11 @@
 # 表格 {.unnumbered}
 
-三线表，基线资料表
+1.  [gt](https://gt.rstudio.com/)
+
+2.  <https://r-graph-gallery.com/package/gt.html>
+
+3.  <https://r-graph-gallery.com/package/gtextras.html>
+
+4.  [gtsummary](https://www.danieldsjoberg.com/gtsummary/)
+
+5.  <https://r-graph-gallery.com/package/gtsummary.html>

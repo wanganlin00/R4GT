@@ -1,0 +1,52 @@
+# gtsummary
+
+```{r}
+library(gtsummary)
+```
+
+## 
+
+## 回归模型结果
+
+```{r}
+# load dataset
+data(Titanic)
+df = as.data.frame(Titanic)
+
+# load library
+library(gtsummary)
+
+# create the model
+model = glm(Survived ~ Age + Class + Sex + Freq, family=binomial, data=df)
+
+# generate table 
+model %>%
+  tbl_regression() %>% # regression summary function
+  add_global_p() %>% # add p-values
+  bold_labels() %>% # make label in bold
+  italicize_levels() # make categories in label in italic
+
+
+
+# generate table 
+model %>%
+  tbl_regression(intercept=TRUE, conf.level=0.9) %>%
+  add_glance_source_note() %>%
+  add_global_p() %>%
+  add_q() 
+```
+
+## 比较模型结果
+
+```{r}
+data(trial)
+library(survival)
+
+model_reglog = glm(response ~ trt + grade, data=trial, family = binomial) %>% tbl_regression()
+model_cox = coxph(Surv(ttdeath, death) ~ trt + grade, data=trial) %>% tbl_regression()
+
+tbl_merge(
+  list(model_reglog, model_cox),
+  tab_spanner = c("**Tumor Response**", "**Time to Death**")
+)
+```
