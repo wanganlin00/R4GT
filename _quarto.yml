@@ -35,31 +35,31 @@ website:
         - ggproto.qmd
         - ggplot2_extensions.qmd
         - patchwork.qmd
-        - ggprism.qmd
+
         - 双y轴.qmd
-        
+        - 误差棒图.qmd
         
         - section: "条形图"
           contents: 
             - 条图.qmd
+            - ggprism.qmd
             - 双向条图.qmd
             - 发散条图.qmd
             # - 棒棒糖图.qmd
             # - 环状图.qmd
-        - section: "散点图"
+        - section: "点线图"
           contents: 
-            - dotplot.qmd
+            - 散点图.qmd
+            - 点图.qmd
             - Q-Q图.qmd
-            - 误差棒点图.qmd
             - 曼哈顿图.qmd
             # - 克利夫兰点图.qmd
         - section: "曲线图"
           contents: 
+            - 折线图.qmd
             - 生存曲线.qmd
             - ROC.qmd
-            - 折线图.qmd
 
-            - 回归曲线.qmd
        
         - section: "关系图"
           contents: 
@@ -73,6 +73,7 @@ website:
         - Table.qmd
         - 三线表.qmd
         - gtsummary.qmd
+        # - gtExtras.qmd
        
        
 knitr: 

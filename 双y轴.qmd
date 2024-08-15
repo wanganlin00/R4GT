@@ -6,15 +6,18 @@
 df <- ggplot2::economics
 y1 <- df$psavert
 y2 <- df$unemploy
+
 target.range <- range(y1)
 origin.range <- range(y2)
 a <- (target.range[2] - target.range[1]) / (origin.range[2] - origin.range[1])
 b <- target.range[1] - a * origin.range[1]
+
+library(data.table)
 plot.df <- data.table(
   date=as.POSIXct(df$date),
   psavert=df$psavert,
   unemploy=df$unemploy*a+b) %>% 
-  melt(id="date")
+  data.table::melt(id="date")
 b_date <- as.POSIXct("1967-07-01", tz = "UTC")
 e_date <- as.POSIXct("2015-04-01", tz = "UTC")
 dat.color <- c("#B03834", "#698DBD")
@@ -183,47 +186,7 @@ aligned_plots <- cowplot::align_plots(p1, p2, align="hv", axis="tblr")
 ggdraw(aligned_plots[[1]]) + draw_plot(aligned_plots[[2]])
 ```
 
-```{r}
-
-
-tibble(
-    id=1:20,
-    y1=1,
-    y2=2,
-    y3=3,
-    y4=4,
-    ca199=runif(20,0,1000),
-    ca125=runif(20,0,1000),
-    age=round(runif(20,0,100)),
-    FIGO=sample(c("1","2","3","4"),size = 20,replace = T)
-) |> 
-    ggplot(aes(x=id))+
-    geom_tile(aes(y=y1,fill=ca199))+
-    geom_tile(aes(y=y2,fill=ca125))+
-    geom_tile(aes(y=y3,fill=age))
-
-tibble(
-    id=1:20,
-    y1=1,
-    y2=2,
-    y3=3,
-    y4=4,
-    ca199=runif(20,0,1000),
-    ca125=runif(20,0,1000),
-    age=round(runif(20,0,100)),
-    FIGO=sample(c("1","2","3","4"),size = 20,replace = T)
-) |> 
-    ggplot(aes(x=id))+
-    geom_tile(aes(y=y4,fill=FIGO))+
-    scale_y_discrete(name = "")+
-    theme(
-        axis.line.y = element_blank()
-    )
-
-align_patches()
-```
-
-## 知乎
+## `annotation_custom(ggplotGrob())`
 
 ```{r}
 set.seed(1)
@@ -286,7 +249,7 @@ ggplot(df2,aes(width,value))+
         sec.axis = sec_axis(
             ~ .,
             name = "shear stress (Pa)",
-            breaks = rescale(c(-3, -2, -1, 0), c(0, 1)),
+            breaks = scales::rescale(c(-3, -2, -1, 0), c(0, 1)),
             labels = c(expression("10" ^ "-3", "10" ^
                                       "-2", "10" ^ "-1", 1))
         )
@@ -296,5 +259,4 @@ ggplot(df2,aes(width,value))+
                        labels = c(0,1,2,5,10,20,50),
                        limits = c(0,50),
                        )
-    
 ```

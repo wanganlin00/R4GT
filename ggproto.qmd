@@ -1,7 +1,5 @@
 # `ggproto` 对象
 
-
-
 ## ggplot2 的内部结构
 
 ```{r}
@@ -38,7 +36,6 @@ p_gtable <- ggplot_gtable(p_built)
 p_gtable
 ```
 
-
 ```{r}
 grid::grid.newpage()
 ```
@@ -47,7 +44,6 @@ grid::grid.newpage()
 grid::grid.newpage()
 grid::grid.draw(p_gtable)
 ```
-
 
 ## `ggproto`
 
@@ -94,10 +90,7 @@ NewSubClass <- ggproto("NewSubClass", NewClass)
 NewSubClass
 ```
 
-
-
 ## 自定义geom_signif
-
 
 ```{r}
 library(ggplot2)
@@ -177,20 +170,4 @@ geom_signif <- function(mapping = NULL, data = NULL, stat = "identity", position
   )
 }
 
-# 示例数据
-data <- data.frame(
-  group = rep(c("A", "B", "C"), each = 20),
-  value = c(rnorm(20, mean = 5), rnorm(20, mean = 6), rnorm(20, mean = 7))
-)
-
-# 使用自定义的 geom_signif 绘制显著性标记
-p <- ggplot(data, aes(x = group, y = value)) +
-  geom_boxplot() +
-  geom_jitter(width = 0.2, alpha = 0.5) +
-  geom_signif(comparisons = list(c("A", "B"), c("A", "C")), step_increase = 0.1)
-
-# 打印图形
-print(p)
-
 ```
-

@@ -484,6 +484,12 @@ ggplot(mydata, aes(year, cancer)) +
 
 stat_bin()：geom_bar()，geom_freqpoly()，geom_histogram()
 
+```{r}
+mtcars %>% 
+    ggplot(aes(x =cyl , y= mpg))+
+    stat_summary(geom = "bar",fun = mean)
+```
+
 stat_bin2d()：geom_bin2d()
 
 stat_bindot()：geom_dotplot()

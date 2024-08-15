@@ -1,0 +1,90 @@
+# 点图
+
+## `geom_dotplot()`
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+ggplot(mtcars,aes(mpg))+
+    geom_dotplot()
+```
+
+```{r}
+# 将数值型变量转换为因子
+ToothGrowth$dose <- as.factor(ToothGrowth$dose)
+head(ToothGrowth)
+library(ggplot2)
+# 基础点图
+p1 <- ggplot(ToothGrowth, aes(x=dose, y=len)) + 
+  geom_dotplot(binaxis='y', stackdir='center')
+# 更改点尺寸和堆叠率
+p2 <- ggplot(ToothGrowth, aes(x=dose, y=len)) + 
+  geom_dotplot(binaxis='y', stackdir='center',
+               stackratio=1.5, dotsize=1.2)
+# 旋转
+p3 <- p1 + coord_flip()
+# 选择展示数据
+p4 <- p1 + scale_x_discrete(limits=c("0.5", "2"))
+ggarrange(p1,p2,p3,p4,nrow = 1)
+```
+
+```{r}
+# 在点图上添加摘要统计信息 stat_summary()
+# 添加平均值和中位数
+p5 <- p1 + stat_summary(fun.y=mean, geom="point", shape=18,
+                 size=3, color="red")
+
+# p6<- p1 + stat_summary(fun.y=median, geom="point", shape=18,
+#                  size=3, color="red")
+```
+
+## `ggdotplot()`
+
+```{r}
+
+library(ggpubr)
+library(readxl)
+```
+
+```{r}
+
+f6d <-
+    read_excel("data/01source.xlsx", sheet = "Fig.6", range = "D2:E18")
+f6d |> pivot_longer(
+    cols = everything(),
+    names_to = "status",
+    values_to = "Ratio",
+) |> 
+    tidyr::drop_na() ->f6d
+```
+
+```{r}
+ggdotplot(f6d,
+          x="status",
+          y="Ratio",
+          add =c("mean_sd"),
+          color = "status",
+          fill = "status",
+          error.plot = "errorbar",
+)+
+    geom_signif(
+        comparisons = list(c("relapse","non-relapse")),
+    )+
+    
+    stat_summary(
+        fun.data = "mean_sd",geom = "pointrange",width=.3
+    )+
+    ggplot2::annotate(
+        geom="segment",
+        x=0.9,
+        xend=1.1,
+        y=2.42019873,#均值
+    )+
+    ggplot2::annotate(
+        geom="segment",
+        x=1.9,
+        xend=2.1,
+        y=0.789463173,#均值
+    )
+
+```

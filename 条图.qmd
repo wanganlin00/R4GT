@@ -23,7 +23,7 @@ ggplot(df,aes(supp,len))+
 ## 修改边框和填充颜色
 
 ```{r}
-ggplot(df,aes(id,len,color=factor(dose)))+
+ggplot(df,aes(dose,len,color=factor(dose)))+
     geom_col(fill=NA)
 ```
 
@@ -131,7 +131,9 @@ ggplot( c ,aes(x=id,y=changerate,fill=treatment))+
 
 ```
 
-## 分组条形图添加 errorbar、significance 、dotplot
+## 复杂条图
+
+### 分组条形图添加 errorbar、significance 、dotplot
 
 [ggpubr](https://www.datanovia.com/en/blog/author/kassambara/)
 
@@ -415,9 +417,10 @@ bp +
     # )
 ```
 
-## `ggpatern`
+## 填充图案 `ggpatern`
 
 ```{r}
+library(ggpattern)
 df <- data.frame(
     group = factor(c("Cool", "But", "Use", "Less"), 
                    levels = c("Cool", "But", "Use", "Less")),

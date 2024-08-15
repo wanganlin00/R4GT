@@ -1,4 +1,6 @@
-# ggprisl
+# GraphPad Prism 风格
+
+## `ggprism`
 
 ```{r}
 library(tidyverse)

@@ -1,5 +1,3 @@
-
-
 ## 折线图
 
 ```{r}
@@ -8,8 +6,6 @@ library(readxl)
 library(ggpubr)
 library(rstatix)
 ```
-
-
 
 ```{r}
 f4h <-read_excel("data/01source.xlsx", sheet = "Fig.4", range = "A20:P23")

@@ -15,6 +15,8 @@
 ## `tbl_graph`
 
 ```{r}
+library(tidygraph)
+library(ggraph)
 rstat_nodes <- data.frame(name = c("Hadley", "David", "Romain", "Julia"))
 rstat_edges <- data.frame(from = c(1, 1, 1, 2, 3, 3, 4, 4, 4),
                             to = c(2, 3, 4, 1, 1, 2, 1, 2, 3))
@@ -24,8 +26,7 @@ tbl_graph(nodes = rstat_nodes, edges = rstat_edges)
 ## 节点
 
 ```{r}
-library(tidygraph)
-library(ggraph)
+
 highschool %>% as_tibble()
 
 
@@ -50,7 +51,6 @@ ggraph(gr, layout = 'kk') +
   geom_node_point()
 ```
 
-
 ```{r}
 gr2 <- tbl_graph(flare$vertices, flare$edges)
 gr2
@@ -73,8 +73,6 @@ ggraph(gr2, layout = 'partition') +
 
 
 ```
-
-
 
 ## 边
 
@@ -155,8 +153,6 @@ ggraph(hairball, layout = 'hive', axis = pop_devel, sort.by = popularity) +
 
 
 ```
-
-
 
 ```{r}
 hierarchy <- as_tbl_graph(hclust(dist(iris[, 1:4]))) |> 
@@ -242,6 +238,5 @@ ggraph(flaregraph, layout = 'dendrogram', circular = TRUE) +
   geom_conn_bundle(data = get_con(from = from, to = to), alpha = 0.1) + 
   coord_fixed()
 ```
-
 
 ## 布局

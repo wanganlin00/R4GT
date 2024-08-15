@@ -1,0 +1,36 @@
+# 散点图
+
+```{r}
+library(tidyverse)
+```
+
+## 基础散点图
+
+```{r}
+df <- data.frame(
+  x = 1:100,
+  y = rnorm(100) + 2 * (1:100)  # 生成具有线性关系的x和y数据
+)
+
+p <- ggplot(df, aes(x = x, y = y))+
+    geom_point(color='red')
+p
+```
+
+## 添加平滑曲线
+
+R^2^ ,p值：f6c
+
+```{r}
+p <- p +
+    geom_smooth(method = "lm",formula = "y~x",color="black",linewidth=.8)
+p
+```
+
+## 添加表达式
+
+```{r}
+p + ggpmisc::stat_poly_eq(formula = y ~ x,
+                 ggpmisc::use_label(c("eq", "adj.R2", "P")))
+
+```
