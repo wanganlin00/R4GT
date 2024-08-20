@@ -480,7 +480,7 @@ ggplot(mydata, aes(year, cancer)) +
 
 ```
 
-### 统计变换 statistical transformations
+## 统计变换 statistical transformations
 
 stat_bin()：geom_bar()，geom_freqpoly()，geom_histogram()
 
@@ -537,7 +537,7 @@ ggplot(mpg, aes(trans, cty)) +
     stat_summary(geom = "point", fun = "mean", colour = "red", size = 4)
 ```
 
-### 位置调整 position adjustments
+## 位置调整 position adjustments
 
 #### 条偏移
 

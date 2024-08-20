@@ -26,7 +26,7 @@ ggprint(p)
 ```{r}
 p_built <- ggplot_build(p)
 
-p_built $data
+p_built $data %>% map(head) %>% map(as_tibble)
 p_built $layout
 p_built $plot
 ```
