@@ -127,12 +127,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">主页</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Graph.html"> 
-<span class="menu-text">图</span></a>
+    <a class="nav-link" href="./ggplot2_graphics.html"> 
+<span class="menu-text">ggplot2 图形</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./base_graphics.html"> 
+<span class="menu-text">baseR 图形</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./Table.html"> 
-<span class="menu-text">表</span></a>
+<span class="menu-text">表格</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./references.html"> 
@@ -159,7 +163,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#推荐阅读" id="toc-推荐阅读" class="nav-link active" data-scroll-target="#推荐阅读">推荐阅读</a></li>
+  <li><a href="#前言" id="toc-前言" class="nav-link active" data-scroll-target="#前言">前言</a>
+  <ul>
+  <li><a href="#推荐阅读" id="toc-推荐阅读" class="nav-link" data-scroll-target="#推荐阅读">推荐阅读</a></li>
+  <li><a href="#工具" id="toc-工具" class="nav-link" data-scroll-target="#工具">工具</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -169,12 +177,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>这是R实现科学绘图的学习笔记。</p>
-<p>作为速查电子笔记</p>
+<section id="前言" class="level1 unnumbered">
+<h1 class="unnumbered">前言</h1>
 <section id="推荐阅读" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="推荐阅读">推荐阅读</h2>
 <ul>
 <li><p><a href="https://ggplot2-book.org/mastery">ggplot2：用于数据分析的优雅图形</a></p></li>
+<li><p><a href="https://r-graph-gallery.com/best-dataviz-packages.html">The R Graph Gallery</a></p></li>
 <li><p><a href="https://r-graphics.org/">R Graphics Cookbook, 2nd edition</a></p></li>
 <li><p><a href="https://bookdown.org/xiangyun/msg2nd/">现代统计图形（2）</a></p></li>
 <li><p><a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a></p></li>
@@ -183,10 +192,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><a href="https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/" class="uri">https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/</a></p></li>
 <li><p><a href="https://plotly.com/ggplot2/" class="uri">https://plotly.com/ggplot2/</a></p></li>
 </ul>
+</section>
+<section id="工具" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="工具">工具</h2>
+<p><a href="https://encycolorpedia.cn/named">十六进制颜色</a></p>
+<p><a href="https://imgonline.tools/zh/image-color-picker">图像颜色提取器</a></p>
 
 
 <!-- -->
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -650,13 +665,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>这是R实现科学绘图的学习笔记。</span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 前言 {.unnumbered}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>作为速查电子笔记</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 推荐阅读 {.unnumbered}</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## 推荐阅读 {.unnumbered}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot2：用于数据分析的优雅图形</span><span class="co">](https://ggplot2-book.org/mastery)</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot2：用于数据分析的优雅图形</span><span class="co">](https://ggplot2-book.org/mastery)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">The R Graph Gallery</span><span class="co">](https://r-graph-gallery.com/best-dataviz-packages.html)</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">R Graphics Cookbook, 2nd edition</span><span class="co">](https://r-graphics.org/)</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -670,7 +685,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="ot">&lt;https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/&gt;</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="ot">&lt;https://plotly.com/ggplot2/&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="ot">&lt;https://plotly.com/ggplot2/&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具 {.unnumbered}</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">十六进制颜色</span><span class="co">](https://encycolorpedia.cn/named)</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">图像颜色提取器</span><span class="co">](https://imgonline.tools/zh/image-color-picker)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

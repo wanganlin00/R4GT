@@ -116,12 +116,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">主页</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./Graph.html" aria-current="page"> 
-<span class="menu-text">图</span></a>
+    <a class="nav-link active" href="./ggplot2_graphics.html" aria-current="page"> 
+<span class="menu-text">ggplot2 图形</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./base_graphics.html"> 
+<span class="menu-text">baseR 图形</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./Table.html"> 
-<span class="menu-text">表</span></a>
+<span class="menu-text">表格</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./references.html"> 
@@ -151,14 +155,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Graph.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">图</span></a>
+  <a href="./ggplot2_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggplot2 Graphics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ggplot2_graphics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ggplot2 Graphics</span></a>
+  <a href="./ggproto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>ggproto</code> 对象</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -167,10 +171,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">ggplot2 extensions</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./patchwork.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">图形布局</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./双y轴.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">双y轴</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./误差棒图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">误差棒图</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">条图</span></a>
+ <span class="menu-text">条形图</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -182,12 +204,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">条图</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggprism.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GraphPad Prism 风格</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./双向条图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">双向条图</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./发散条图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">发散条图</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">点图</span></a>
+ <span class="menu-text">点线图</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -195,8 +235,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dotplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">dotplot</span></a>
+  <a href="./散点图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">散点图</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./点图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">点图</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -205,18 +251,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Q-Q图</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./曼哈顿图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">曼哈顿图</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">线图</span></a>
+ <span class="menu-text">曲线图</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./折线图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">折线图</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./生存曲线.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">生存曲线</span></a>
@@ -226,24 +284,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./ROC.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ROC</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./折线图.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">折线图</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./confident_interval.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">置信区间</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./回归曲线.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">回归曲线</span></a>
   </div>
 </li>
       </ul>
@@ -267,6 +307,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./热图.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">热图</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./网络图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">网络图</span></a>
   </div>
 </li>
       </ul>
