@@ -1,6 +1,4 @@
-这是R实现科学绘图的学习笔记。
-
-作为速查电子笔记
+# 前言 {.unnumbered}
 
 ## 推荐阅读 {.unnumbered}
 
@@ -21,3 +19,9 @@
 -   <https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/>
 
 -   <https://plotly.com/ggplot2/>
+
+## 工具 {.unnumbered}
+
+[十六进制颜色](https://encycolorpedia.cn/named)
+
+[图像颜色提取器](https://imgonline.tools/zh/image-color-picker)

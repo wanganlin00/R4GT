@@ -13,8 +13,10 @@ website:
     left:
       - text: "主页"
         href: index.qmd
-      - text: "图形"
-        href: Graph.qmd
+      - text: "ggplot2 图形"
+        href: ggplot2_graphics.qmd
+      - text: "baseR 图形"
+        href: base_graphics.qmd
       - text: "表格"
         href: Table.qmd
       - text: "参考文献"
@@ -22,7 +24,7 @@ website:
     
         
   sidebar:
-    - title: "Graphics"
+    - title: "BaseR Graphics"
       style: "docked"
       background: "#ffd9e6"
       foreground: "#1919e6"
@@ -30,7 +32,11 @@ website:
       alignment: left
       collapse-level: 4
       contents: 
-        - Graph.qmd
+        - base_graphics.qmd
+        
+        
+    - title: "ggplot2 Graphics"
+      contents: 
         - ggplot2_graphics.qmd
         - ggproto.qmd
         - ggplot2_extensions.qmd
