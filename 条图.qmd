@@ -35,6 +35,22 @@ ggplot(df,aes(id,len))+
    ggrepel::geom_text_repel(aes(y=len+3,label=len))
 ```
 
+## 添加显著性
+
+```{r}
+library(ggsignif)
+ggplot(data = PlantGrowth, aes(x = group, y = weight)) +
+  geom_boxplot(width = 0.25) +
+  geom_jitter(width = 0.15) +
+  geom_signif(comparisons = list(c("ctrl", "trt1"), c("trt1", "trt2")), 
+              map_signif_level = function(p) sprintf("p = %.3g", p), 
+              textsize = 6, test = "t.test") +
+    ylim(c(NA,7))+
+  theme_classic() +
+  coord_cartesian(clip = "off")
+```
+
+
 ## 添加散点、抖动点
 
 ```{r}

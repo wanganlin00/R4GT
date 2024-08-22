@@ -43,9 +43,29 @@ website:
         - patchwork.qmd
 
         - 双y轴.qmd
-        - 误差棒图.qmd
         
-        - section: "条形图"
+        
+        - section: "Point"
+          contents: 
+            - 散点图.qmd
+            # - 气泡图.qmd
+            - 点图.qmd
+            - Q-Q图.qmd
+            - 曼哈顿图.qmd
+            # - 克利夫兰点图.qmd
+
+
+
+
+        - section: "Line"
+          contents: 
+            - 折线图.qmd
+            - 生存曲线.qmd
+            - ROC.qmd
+
+
+
+        - section: "Bin"
           contents: 
             - 条图.qmd
             - ggprism.qmd
@@ -53,27 +73,23 @@ website:
             - 发散条图.qmd
             # - 棒棒糖图.qmd
             # - 环状图.qmd
-        - section: "点线图"
-          contents: 
-            - 散点图.qmd
-            - 点图.qmd
-            - Q-Q图.qmd
-            - 曼哈顿图.qmd
-            # - 克利夫兰点图.qmd
-        - section: "曲线图"
-          contents: 
-            - 折线图.qmd
-            - 生存曲线.qmd
-            - ROC.qmd
 
-       
-        - section: "关系图"
+
+
+        - section: "Relationship"
           contents: 
+            # - 凹凸图.qmd          # https://github.com/davidsjoberg/ggbump
             - 相关图.qmd
             - 热图.qmd
+            # - 韦恩图.qmd           # https://github.com/gaospecial/ggVennDiagram/
             - 网络图.qmd
-            # - 韦恩图.qmd
-            
+
+
+
+        - section: "Uncertainty"
+          contents: 
+            - 误差棒图.qmd
+        
     - title: "Tables"
       contents: 
         - Table.qmd
@@ -97,7 +113,6 @@ number-sections: true
 number-depth: 4
 code-fold: show
 code-link: true
-code-tools: true
 
 format:
   html:
