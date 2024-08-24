@@ -17,10 +17,10 @@ website:
         href: ggplot2_graphics.qmd
       - text: "baseR 图形"
         href: base_graphics.qmd
-      - text: "表格"
+      - text: "三线表"
         href: Table.qmd
-      - text: "参考文献"
-        href: references.qmd
+      # - text: "参考文献"
+      #   href: references.qmd
     
         
   sidebar:
@@ -90,10 +90,10 @@ website:
           contents: 
             - 误差棒图.qmd
         
-    - title: "Tables"
+    - title: "三线表"
       contents: 
         - Table.qmd
-        - 三线表.qmd
+        - tableone.qmd
         - gtsummary.qmd
         # - gtExtras.qmd
        

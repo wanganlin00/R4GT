@@ -1,0 +1,28 @@
+# tableone
+
+## 基线资料表
+
+
+```{r}
+data <- read_excel("data/三线表/tableone骨科术式.xlsx")
+
+data
+```
+```{r}
+library(tableone)
+```
+
+
+```{r}
+
+
+tbl1 <- tableone::CreateTableOne(vars = colnames(mtcars),
+                                 data = mtcars,
+                                 factorVars = c("cyl"), # 分类
+                                 strata = c("am"),  #分层
+                                 )
+tbl1
+
+
+```
+
