@@ -9,11 +9,11 @@ head(trial)
 data("trial")
 ```
 
-数据框中的每个变量都被分配了一个 `"label"` 属性
+数据框中的每个变量都可以分配一个 `"label"` 属性
 
 ```{r}
+attr(trial$trt,"label") <- '治疗'
 attr(trial$trt,"label")
-attr(trial$age,"label")
 ```
 
 ```{r}
@@ -58,7 +58,7 @@ trial2 %>%
 ```
 
 | 函数                                                                                                         | 描述                                     |
-|:-------------------------------------------------------------------------------------------------------------|:-----------------------------------------|
+|:--------------------------------------------------|:--------------------|
 | [`add_p()`](https://www.danieldsjoberg.com/gtsummary/reference/add_p.html)                                   | 将 p 值添加到输出中，比较各组的值        |
 | [`add_overall()`](https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html)                       | 添加包含总体汇总统计数据的列             |
 | [`add_n()`](https://www.danieldsjoberg.com/gtsummary/reference/add_n.html)                                   | 为每个变量添加一个包含 N（或缺少 N）的列 |
@@ -147,6 +147,21 @@ trial %>%
   tbl_summary(by = trt) %>%
   add_p()
 set_gtsummary_theme(my_theme)
+```
+
+## 基线特征表
+
+```{r}
+df <- read_excel("data/三线表/gt.xlsx")
+
+
+
+df <- df %>% 
+    select(-1) %>% 
+    mutate(across(1:17,as.factor))
+
+glimpse(df)
+
 ```
 
 ## 回归模型结果

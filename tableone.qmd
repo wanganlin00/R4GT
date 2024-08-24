@@ -1,28 +1,105 @@
 # tableone
 
-## 基线资料表
+## 基线特征表
 
+## 案例1
 
 ```{r}
-data <- read_excel("data/三线表/tableone骨科术式.xlsx")
+data <- read_rds("data/三线表/tableone骨科术式.rds") 
 
-data
+
+data <- data|> mutate(
+    preoperative_pfirmann_level=factor(preoperative_pfirmann_level,
+                                       levels=c("Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ"),labels=c("Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ"),ordered = T),
+    preoperative_pfirmann_cranial=factor(preoperative_pfirmann_cranial,levels=c(1,2,3,4,5),labels=c(1,2,3,4,5),ordered = T),
+    preoperative_pfirmann_caudal=factor(preoperative_pfirmann_caudal,levels=c(1,2,3,4,5),labels=c(1,2,3,4,5),ordered = T),
+    postoperative_pfirmann_cranial=factor(postoperative_pfirmann_cranial,levels=c(1,2,3,4,5),labels=c(1,2,3,4,5),ordered = T),
+    postoperative_pfirmann_caudal=factor( postoperative_pfirmann_caudal,levels=c(1,2,3,4,5),labels=c(1,2,3,4,5),ordered = T),
+)
+
+head(data)
 ```
+
 ```{r}
 library(tableone)
+
+interest <- names(data)[c(2,3,4,5,14,23,24,26)]
+interest
+categories <- interest[c(1,4,6)]
+
+tbl1 <- CreateTableOne(vars = names(data)[-c(1,17:19,21:26)],
+               data = data,strata = "group",
+               addOverall = T
+               ) 
+
+print(tbl1, showAllLevels = T,
+          nonnormal = c(   # 非正态分布
+        "bmi",
+        "preoperative_segmented_lordosis",
+        "postoperative_segmented_lordosis",
+        "preoperative_ll" ,
+        "postoperative_ll",
+        "postoperative_segmented_lordosis_cranial",
+        "delta_H"
+    ),
+    exact = c(        # fisher 精确检验
+
+        "preoperative_pfirmann_level",
+        "preoperative_pfirmann_cranial",
+        "preoperative_pfirmann_caudal",
+        "postoperative_pfirmann_cranial",
+        "postoperative_pfirmann_caudal"
+    ))
+
+tbl1 %>% print(
+    nonnormal = c(   # 非正态分布
+        "bmi",
+        "preoperative_segmented_lordosis",
+        "postoperative_segmented_lordosis",
+        "preoperative_ll" ,
+        "postoperative_ll",
+        "postoperative_segmented_lordosis_cranial",
+        "delta_H"
+    ),
+    exact = c(        # fisher 精确检验
+
+        "preoperative_pfirmann_level",
+        "preoperative_pfirmann_cranial",
+        "preoperative_pfirmann_caudal",
+        "postoperative_pfirmann_cranial",
+        "postoperative_pfirmann_caudal"
+    ),
+    showAllLevels = T,
+    printToggle = F,
+    smd = F,
+    formatOptions = list(big.mark = ",")
+) %>%
+    write.csv("data/三线表/tableone生成三线表.csv")
 ```
 
+### 统计检验默认方法
+
+连续变量应用Welch 两样本t检验
 
 ```{r}
-
-
-tbl1 <- tableone::CreateTableOne(vars = colnames(mtcars),
-                                 data = mtcars,
-                                 factorVars = c("cyl"), # 分类
-                                 strata = c("am"),  #分层
-                                 )
-tbl1
-
-
+t.test(age~group, data = data,var.equal=F)
 ```
 
+分类变量应用 Yate校正 的Pearson卡方检验
+
+```{r}
+table(data$sex, data$group) %>% chisq.test(correct = T)
+table(data$sex, data$group) %>% chisq.test(correct = F)
+```
+
+可能无法校正
+
+```{r}
+table(data$preoperative_pfirmann_level,data$group)[3:5,] %>% chisq.test()
+
+table(data$preoperative_pfirmann_level,data$group)[3:5,] %>% fisher.test()
+```
+
+### 指定非正态分布
+
+### 指定精确检验
