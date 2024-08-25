@@ -95,7 +95,7 @@ trial2 %>%
 ```
 
 | 函数                                                                                                         | 描述                                     |
-|:-------------------------------------------------|:---------------------|
+|:------------------------------------------------|:----------------------|
 | [`add_p()`](https://www.danieldsjoberg.com/gtsummary/reference/add_p.html)                                   | 将 p 值添加到输出中，比较各组的值        |
 | [`add_overall()`](https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html)                       | 添加包含总体汇总统计数据的列             |
 | [`add_n()`](https://www.danieldsjoberg.com/gtsummary/reference/add_n.html)                                   | 为每个变量添加一个包含 N（或缺少 N）的列 |
@@ -130,11 +130,6 @@ trial2 |>
 ```{r}
 wilcox.test(age~trt,data = trial2)
 table(trial2$grade,trial2$trt) |> as.matrix() |> chisq.test()
-```
-
-```{r}
-x <- "333323222222323222222222223222222333344442323222344554554535444411111111111111111111122233434441534434433435456444533222233444444343331111222222222233333333333333344444444444444344444444444444"
-str_split_1(x,pattern = "") |> parse_number() |> sum()
 ```
 
 ```{r}
