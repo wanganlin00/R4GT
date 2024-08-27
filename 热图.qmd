@@ -37,6 +37,34 @@ pheatmap(test,
          )
 ```
 
+```{r}
+library("pheatmap")
+
+library("Hiiragi2013")
+data("x")
+dim(Biobase::exprs(x))
+
+dfx = as.data.frame(Biobase::exprs(x))
+groups = group_by(pData(x), sampleGroup) |>
+  summarise(n = n(), color = unique(sampleColour))
+groups
+groupColor = setNames(groups$color, groups$sampleGroup)
+topGenes = order(rowVars(Biobase::exprs(x)), decreasing = TRUE)[1:500]
+rowCenter = function(x) { x - rowMeans(x) }
+pheatmap(rowCenter(dfx[topGenes, ]), 
+  show_rownames = FALSE, 
+  show_colnames = FALSE, 
+  breaks = seq(-5, +5, length = 101),
+  annotation_col = pData(x)[, c("sampleGroup", "Embryonic.day", "ScanDate", "genotype") ],
+  annotation_colors = list(
+    sampleGroup = groupColor,
+    genotype = c(`FGF4-KO` = "chocolate1", `WT` = "azure2"),
+    Embryonic.day = setNames(brewer.pal(9, "Blues")[c(3, 6, 9)], c("E3.25", "E3.5", "E4.5")),
+    ScanDate = setNames(brewer.pal(nlevels(x$ScanDate), "YlGn"), levels(x$ScanDate))
+  )
+)
+```
+
 
 ## 相关性热图
 
