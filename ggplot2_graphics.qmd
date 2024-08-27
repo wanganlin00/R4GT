@@ -828,6 +828,24 @@ ggplot(df, aes(x, y)) +
   labs(y = quote(f(x) == x^3))         #数学表达式   ？plotmath
 ```
 
+```{r}
+volume = function(rho, nu)
+    pi ^ (nu / 2) * rho ^ nu / gamma(nu / 2 + 1)
+
+ggplot(tibble(nu    = 1:15, Omega = volume(1, nu)), aes(x = nu, y = Omega)) +
+    geom_line() +
+    xlab(expression(nu)) + ylab(expression(Omega)) +
+    geom_text(
+        label =
+            "Omega(rho,nu)==frac(pi^frac(nu,2)~rho^nu, Gamma(frac(nu,2)+1))",
+        parse = TRUE,
+        x = 6,
+        y = 1.5
+    )
+```
+
+
+
 ### 线段 直线 箭头
 
 geom_hline()
