@@ -15,16 +15,16 @@ website:
         href: index.qmd
       - text: "ggplot2 图形"
         href: ggplot2_graphics.qmd
-      - text: "baseR 图形"
+      - text: "base 图形"
         href: base_graphics.qmd
-      - text: "三线表"
+      - text: "表格"
         href: Table.qmd
       # - text: "参考文献"
       #   href: references.qmd
     
         
   sidebar:
-    - title: "BaseR Graphics"
+    - title: "base Graphics"
       style: "docked"
       background: "#ffd9e6"
       foreground: "#1919e6"
@@ -67,8 +67,9 @@ website:
 
         - section: "Bin"
           contents: 
-            - 条图.qmd
+            - 条形图.qmd
             - ggprism.qmd
+            - ggpattern.qmd
             - 双向条图.qmd
             - 发散条图.qmd
             # - 棒棒糖图.qmd
@@ -90,7 +91,7 @@ website:
           contents: 
             - 误差棒图.qmd
         
-    - title: "三线表"
+    - title: "表格"
       contents: 
         - Table.qmd
         - tableone.qmd

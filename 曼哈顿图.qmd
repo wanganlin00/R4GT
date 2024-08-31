@@ -135,7 +135,7 @@ ggplot(don, aes(x=BPcum, y=-log10(P))) +
 
 ```{r}
 gwasResults %>% 
-  filter(-log10(P)>1)
+  filter(-log10(P)>1) %>% head()
 ```
 
 ```{r}
@@ -198,7 +198,7 @@ p = ggplotly(p, tooltip="text")
 p
 ```
 
-##  CMplot 的环形版本
+## CMplot 的环形版本
 
 ```{r}
 library("CMplot")

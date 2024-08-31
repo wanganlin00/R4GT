@@ -38,8 +38,6 @@ pheatmap(test,
 ```
 
 ```{r}
-library("pheatmap")
-
 library("Hiiragi2013")
 data("x")
 dim(Biobase::exprs(x))
@@ -51,7 +49,7 @@ groups
 groupColor = setNames(groups$color, groups$sampleGroup)
 topGenes = order(rowVars(Biobase::exprs(x)), decreasing = TRUE)[1:500]
 rowCenter = function(x) { x - rowMeans(x) }
-pheatmap(rowCenter(dfx[topGenes, ]), 
+pheatmap::pheatmap(rowCenter(dfx[topGenes, ]), 
   show_rownames = FALSE, 
   show_colnames = FALSE, 
   breaks = seq(-5, +5, length = 101),
@@ -65,7 +63,6 @@ pheatmap(rowCenter(dfx[topGenes, ]),
 )
 ```
 
-
 ## 相关性热图
 
 ```{r}
@@ -73,22 +70,20 @@ r <- cor(test,method = "pearson",use = "pairwise.complete.obs")
 
 r
 
-pheatmap(r,fontsize = 12,
+pheatmap::pheatmap(r,fontsize = 12,
          color = colorRampPalette(c("#0000ff","#ffffff","#ff0000"))(200),)
 ```
 
-
 ```{r}
-pheatmap(test, kmeans_k = 2,
+pheatmap::pheatmap(test, kmeans_k = 2,
                  cellwidth = 30,cellheight = 25,)
 ```
 
 ```{r}
 # Show text within cells
-pheatmap(test, display_numbers = TRUE)
-pheatmap(test, display_numbers = matrix(ifelse(test > 5, "*", ""), nrow(test)))
+pheatmap::pheatmap(test, display_numbers = TRUE)
+pheatmap::pheatmap(test, display_numbers = matrix(ifelse(test > 5, "*", ""), nrow(test)))
 ```
-
 
 ## `geom_tile()`
 

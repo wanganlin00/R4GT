@@ -103,3 +103,30 @@ table(data$preoperative_pfirmann_level,data$group)[3:5,] %>% fisher.test()
 ### 指定非正态分布
 
 ### 指定精确检验
+
+
+## 
+
+
+```{r}
+library(tableone)
+
+# 创建数据
+data <- data.frame(
+  group = c(rep("A", 50), rep("B", 50)),
+  sex = sample(c("Male", "Female"), 100, replace = TRUE),
+  age = rnorm(100, 50, 10),
+  bmi = rnorm(100, 25, 4)
+)
+
+# 生成表格
+tab <- CreateTableOne(vars = c("age", "sex", "bmi"), 
+                      strata = "group", 
+                      data = data, 
+                      test = TRUE)
+
+# 打印表格，包含卡方统计量和t值
+print(tab, showAllLevels = TRUE, quote = F, smd = TRUE)
+
+```
+

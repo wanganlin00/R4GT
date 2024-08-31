@@ -1,0 +1,75 @@
+# `ggpattern`
+
+```{r}
+library(ggpattern)
+df <- data.frame(
+    group = factor(c("Cool", "But", "Use", "Less"), 
+                   levels = c("Cool", "But", "Use", "Less")),
+    value = c(25, 25, 25, 25)
+)
+
+ggplot(df, aes(x="", y = value, pattern = group, pattern_angle = group))+
+    geom_bar_pattern(
+        width                = 1, 
+        stat                 = "identity", 
+        fill                 = 'white', 
+        colour               = 'black',
+        pattern_aspect_ratio = 1, 
+        pattern_density      = 0.3
+    ) +
+    theme_void(14) + 
+    theme(
+        legend.key.size = unit(.5, 'cm')
+    )
+```
+
+```{r}
+df <- tibble(
+    name = c("CA","CB","CC"),
+    细辛脂素_mean=c(0.776,0.803,0.684),
+    细辛脂素_sd=c(0.059,0.026,0.011),
+    芝麻脂素_mean=c(0.812,0.506,0.487),
+    芝麻脂素_sd =c(0.086,0.008,0.052),
+)
+
+
+
+
+# 合并两个数据集以便绘图
+df_long <- df %>%
+    pivot_longer(cols = c(-name), names_to = c("compound", ".value"), names_sep = "_")
+
+
+# df_long$signif <- c("a","a","a","b","a","b")
+
+# 创建条形图并设置填充图案
+ggplot(df_long, aes(x = name, y = mean, pattern = compound)) +
+    geom_bar_pattern(
+        stat = "identity",
+        position = position_dodge(0.9),
+        width = 0.7,
+        #   aes(fill = compound),
+        fill            = 'white',
+        color          = 'black',
+        pattern_density = 0.1,
+        pattern_spacing = 0.02
+    ) +
+    geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd),
+                  width = 0.2,
+                  position = position_dodge(0.9)) +
+    labs(
+        title = "不同基原细辛的细辛脂素与芝麻脂素含量",
+        x = "",
+        y = "含量",
+        pattern = "Compound"
+    ) +
+    scale_pattern_manual(values = c("细辛脂素" = "stripe", "芝麻脂素" = "circle"))+
+    scale_y_continuous(expand = c(0,0))+
+    ggpubr::theme_pubr()+
+    theme(
+        plot.title = element_text(hjust = .5),
+        legend.title = element_blank()
+    )
+
+
+```

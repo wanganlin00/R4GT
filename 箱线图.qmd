@@ -1,0 +1,25 @@
+# 箱线图
+
+```{r}
+library(ggthemes)
+
+boxplot1.df<-data.frame(rnorm(1000))
+colnames(boxplot1.df)<-"data"
+ggplot(boxplot1.df, aes(y=data))+
+  geom_boxplot()+
+  theme_tufte(base_size=12, base_family="sans", ticks=FALSE)+
+  labs(x="Dataset", y="Values")+
+  theme(axis.text.x=element_blank(), axis.title.x=element_blank())+
+  annotate("text", x=1.75, y=0, label="median", size=6)+
+  annotate("text", x=c(-1.75, -1.75), y=c(-0.652, 0.667), label=c("25th\npercentile", "75th\npercentile"), size=6)+
+  annotate("text", x=c(0.8, 0.8), y=c(-2.508464,2.560529), label=c("25th percentile\n- 1.5(IQR)", "75th percentile\n+ 1.5(IQR)"), size=6, hjust=0)+
+    annotate("text", x=c(0.8, 0.8), y=c(-2.508464,2.560529), label=c("25th percentile\n- 1.5(IQR)", "75th percentile\n+ 1.5(IQR)"), size=6, hjust=0)+
+  annotate("text", x=c(-0.8, -0.8), y=c(2.973052, -3.03701), label="outliers", size=6, hjust=1)+
+  geom_segment(x=1.2, xend=0.5, y=0, yend=0, arrow=arrow())+
+  geom_segment(x=-1.2, xend=-0.5, y=-0.652, yend=-0.652, arrow=arrow())+
+  geom_segment(x=-1.2, xend=-0.5, y=0.667, yend=0.6667, arrow=arrow())+
+  geom_segment(x=0.76, xend=0.05, y=2.560529, yend=2.560529, arrow=arrow())+
+  geom_segment(x=-0.76, xend=-0.05, y=2.973052, yend=2.973052, arrow=arrow())+
+  geom_segment(x=-0.76, xend=-0.05, y=-3.03701, yend=-3.03701, arrow=arrow())+
+  xlim(-2, 2)
+```
