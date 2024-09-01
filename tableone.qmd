@@ -29,7 +29,7 @@ categories <- interest[c(1,4,6)]
 
 tbl1 <- CreateTableOne(vars = names(data)[-c(1,17:19,21:26)],
                data = data,strata = "group",
-               addOverall = T
+               addOverall = T,includeNA = TRUE,
                ) 
 
 print(tbl1, showAllLevels = T,

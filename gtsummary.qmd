@@ -70,7 +70,7 @@ trial2 %>%
 ```
 
 | 函数                                                                                                         | 描述                                     |
-|:-------------------------------------------------|:---------------------|
+|:-------------------------------------------------------------------------------------------------------------|:-----------------------------------------|
 | [`add_p()`](https://www.danieldsjoberg.com/gtsummary/reference/add_p.html)                                   | 将 p 值添加到输出中，比较各组的值        |
 | [`add_overall()`](https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html)                       | 添加包含总体汇总统计数据的列             |
 | [`add_n()`](https://www.danieldsjoberg.com/gtsummary/reference/add_n.html)                                   | 为每个变量添加一个包含 N（或缺少 N）的列 |
