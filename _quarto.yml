@@ -96,6 +96,7 @@ website:
         - Table.qmd
         - tableone.qmd
         - gtsummary.qmd
+        # - flextable.qmd
         # - gtExtras.qmd
        
        
