@@ -70,7 +70,6 @@ tbl1 %>% print(
         "postoperative_pfirmann_caudal"
     ),
     showAllLevels = T,
-    printToggle = F,
     smd = F,
     formatOptions = list(big.mark = ",")
 ) %>%
@@ -104,9 +103,7 @@ table(data$preoperative_pfirmann_level,data$group)[3:5,] %>% fisher.test()
 
 ### 指定精确检验
 
-
 ## 
-
 
 ```{r}
 library(tableone)
@@ -126,7 +123,8 @@ tab <- CreateTableOne(vars = c("age", "sex", "bmi"),
                       test = TRUE)
 
 # 打印表格，包含卡方统计量和t值
-print(tab, showAllLevels = TRUE, quote = F, smd = TRUE)
+print(tab, showAllLevels = TRUE, smd = TRUE)
 
 ```
 
+![](images/clipboard-872907885.png)
