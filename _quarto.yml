@@ -34,14 +34,12 @@ website:
       contents: 
         - base_graphics.qmd
         
-        
     - title: "ggplot2 Graphics"
       contents: 
         - ggplot2_graphics.qmd
         - ggproto.qmd
         - ggplot2_extensions.qmd
         - patchwork.qmd
-
         - 双y轴.qmd
         
         
@@ -62,6 +60,7 @@ website:
             - 折线图.qmd
             - 生存曲线.qmd
             - ROC.qmd
+            # - 岭线图.qmd
 
 
 
@@ -86,10 +85,11 @@ website:
             - 网络图.qmd
 
 
-
         - section: "Uncertainty"
           contents: 
             - 误差棒图.qmd
+            - 森林图.qmd
+            - 列线图.qmd
         
     - title: "表格"
       contents: 
