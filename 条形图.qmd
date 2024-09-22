@@ -7,52 +7,12 @@ library(ggthemes)
 library(patchwork)
 ```
 
-```{r}
-df <- ToothGrowth |> rownames_to_column("id")
-ggplot(df, aes(x=supp, y=len, fill = factor(dose)))+
-  stat_summary(fun="mean", geom="bar",position = position_dodge(1))+
-  stat_summary(fun.data="mean_se", geom="errorbar", width=0.25,position = position_dodge(1))+
-  theme_tufte(base_size=16, base_family="sans", ticks=FALSE)+
-  labs(x="Group", y="Values", caption="Error Bars Indicate Standard Error")
-```
-
-## 基础柱状图
-
-```{r}
-ggplot(df,aes(supp,len))+
-    geom_col()
-
-ggplot(df,aes(supp,len))+
-    geom_bar(stat = "identity")
-```
-
 ## 修改边框和填充颜色
 
 ```{r}
+df <- ToothGrowth |> rownames_to_column("id")
 ggplot(df,aes(dose,len,color=factor(dose)))+
     geom_col(fill=NA)
-```
-
-```{r}
-library(ggforce)
-
-df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
-
-width <- .9
-
-df <- df |>
-  mutate(trt = factor(trt)) |>
-  dplyr::reframe(
-    data.frame(
-      x = rep(as.numeric(trt) + width / 2 * c(-1, 1), each = 2), # 指定条形图四个角的坐标
-      outcome = c(c(0, outcome), rev(c(0, outcome)))
-    ),
-    .by = trt
-  )
-df
-
-ggplot(df, aes(x, outcome, fill = trt)) +
-  geom_shape(radius = .05) 
 ```
 
 
@@ -62,6 +22,17 @@ ggplot(df, aes(x, outcome, fill = trt)) +
 ggplot(df,aes(id,len))+
     geom_col()+
    ggrepel::geom_text_repel(aes(y=len+3,label=len))
+```
+
+## 添加误差棒
+
+```{r}
+df <- ToothGrowth |> rownames_to_column("id")
+ggplot(df, aes(x=supp, y=len, fill = factor(dose)))+
+  stat_summary(fun="mean", geom="bar",position = position_dodge(1))+
+  stat_summary(fun.data="mean_sd", geom="errorbar", width=0.25,position = position_dodge(1))+
+  theme_tufte(base_size=16, base_family="sans", ticks=FALSE)+
+  labs(x="Group", y="Values", caption="Error Bars Indicate Standard Error")
 ```
 
 ## 添加显著性

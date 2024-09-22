@@ -17,9 +17,7 @@ library(survival)
 
 library(rms)
 
-# 创建一个rms包的数据对象
-dd <- datadist(data)
-options(datadist = "dd")
+
 
 
 # 创建一个示例数据框
@@ -31,7 +29,9 @@ data <- data.frame(
     age = sample(40:80, n, replace = TRUE),  # 年龄
     sex = sample(c("male", "female"), n, replace = TRUE)  # 性别
 )
-
+# 创建一个rms包的数据对象
+dd <- datadist(data)
+options(datadist = "dd")
 # 拟合Cox模型
 cox_model <- coxph(Surv(time, status) ~ age + sex, data = data)
 

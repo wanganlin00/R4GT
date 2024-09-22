@@ -1,0 +1,23 @@
+# 圆角条形
+
+```{r}
+library(ggforce)
+
+df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
+
+width <- .9
+
+df <- df |>
+    mutate(trt = factor(trt)) |>
+    dplyr::reframe(
+        data.frame(
+            x = rep(as.numeric(trt) + width / 2 * c(-1, 1), each = 2), # 指定条形图四个角的坐标
+            outcome = c(c(0, outcome), rev(c(0, outcome)))
+        ),
+        .by = trt
+    )
+df
+
+ggplot(df, aes(x, outcome, fill = trt)) +
+    geom_shape(radius = .05) 
+```

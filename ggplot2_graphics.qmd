@@ -93,6 +93,117 @@ ggplot(shapes, aes(x, y)) +
   theme_void()
 ```
 
+### scale
+
+#### x/y_continuous
+
+```{r}
+ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point() +
+  scale_x_continuous(name = "Weight (1000 lbs.)",   
+                     n.breaks = 10,                 
+                     minor_breaks = NULL,           
+                     limits = c(1.5, 5.5)) +        
+  scale_y_continuous(name = "Miles per gallon",     
+                     breaks = seq(10, 35, 5),       
+                     minor_breaks = seq(10, 35, 1), 
+                     limits = c(10, 35)) +          
+  labs(title = "Fuel efficiency by car weight")
+
+
+```
+
+```{r}
+ggplot(diamonds, aes(x = price, y = cut)) +
+  geom_boxplot(alpha = 0.05) +
+  scale_x_continuous(labels = scales::label_dollar(scale = 1/1000, suffix = "K"))
+
+ggplot(diamonds, aes(x = cut, fill = clarity)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(name = "Percentage", labels = scales::label_percent())
+```
+
+#### x/y_discrete
+
+```{r}
+ggplot(mpg,aes(x=factor(drv),fill=class))+
+    geom_bar(position = "fill") ->p
+p | p + scale_x_discrete(name = "drv",                                  
+                   limits = c("f", "r"),    
+                   labels = c('f'="drv='f'",'r'= "drv='r'"),
+                   position = "top") 
+```
+
+#### color
+
+```{r}
+RColorBrewer::display.brewer.all()
+p <- ggplot(mpg, aes(x=displ, y=hwy, color=drv)) +
+  geom_point(shape=19, size=3) 
+p + ggthemes::scale_color_colorblind()
+```
+
+```{r}
+p <- ggplot(mpg, aes(x=displ, y=hwy, color=cty)) +
+  geom_point() 
+p + ggtitle("A. Default color gradient")|
+p + scale_color_gradient(low="grey", high="black") +
+  ggtitle("B. Greyscale gradient")|
+p + scale_color_gradient(low="red", high="blue") +
+  ggtitle("C. Red-blue color gradient")
+
+p + scale_color_steps(low="red", high="blue") +
+  ggtitle("D. Red-blue binned color Gradient")|
+p + scale_color_steps2(low="red", mid="white", high="blue",
+                       midpoint=median(mtcars$disp)) +
+  ggtitle("E. Red-white-blue binned gradient")|
+p + scale_color_viridis_c(direction = -1) +    # viridis_c,d,b
+  ggtitle("F. Viridis color gradient")
+
+```
+
+```{r}
+df <- tibble(
+  x = rnorm(10000),
+  y = rnorm(10000)
+)
+
+ggplot(df, aes(x, y)) +
+  geom_hex() +
+  coord_fixed() +
+  labs(title = "Default, continuous", x = NULL, y = NULL)
+
+ggplot(df, aes(x, y)) +
+  geom_hex() +
+  coord_fixed() +
+  scale_fill_viridis_c() +
+  labs(title = "Viridis, continuous", x = NULL, y = NULL)
+
+ggplot(df, aes(x, y)) +
+  geom_hex() +
+  coord_fixed() +
+  scale_fill_viridis_b() +
+  labs(title = "Viridis, binned", x = NULL, y = NULL)
+```
+
+#### fill
+
+```{r}
+p <- ggplot(mpg,aes(drv,fill=class))+
+    geom_bar()
+
+p + ggtitle("A. Default colors")|
+p + scale_fill_brewer(palette="Set2") +
+  ggtitle("B. ColorBrewer Set2 palette")
+
+p + scale_fill_viridis_d() +
+  ggtitle("C. Viridis color scheme")|
+p + scale_fill_manual(values=c("gold4", "orange2", "deepskyblue3", "blue4",
+                               "brown2", "yellowgreen","lightpink")) +
+  ggtitle("D. Manual color selection")
+```
+
+
 ## Geometry
 
 -   图形基元（Graphical primitives）:
@@ -594,7 +705,68 @@ bar + coord_flip()| #水平条形图
 bar + coord_polar()#极坐标
 ```
 
-## 坐标轴 axis
+## 标题 titles
+
+### `ggtitle()`
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) +
+    geom_point(alpha = 1 / 3) +
+    xlab("city driving (mpg)") +
+    ylab("highway driving (mpg)")+
+    ggtitle(label = "主标题",
+            subtitle = "副标题")+
+     theme(plot.title.position = "panel") # 默认
+```
+
+### `labs()`
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Fuel efficiency generally decreases with engine size",
+    subtitle = "Two seaters (sports cars) are an 
+    exception because of their light weight",
+    caption = "Data from fueleconomy.gov",
+    tag = "Fig. 1",
+    x = "Engine displacement (L)",
+    y = "Highway fuel economy (mpg)",
+    color = "Car type", # 图例 美学映射color
+  )+
+    theme(plot.title.position = "plot",# 相对于整个绘图进行设置
+          plot.caption.position = "plot",
+          plot.tag.position = "topleft",
+        plot.caption = element_text(hjust = 0))  
+```
+
+```{r}
+ggplot(economics, aes(date, unemploy)) +
+  geom_area(fill = rgb(0, 0.5, 1, alpha = 0.5)) + 
+  labs(title = "Title of the plot",
+       subtitle = "Subtitle of the plot",
+       caption = "This is the caption",
+       tag = "Fig. 1") + 
+  theme(plot.title = element_text(family = "serif",              # Font family
+                                  face = "bold",                 # Font face
+                                  color = 4,                     # Font color
+                                  size = 15,                     # Font size
+                                  hjust = 1,             # Horizontal adjustment
+                                  vjust = 1,             # Vertical adjustment
+                                  angle = -10,                   # Font angle
+                                  lineheight = 1,                # Line spacing
+                                  margin = margin(20, 0, 0, 0)), # Margins (t, r, b, l)
+        plot.subtitle = element_text(hjust = 0),    # Subtitle customization
+        plot.caption = element_text(hjust = 0.25),  # Caption customization
+        plot.tag = element_text(face = "italic"),   # Tag customization
+        plot.title.position = "plot",               # Title and subtitle position ("plot" or "panel")
+        plot.caption.position = "panel",            # Caption position ("plot" or "panel")
+        plot.tag.position = "top")                  # Tag position
+```
+
+
+## 轴 axis
 
 ### 变换
 
@@ -606,7 +778,7 @@ ggplot(mpg, aes(log10(cty),hwy)) +
 
 ```
 
-### limits
+### 子集：`xlim(), ylim()`
 
 ```{r}
 ggplot(mpg, aes(displ, hwy)) +
@@ -637,7 +809,34 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   scale_y_continuous(limits = c(10, 25))  
 ```
 
-### zooming
+### **Axis ticks (breaks)**
+
+```{r}
+# install.packages("ggplot2")
+library(ggplot2)
+
+# Sample data
+x <- droplevels(chickwts$feed[1:36])
+levels(x) <- LETTERS[1:3]
+y <- chickwts$weight[1:36]
+df <- data.frame(x = x, y = y)
+
+# Plot
+p <- ggplot(df, aes(x = x, y = y)) + 
+      stat_boxplot(geom = "errorbar",
+                   width = 0.25) +
+      geom_boxplot(fill = "dodgerblue1",
+                   colour = "black",
+                   alpha = 0.5,
+                   outlier.colour = "tomato2")
+p|p + 
+  theme(axis.ticks.length  = unit(0.5, "cm")) + 
+  theme(axis.ticks = element_line(color = 2,
+                                  linewidth = 2))
+
+```
+
+### 放大：`coord_cartesian()`
 
 调整绘制的数据,在每个刻度中设置`coord_cartesian(xlim= ,ylim= )`
 
@@ -649,6 +848,72 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = drv)) +
   geom_smooth()+
   coord_cartesian(xlim = c(5, 6), ylim = c(10, 25))   #放大局部
+
+p + 
+   coord_cartesian(ylim = c(100, 200)) 
+
+```
+
+### 从原点开始
+
+```{r}
+p + 
+  expand_limits(x = 0, y = 0) 
+p + 
+  theme(axis.line = element_line(arrow = arrow(angle = 30,
+                                               length = unit(0.15, "inches"),
+                                               ends = "last", 
+                                               type = "closed"))) 
+ 
+ 
+ 
+
+```
+
+### 双y轴
+
+```{r}
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_col() +
+  geom_smooth(data = cars, aes(x = speed, y = dist * 2)) + 
+  scale_y_continuous(sec.axis = sec_axis(trans = ~.* 2, name = "Z-axis title")) 
+
+
+# 次轴   breaks
+
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_col() +
+  geom_smooth(data = cars, aes(x = speed, y = dist * 2)) + 
+  scale_y_continuous(sec.axis = sec_axis(~.* 2, name = "Z-axis title",
+                                         breaks = c(100, 200, 300))) 
+# 次轴    labels
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_col() +
+  geom_smooth(data = cars, aes(x = speed, y = dist * 2)) + 
+  scale_y_continuous(sec.axis = sec_axis(~.* 2, name = "Z-axis title",
+                                         breaks = c(100, 200, 300),
+                                         labels = c("A", "B", "C"))) 
+
+
+
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_col() +
+  geom_smooth(data = cars, aes(x = speed, y = dist * 2)) + 
+  scale_y_continuous(sec.axis = sec_axis(~.* 2, name = "Z-axis title")) + 
+  theme(axis.title.y.right = element_text(color = "red", 
+                                          size = 15,
+                                          face = "bold"),
+        axis.text.y.right = element_text(color = "blue", size = 10),
+        axis.line.y.right = element_line(color = "orange")) 
+ 
+ 
+ 
+
+
+
+
+
+
 ```
 
 ### 共享
@@ -671,43 +936,20 @@ ggplot(mpg[mpg$class=="compact",], aes(x = displ, y = hwy, color = drv)) +
   col_scale
 ```
 
-## 标题 labels
-
-```{r}
-ggplot(mpg, aes(cty, hwy)) +
-    geom_point(alpha = 1 / 3) +
-    xlab("city driving (mpg)") +
-    ylab("highway driving (mpg)")+
-    ggtitle("主标题")
-
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    x = "Engine displacement (L)",
-    y = "Highway fuel economy (mpg)",
-    color = "Car type", # 图例 美学映射color
-    title = "Fuel efficiency generally decreases with engine size",
-    subtitle = "Two seaters (sports cars) are an 
-    exception because of their light weight",
-    caption = "Data from fueleconomy.gov"
-  )
-```
 
 ## 注释 annotation
 
-### 文本 text
+### 文本注释 text
 
 ```{r}
-# 字体
-df <- data.frame(x = 1, y = 3:1, family = c("sans", "serif", "mono"))
+# 字体 样式
+df <- data.frame(x = 1:3, y = 1:3, 
+                 family = c("sans", "serif", "mono"),
+                 face = c("plain", "bold", "italic"))
 ggplot(df, aes(x, y)) + 
-  geom_text(aes(label = family, family = family))
-
-# 样式
-df <- data.frame(x = 1, y = 3:1, face = c("plain", "bold", "italic"))
-ggplot(df, aes(x, y)) + 
-  geom_text(aes(label = face, fontface = face))
+  geom_text(mapping = aes(label = paste0(family,": ",face), 
+                          family = family, fontface = face),
+            vjust = "inward", hjust = "inward")
 
 # 位置
 df <- data.frame(
@@ -718,8 +960,6 @@ df <- data.frame(
     "bottom-right", "top-right", "center"
   )
 )
-ggplot(df, aes(x, y)) +
-  geom_text(aes(label = text))|
 ggplot(df, aes(x, y)) +
   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 
@@ -736,21 +976,6 @@ ggplot(df, aes(treatment, response)) +
     nudge_x = -0.3,
     nudge_y=.2
   ) 
-```
-
-```{r}
-mtcars |>
-    group_by(cyl,am) |> 
-    summarise(n=n()) |> 
-    mutate(pct = n / sum(n),
-         lbls = scales::percent(pct)
-         )|> 
-    ggplot(aes(factor(cyl),pct,fill=factor(am)))+
-    geom_bar(stat = "identity",position = "fill")+
-    geom_text(mapping = aes(label=lbls),
-              position = position_stack(vjust = 0.5),
-              size=3
-              )
 ```
 
 ```{r}
@@ -797,20 +1022,32 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   )
 ```
 
-### markdown
+### 富文本/markdown
 
 ```{r}
 df <- data.frame(x = 1:3, y = 1:3)
 base <- ggplot(df, aes(x, y)) + 
   geom_point() + 
-  labs(x = "Axis title with *italics* and **boldface**")
+  labs(x = "Axis title with *italics* and **bold**")
+
+
+library(ggtext)
 base |
-base + theme(axis.title.x = ggtext::element_markdown())  #ggtext::element_markdown
+base + 
+  geom_richtext(aes(x = 2, y = 3,
+                    label =  "**title** of <span style = 'color:red'>xy</span>"),
+                angle =-25)  + theme(axis.title.x = ggtext::element_markdown()) 
+ 
+ 
+
 ```
 
 ### 数学表达式
 
+`?plotmath`
+
 ```{r}
+
 tibble(
   x = 1:10,
   y = cumsum(x^2)) %>% 
@@ -822,31 +1059,29 @@ tibble(
   )
 
 values <- seq(from = -2, to = 2, by = .01)
-df <- data.frame(x = values, y = values ^ 3)
+df <- tibble(x = values, y = values ^ 3)
 ggplot(df, aes(x, y)) + 
   geom_path() + 
   labs(y = quote(f(x) == x^3))         #数学表达式   ？plotmath
 ```
 
 ```{r}
+# install.packages("latex2exp")
+library(latex2exp)
+
 volume = function(rho, nu)
     pi ^ (nu / 2) * rho ^ nu / gamma(nu / 2 + 1)
 
-ggplot(tibble(nu    = 1:15, Omega = volume(1, nu)), aes(x = nu, y = Omega)) +
+tibble(nu = 1:15, 
+       Omega = volume(1, nu)) %>% 
+ggplot( aes(x = nu, y = Omega)) +
     geom_line() +
-    xlab(expression(nu)) + ylab(expression(Omega)) +
-    geom_text(
-        label =
-            "Omega(rho,nu)==frac(pi^frac(nu,2)~rho^nu, Gamma(frac(nu,2)+1))",
-        parse = TRUE,
-        x = 6,
-        y = 1.5
-    )
+    xlab(TeX("$\\mu$")) + 
+    ylab(TeX("$\\Omega$")) +
+    labs(title = TeX("$\\Omega (\\rho,\\nu)=\\frac{\\pi^{\\frac{\\nu}{2}} \\rho^\\nu}{ \\Gamma (\\frac{\\nu}{2}+1 )}"))
 ```
 
-
-
-### 线段 直线 箭头
+### 参考线：线段 直线 箭头
 
 geom_hline()
 
@@ -895,115 +1130,6 @@ p +
 
 ```
 
-## scale
-
-### x/y_continuous
-
-```{r}
-ggplot(mtcars, aes(x = wt, y = mpg)) + 
-  geom_point() +
-  scale_x_continuous(name = "Weight (1000 lbs.)",   
-                     n.breaks = 10,                 
-                     minor_breaks = NULL,           
-                     limits = c(1.5, 5.5)) +        
-  scale_y_continuous(name = "Miles per gallon",     
-                     breaks = seq(10, 35, 5),       
-                     minor_breaks = seq(10, 35, 1), 
-                     limits = c(10, 35)) +          
-  labs(title = "Fuel efficiency by car weight")
-
-
-```
-
-```{r}
-ggplot(diamonds, aes(x = price, y = cut)) +
-  geom_boxplot(alpha = 0.05) +
-  scale_x_continuous(labels = scales::label_dollar(scale = 1/1000, suffix = "K"))
-
-ggplot(diamonds, aes(x = cut, fill = clarity)) +
-  geom_bar(position = "fill") +
-  scale_y_continuous(name = "Percentage", labels = scales::label_percent())
-```
-
-### x/y_discrete
-
-```{r}
-ggplot(mpg,aes(x=factor(drv),fill=class))+
-    geom_bar(position = "fill") ->p
-p | p + scale_x_discrete(name = "drv",                                  
-                   limits = c("f", "r"),    
-                   labels = c('f'="drv='f'",'r'= "drv='r'"),
-                   position = "top") 
-```
-
-### color
-
-```{r}
-RColorBrewer::display.brewer.all()
-p <- ggplot(mpg, aes(x=displ, y=hwy, color=drv)) +
-  geom_point(shape=19, size=3) 
-p + ggthemes::scale_color_colorblind()
-```
-
-```{r}
-p <- ggplot(mpg, aes(x=displ, y=hwy, color=cty)) +
-  geom_point() 
-p + ggtitle("A. Default color gradient")|
-p + scale_color_gradient(low="grey", high="black") +
-  ggtitle("B. Greyscale gradient")|
-p + scale_color_gradient(low="red", high="blue") +
-  ggtitle("C. Red-blue color gradient")
-
-p + scale_color_steps(low="red", high="blue") +
-  ggtitle("D. Red-blue binned color Gradient")|
-p + scale_color_steps2(low="red", mid="white", high="blue",
-                       midpoint=median(mtcars$disp)) +
-  ggtitle("E. Red-white-blue binned gradient")|
-p + scale_color_viridis_c(direction = -1) +    # viridis_c,d,b
-  ggtitle("F. Viridis color gradient")
-
-```
-
-```{r}
-df <- tibble(
-  x = rnorm(10000),
-  y = rnorm(10000)
-)
-
-ggplot(df, aes(x, y)) +
-  geom_hex() +
-  coord_fixed() +
-  labs(title = "Default, continuous", x = NULL, y = NULL)
-
-ggplot(df, aes(x, y)) +
-  geom_hex() +
-  coord_fixed() +
-  scale_fill_viridis_c() +
-  labs(title = "Viridis, continuous", x = NULL, y = NULL)
-
-ggplot(df, aes(x, y)) +
-  geom_hex() +
-  coord_fixed() +
-  scale_fill_viridis_b() +
-  labs(title = "Viridis, binned", x = NULL, y = NULL)
-```
-
-### fill
-
-```{r}
-p <- ggplot(mpg,aes(drv,fill=class))+
-    geom_bar()
-
-p + ggtitle("A. Default colors")|
-p + scale_fill_brewer(palette="Set2") +
-  ggtitle("B. ColorBrewer Set2 palette")
-
-p + scale_fill_viridis_d() +
-  ggtitle("C. Viridis color scheme")|
-p + scale_fill_manual(values=c("gold4", "orange2", "deepskyblue3", "blue4",
-                               "brown2", "yellowgreen","lightpink")) +
-  ggtitle("D. Manual color selection")
-```
 
 ## 分面
 
@@ -1031,6 +1157,59 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 ## 主题
+
+### 边距
+
+```{r}
+library(ggplot2)
+
+ggplot() +
+  stat_function(fun = dnorm, geom = "density",
+                xlim = c(-4, 4),
+                fill = rgb(0, 0, 1, 0.1)) + 
+  theme(plot.background = element_rect(color = 1,
+                                       linewidth = 1))|
+
+ggplot() +
+  stat_function(fun = dnorm, geom = "density",
+                xlim = c(-4, 4),
+                fill = rgb(0, 0, 1, 0.1)) + 
+  theme(plot.background = element_rect(color = 1,
+                                       linewidth = 1),
+        plot.margin = margin(t = 20,  # Top margin
+                             r = 50,  # Right margin
+                             b = 40,  # Bottom margin
+                             l = 10)) |# Left margin 
+ ggplot() +
+  stat_function(fun = dnorm, geom = "density",
+                xlim = c(-4, 4),
+                fill = rgb(0, 0, 1, 0.1)) + 
+  theme(plot.background = element_rect(color = 1,
+                                       size = 1),
+        plot.margin = margin(t = 1,  # Top margin
+                             r = 1,  # Right margin
+                             b = 3,  # Bottom margin
+                             l = 2,  # Left margin
+                             unit = "cm")) 
+ 
+ 
+# 删除边距
+
+ggplot() +
+  stat_function(fun = dnorm, geom = "density",
+                xlim = c(-4, 4),
+                fill = rgb(0, 0, 1, 0.1)) + 
+  theme(plot.background = element_rect(color = 1,
+                                       size = 1),
+        plot.margin = margin(t = 0,  # Top margin
+                             r = 0,  # Right margin
+                             b = 0,  # Bottom margin
+                             l = 0)) # Left margin 
+ 
+ 
+ 
+
+```
 
 ### 内置主题
 

@@ -121,11 +121,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./base_graphics.html"> 
-<span class="menu-text">baseR 图形</span></a>
+<span class="menu-text">base 图形</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./Table.html"> 
-<span class="menu-text">三线表</span></a>
+<span class="menu-text">表格</span></a>
   </li>  
 </ul>
 </div> <!-- /navcollapse -->
@@ -141,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Bin</li><li class="breadcrumb-item"><a href="./ggprism.html">GraphPad Prism 风格</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./条形图.html">Bin</a></li><li class="breadcrumb-item"><a href="./ggprism.html">GraphPad Prism 风格</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -253,12 +253,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
- <span class="menu-text">条图.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./条形图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">条形图</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggprism.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">GraphPad Prism 风格</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggpattern.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>ggpattern</code></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -319,6 +328,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">误差棒图</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./森林图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">森林图</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./列线图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">列线图</span></a>
+  </div>
+</li>
       </ul>
 </li>
     </ul>
@@ -356,13 +377,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>               fun.min <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>               fun.max <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>               width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://csdaw.github.io/ggprism/reference/theme_prism.html">theme_prism</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/ggprism/man/theme_prism.html">theme_prism</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span>, <span class="fl">5</span><span class="op">)</span>, expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># with brackets</span></span>
-<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://csdaw.github.io/ggprism/reference/add_pvalue.html">add_pvalue</a></span><span class="op">(</span><span class="va">df_p_val</span>, label <span class="op">=</span> <span class="st">"p.adj.signif"</span>,label.size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/ggprism/man/add_pvalue.html">add_pvalue</a></span><span class="op">(</span><span class="va">df_p_val</span>, label <span class="op">=</span> <span class="st">"p.adj.signif"</span>,label.size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="co"># without brackets</span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://csdaw.github.io/ggprism/reference/add_pvalue.html">add_pvalue</a></span><span class="op">(</span><span class="va">df_p_val</span>, label <span class="op">=</span> <span class="st">"p.adj.signif"</span>, remove.bracket <span class="op">=</span> <span class="cn">TRUE</span>,label.size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/ggprism/man/add_pvalue.html">add_pvalue</a></span><span class="op">(</span><span class="va">df_p_val</span>, label <span class="op">=</span> <span class="st">"p.adj.signif"</span>, remove.bracket <span class="op">=</span> <span class="cn">TRUE</span>,label.size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>

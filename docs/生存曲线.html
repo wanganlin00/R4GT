@@ -266,6 +266,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ggpattern.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>ggpattern</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./圆角条形.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">圆角条形</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./双向条图.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">双向条图</span></a>
   </div>
@@ -322,6 +334,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">误差棒图</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./森林图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">森林图</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./列线图.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">列线图</span></a>
+  </div>
+</li>
       </ul>
 </li>
     </ul>
@@ -362,11 +386,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span></span>
 <span>        LR_DPVB<span class="op">=</span><span class="va">`LR-DPVB`</span></span>
 <span>    <span class="op">)</span>  <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>        cols <span class="op">=</span> <span class="va">CON</span><span class="op">:</span><span class="va">LR_DPVB</span>,</span>
 <span>        names_to <span class="op">=</span> <span class="st">"treatment"</span>,</span>
 <span>        values_to <span class="op">=</span> <span class="st">"status"</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>        treatment<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">treatment</span>,levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'CON'</span>,<span class="st">'LDRT'</span>,<span class="st">'DPVB'</span>,<span class="st">'LR_DPVB'</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
