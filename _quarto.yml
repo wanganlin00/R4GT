@@ -62,6 +62,9 @@ website:
             # - 棒棒糖图.qmd
             # - 环状图.qmd
 
+        - section: "Comparison"
+          contents: 
+            - significance.qmd
         - section: "Relationship"
           contents: 
             # - 凹凸图.qmd          # https://github.com/davidsjoberg/ggbump
