@@ -1,53 +1,68 @@
 # 点图
 
-## `geom_dotplot()`
+## 散点图
 
 ```{r}
-library(tidyverse)
-library(ggpubr)
-ggplot(mtcars,aes(mpg))+
-    geom_dotplot()
+p <- ggplot(data = mpg, aes(x = cty, y = hwy))+
+    geom_point()
+p
 ```
 
+### 添加拟合曲线和曲线方程
+
 ```{r}
-# 将数值型变量转换为因子
+library(ggpmisc)
+p+
+  stat_correlation(mapping = use_label("r", "t", "p")) +
+  geom_point()+
+    stat_poly_line(formula = y ~x)
+```
+
+R^2^ ,p值
+
+```{r}
+
+p + 
+    geom_smooth(method = "lm",formula = "y~x",color="blue",linewidth=.5)+
+    stat_poly_eq(mapping = use_label(c("eq", "adj.R2","F")), 
+                 formula = y ~ x
+                )
+
+
+
+```
+
+## 列点图
+
+### `geom_dotplot()`
+
+```{r}
 ToothGrowth$dose <- as.factor(ToothGrowth$dose)
-head(ToothGrowth)
-library(ggplot2)
-# 基础点图
+# 点图
 p1 <- ggplot(ToothGrowth, aes(x=dose, y=len)) + 
-  geom_dotplot(binaxis='y', stackdir='center')
-# 更改点尺寸和堆叠率
-p2 <- ggplot(ToothGrowth, aes(x=dose, y=len)) + 
   geom_dotplot(binaxis='y', stackdir='center',
                stackratio=1.5, dotsize=1.2)
-# 旋转
-p3 <- p1 + coord_flip()
-# 选择展示数据
-p4 <- p1 + scale_x_discrete(limits=c("0.5", "2"))
-ggarrange(p1,p2,p3,p4,nrow = 1)
-```
 
-```{r}
-# 在点图上添加摘要统计信息 stat_summary()
-# 添加平均值和中位数
-p5 <- p1 + stat_summary(fun.y=mean, geom="point", shape=18,
+
+# 旋转
+p2 <- p1 + coord_flip()
+
+# 添加摘要统计信息 stat_summary()
+p3 <- p1 + stat_summary(fun=mean, geom="point", shape=18,
                  size=3, color="red")
 
-# p6<- p1 + stat_summary(fun.y=median, geom="point", shape=18,
-#                  size=3, color="red")
+p4<- p1 + stat_summary(fun=median, geom="point", shape=18,
+                 size=3, color="red")
+
+library(patchwork)
+(p1+p2)/(p3+p4)
 ```
 
-## `ggdotplot()`
+### `ggpubr::ggdotplot()`
 
 ```{r}
-
 library(ggpubr)
 library(readxl)
-```
-
-```{r}
-
 f6d <-
     read_excel("data/01source.xlsx", sheet = "Fig.6", range = "D2:E18")
 f6d |> pivot_longer(
@@ -87,4 +102,20 @@ ggdotplot(f6d,
         y=0.789463173,#均值
     )
 
+```
+
+## [蜂群图](https://github.com/eclarke/ggbeeswarm)
+
+Beeswarm plots
+
+```{r}
+if(!require(ggbeeswarm)) install.packages('ggbeeswarm')
+```
+
+```{r}
+set.seed(12345)
+#compare to jitter
+ggplot(iris, aes(Species, Sepal.Length)) + geom_jitter() |
+    ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(varwidth = TRUE) |
+    ggplot(iris, aes(Species, Sepal.Length)) + geom_beeswarm() + ggtitle("Beeswarm")
 ```

@@ -37,9 +37,8 @@ website:
         
         - section: "Point"
           contents: 
-            - 散点图.qmd
-            # - 气泡图.qmd
             - 点图.qmd
+            # - 气泡图.qmd
             - Q-Q图.qmd
             - 曼哈顿图.qmd
             # - 克利夫兰点图.qmd
