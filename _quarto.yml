@@ -64,6 +64,7 @@ website:
         - section: "Comparison"
           contents: 
             - significance.qmd
+            
         - section: "Relationship"
           contents: 
             # - 凹凸图.qmd          # https://github.com/davidsjoberg/ggbump
