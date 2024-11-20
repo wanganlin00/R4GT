@@ -2,6 +2,10 @@
 
 ## `pheatmap`
 
+```{r eval=FALSE, include=FALSE}
+install.packages("pheatmap")
+```
+
 ```{r}
 library(pheatmap)
 ```
@@ -16,7 +20,7 @@ gene_group <- read.delim("data/heatmap/gene.class.txt",header = T,row.names = 1,
 ```
 
 ```{r}
-#| fig-width: 25
+#| fig-width: 10
 #| fig-asp: 0.75
 pheatmap(test,
          annotation_legend = T,#legend_breaks = seq(-1,1,0.2), legend_labels = seq(-1,1,0.2),
@@ -26,14 +30,13 @@ pheatmap(test,
          border_color = NA,
          scale = "row",       # 归一化
          cluster_rows = T,cluster_cols = T,clustering_distance_rows = "correlation",
-         display_numbers = TRUE, number_format = "%.1e",
-         
- 
+         display_numbers = TRUE, #number_format = "%.1e",
          
          treeheight_row = 12,
          treeheight_col = 12,
          
-         annotation_row = gene_group,annotation_col = sample_group,
+         annotation_row = gene_group,
+         annotation_col = sample_group,
          )
 ```
 
@@ -72,17 +75,6 @@ r
 
 pheatmap::pheatmap(r,fontsize = 12,
          color = colorRampPalette(c("#0000ff","#ffffff","#ff0000"))(200),)
-```
-
-```{r}
-pheatmap::pheatmap(test, kmeans_k = 2,
-                 cellwidth = 30,cellheight = 25,)
-```
-
-```{r}
-# Show text within cells
-pheatmap::pheatmap(test, display_numbers = TRUE)
-pheatmap::pheatmap(test, display_numbers = matrix(ifelse(test > 5, "*", ""), nrow(test)))
 ```
 
 ## `geom_tile()`
