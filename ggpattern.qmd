@@ -1,6 +1,7 @@
 # `ggpattern`
 
 ```{r}
+library(tidyverse)
 library(ggpattern)
 df <- data.frame(
     group = factor(c("Cool", "But", "Use", "Less"), 

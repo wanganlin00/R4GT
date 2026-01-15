@@ -2,6 +2,7 @@
 
 ```{r}
 library(tidymodels)
+library(tidyverse)
 data(two_class_example,package = "yardstick")
 tibble(two_class_example)
 ```
@@ -20,10 +21,7 @@ sensitivity(two_class_example,truth,predicted)
 accuracy(two_class_example, truth, predicted)
 ```
 
-## ROC
-
-
-
+## `ggplot2::geom_path()`
 
 ```{r}
 two_class_curve <- roc_curve(two_class_example, truth, Class1)
@@ -37,7 +35,7 @@ ggplot(two_class_curve,aes(1-specificity,sensitivity))+
     theme_bw()
 ```
 
-## AUC
+## `yardstick::roc_auc()`
 
 ```{r}
 auc1 <- roc_auc(two_class_example, truth, Class1,event_level = "first")
@@ -52,7 +50,6 @@ autoplot(two_class_curve)+
 ```{r}
 library(pROC)
 ```
-
 
 ```{r}
 set.seed(10)
@@ -121,7 +118,6 @@ ggroc(roc,
 
 ```
 
-
 ```{r}
 
 df <- two_class_example
@@ -164,11 +160,3 @@ plot(roc_obj, col = "blue",main = "Multiple ROC Curves", print.thres = "best", p
 lines(roc_obj, col = "red",lwd=2,lty=3)
 legend("bottomright", legend = c("Model 1", "Model 2"), col = c("blue", "red"), lwd = 2)
 ```
-
-
-
-
-
-
-
-

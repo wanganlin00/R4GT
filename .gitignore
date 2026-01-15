@@ -3,5 +3,4 @@
 .RData
 .Ruserdata
 /.quarto/
-/*cache/
-/_dynamic_docs/
+*cache

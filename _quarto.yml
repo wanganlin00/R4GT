@@ -38,32 +38,23 @@ website:
         - section: "Point"
           contents: 
             - 点图.qmd
-            - 气泡图.qmd
-            # - Q-Q图.qmd
-            # - 曼哈顿图.qmd
-            # - 克利夫兰点图.qmd
+             - 曼哈顿图.qmd
+            # - 气泡图.qmd
+
 
         - section: "Line"
           contents: 
             - 折线图.qmd
             - 生存曲线.qmd
             - ROC.qmd
-            # - 岭线图.qmd
 
         - section: "Bin"
           contents: 
             - 条形图.qmd
-            - ggprism.qmd
             - ggpattern.qmd
-            - 圆角条形.qmd
             - 双向条图.qmd
             - 发散条图.qmd
             # - 棒棒糖图.qmd
-            # - 环状图.qmd
-
-        - section: "Comparison"
-          contents: 
-            - significance.qmd
             
         - section: "Relationship"
           contents: 
@@ -71,13 +62,7 @@ website:
             - 相关图.qmd
             - 热图.qmd
             # - 韦恩图.qmd           # https://github.com/gaospecial/ggVennDiagram/
-            - 网络图.qmd
-
-        - section: "Uncertainty"
-          contents: 
-            - 误差棒图.qmd
-            - 森林图.qmd
-            - 列线图.qmd
+            # - 网络图.qmd
 
     - title: "表格"
       contents: 
@@ -97,7 +82,6 @@ knitr:
     collapse: TRUE
 
 execute:
-  cache: false
   message: false
   warning: true
 

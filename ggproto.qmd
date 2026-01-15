@@ -3,6 +3,7 @@
 ## ggplot2 的内部结构
 
 ```{r}
+library(tidyverse)
 p <- ggplot(mpg, aes(displ, hwy, color = drv)) + 
   geom_point(position = "jitter") +
   geom_smooth(method = "lm", formula = y ~ x) + 

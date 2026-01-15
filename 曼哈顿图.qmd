@@ -1,3 +1,8 @@
+---
+execute: 
+  eval: false
+---
+
 # 曼哈顿图
 
 <https://r-graph-gallery.com/101_Manhattan_plot.html>
@@ -198,8 +203,8 @@ p = ggplotly(p, tooltip="text")
 p
 ```
 
-## CMplot 的环形版本
+## 环形曼哈顿图
 
 ```{r}
-library("CMplot")
+# library(CMplot)
 ```

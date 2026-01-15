@@ -2,10 +2,6 @@
 
 ## `pheatmap`
 
-```{r eval=FALSE, include=FALSE}
-install.packages("pheatmap")
-```
-
 ```{r}
 library(pheatmap)
 ```
@@ -40,33 +36,7 @@ pheatmap(test,
          )
 ```
 
-```{r}
-library("Hiiragi2013")
-data("x")
-dim(Biobase::exprs(x))
-
-dfx = as.data.frame(Biobase::exprs(x))
-groups = group_by(pData(x), sampleGroup) |>
-  summarise(n = n(), color = unique(sampleColour))
-groups
-groupColor = setNames(groups$color, groups$sampleGroup)
-topGenes = order(rowVars(Biobase::exprs(x)), decreasing = TRUE)[1:500]
-rowCenter = function(x) { x - rowMeans(x) }
-pheatmap::pheatmap(rowCenter(dfx[topGenes, ]), 
-  show_rownames = FALSE, 
-  show_colnames = FALSE, 
-  breaks = seq(-5, +5, length = 101),
-  annotation_col = pData(x)[, c("sampleGroup", "Embryonic.day", "ScanDate", "genotype") ],
-  annotation_colors = list(
-    sampleGroup = groupColor,
-    genotype = c(`FGF4-KO` = "chocolate1", `WT` = "azure2"),
-    Embryonic.day = setNames(brewer.pal(9, "Blues")[c(3, 6, 9)], c("E3.25", "E3.5", "E4.5")),
-    ScanDate = setNames(brewer.pal(nlevels(x$ScanDate), "YlGn"), levels(x$ScanDate))
-  )
-)
-```
-
-## 相关性热图
+## 相关性
 
 ```{r}
 r <- cor(test,method = "pearson",use = "pairwise.complete.obs")
@@ -82,7 +52,7 @@ pheatmap::pheatmap(r,fontsize = 12,
 ```{r}
 # 设置随机数种子以确保结果的可重复性  
 set.seed(10)  
-  
+library(tidyverse)
 # 生成随机数据集  
 mydata <- tibble(  
   year = 2000:2024,  
@@ -109,42 +79,3 @@ ggplot(mydata, aes(year, cancer)) +
 ## `ComplexHeatmap`
 
 <https://jokergoo.github.io/ComplexHeatmap-reference/book/>
-
-```{r}
-if(!require(ComplexHeatmap)) BiocManager::install("ComplexHeatmap")
-
-```
-
-```{r}
-set.seed(123)
-nr1 = 4; nr2 = 8; nr3 = 6; nr = nr1 + nr2 + nr3
-nc1 = 6; nc2 = 8; nc3 = 10; nc = nc1 + nc2 + nc3
-mat = cbind(rbind(matrix(rnorm(nr1*nc1, mean = 1,   sd = 0.5), nrow  = nr1),
-          matrix(rnorm(nr2*nc1, mean = 0,   sd = 0.5), nrow = nr2),
-          matrix(rnorm(nr3*nc1, mean = 0,   sd = 0.5), nrow = nr3)),
-    rbind(matrix(rnorm(nr1*nc2, mean = 0,   sd = 0.5), nrow = nr1),
-          matrix(rnorm(nr2*nc2, mean = 1,   sd = 0.5), nrow = nr2),
-          matrix(rnorm(nr3*nc2, mean = 0,   sd = 0.5), nrow = nr3)),
-    rbind(matrix(rnorm(nr1*nc3, mean = 0.5, sd = 0.5), nrow = nr1),
-          matrix(rnorm(nr2*nc3, mean = 0.5, sd = 0.5), nrow = nr2),
-          matrix(rnorm(nr3*nc3, mean = 1,   sd = 0.5), nrow = nr3))
-   )
-mat = mat[sample(nr, nr), sample(nc, nc)] # random shuffle rows and columns
-rownames(mat) = paste0("row", seq_len(nr))
-colnames(mat) = paste0("column", seq_len(nc))
-
-```
-
-```{r}
-Heatmap(mat)
-```
-
-```{r}
-set.seed(123)
-mat = matrix(rnorm(100), 10)
-rownames(mat) = paste0("R", 1:10)
-colnames(mat) = paste0("C", 1:10)
-column_ha = HeatmapAnnotation(foo1 = runif(10), bar1 = anno_barplot(runif(10)))
-row_ha = rowAnnotation(foo2 = runif(10), bar2 = anno_barplot(runif(10)))
-Heatmap(mat, name = "mat", top_annotation = column_ha, right_annotation = row_ha)
-```

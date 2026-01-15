@@ -1,61 +1,36 @@
 # 点图
 
-## 散点图
+## 散点图 Scatterplot
 
 ```{r}
-p <- ggplot(data = mpg, aes(x = cty, y = hwy))+
+library(tidyverse)
+ToothGrowth$dose <- as.factor(ToothGrowth$dose)
+p <- ggplot(data = ToothGrowth, aes(x=dose, y=len)) + 
     geom_point()
 p
 ```
 
-### 添加拟合曲线和曲线方程
+## Dotplot
 
-```{r}
-library(ggpmisc)
-p+
-  stat_correlation(mapping = use_label("r", "t", "p")) +
-  geom_point()+
-    stat_poly_line(formula = y ~x)
-```
+-   Cleveland 点图
 
-R^2^ ,p值
-
-```{r}
-
-p + 
-    geom_smooth(method = "lm",formula = "y~x",color="blue",linewidth=.5)+
-    stat_poly_eq(mapping = use_label(c("eq", "adj.R2","F")), 
-                 formula = y ~ x
-                )
-
-
-
-```
-
-## 列点图
+-   Strip Plot 带状点图
 
 ### `geom_dotplot()`
 
 ```{r}
-ToothGrowth$dose <- as.factor(ToothGrowth$dose)
+
 # 点图
 p1 <- ggplot(ToothGrowth, aes(x=dose, y=len)) + 
-  geom_dotplot(binaxis='y', stackdir='center',
+  geom_dotplot(binaxis='y', binwidth = 0.4,stackdir='center',
                stackratio=1.5, dotsize=1.2)
 
 
-# 旋转
-p2 <- p1 + coord_flip()
-
-# 添加摘要统计信息 stat_summary()
-p3 <- p1 + stat_summary(fun=mean, geom="point", shape=18,
-                 size=3, color="red")
-
-p4<- p1 + stat_summary(fun=median, geom="point", shape=18,
+p2<- p1 + stat_summary(fun=median, geom="point", shape=18,
                  size=3, color="red")
 
 library(patchwork)
-(p1+p2)/(p3+p4)
+p1+p2
 ```
 
 ### `ggpubr::ggdotplot()`
@@ -81,13 +56,14 @@ ggdotplot(f6d,
           color = "status",
           fill = "status",
           error.plot = "errorbar",
+          binwidth = 0.2
 )+
     geom_signif(
         comparisons = list(c("relapse","non-relapse")),
     )+
     
     stat_summary(
-        fun.data = "mean_sd",geom = "pointrange",width=.3
+        fun.data = "mean_sd",geom = "pointrange",linewidth=.3
     )+
     ggplot2::annotate(
         geom="segment",
@@ -109,13 +85,5 @@ ggdotplot(f6d,
 Beeswarm plots
 
 ```{r}
-if(!require(ggbeeswarm)) install.packages('ggbeeswarm')
-```
-
-```{r}
-set.seed(12345)
-#compare to jitter
-ggplot(iris, aes(Species, Sepal.Length)) + geom_jitter() |
-    ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(varwidth = TRUE) |
-    ggplot(iris, aes(Species, Sepal.Length)) + geom_beeswarm() + ggtitle("Beeswarm")
+# library(ggbeeswarm)
 ```

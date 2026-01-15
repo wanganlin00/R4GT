@@ -15,7 +15,6 @@ ggplot(df,aes(dose,len,color=factor(dose)))+
     geom_col(fill=NA)
 ```
 
-
 ## 添加标签
 
 ```{r}
@@ -386,7 +385,6 @@ f2e |> pivot_longer(cols = -1,
 ```{r}
 library(ggpubr)
 library(rstatix)
- conflicts_prefer(rstatix::t_test)
 stat.test <- f2e %>%
   group_by(type) %>%
   t_test(pct ~ trt) |> 

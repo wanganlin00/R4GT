@@ -6,6 +6,7 @@ Diverging Bars
 
 ```{r}
 library(data.table)
+library(tidyverse)
 df <- datasets::mtcars %>% data.table() %>% .[,cars:=rownames(mtcars)]
 
 df[,mpg_z:=scale(mpg)]

@@ -7,6 +7,7 @@ library(tidyverse)
 library(readxl)
 library(survival)
 library(ggsci)
+library(survminer)
 library(ggsurvfit)
 ```
 
@@ -45,7 +46,7 @@ plot(km_fit,
 
 ```{r}
 # 使用 ggplot2 和 survminer 绘制生存曲线图
-library(survminer)
+
 p <- ggsurvplot(
     fit  = km_fit,
     data = d,
@@ -68,7 +69,7 @@ p <- ggsurvplot(
     risk.table.col = "treatment",
     risk.table.height=0.3,
     tables.theme = theme_cleantable(),
-    ncensor.plot=T,
+    ncensor.plot=F,
   
     
     axes.offset=F,  #(0,0)pos
@@ -84,7 +85,6 @@ p <- ggsurvplot(
 )
 p
 ```
-
 
 ```{r}
 fit<- survfit(Surv(time, status) ~ sex, data = lung)
@@ -114,7 +114,6 @@ p <- ggsurvplot(fit, data = lung,
            ggtheme = theme_bw() # Change ggplot2 theme
 )
 ```
-
 
 ```{r}
 p <- ggsurvplot(fit, data = lung,
@@ -152,13 +151,9 @@ p$plot <- p$plot +
 p$plot
 ```
 
-
-
-
 ## ggsurvfit
 
 ```{r}
-library(ggsurvfit)
 km_fit
 
 
@@ -178,7 +173,3 @@ km_fit |> ggsurvfit()+
     add_risktable(size = 3,risktable_height = 0.3)+
     add_legend_title("treatment")
 ```
-
-
-
-
