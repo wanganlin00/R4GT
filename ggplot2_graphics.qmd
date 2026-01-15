@@ -1,17 +1,18 @@
 # ggplot2 Graphics {#sec-ggplot2 style="color:red"}
 
-[ggplot2：用于数据分析的优雅图形](https://ggplot2-book.org/mastery)
+[ggplot2: Elegant Graphics for Data Analysis (3e)](https://ggplot2-book.org/)
 
 gg 为 grammar of graphics 的缩写。
 
+`ggplot(data =  ,mapping = aes(x,y,…))`
+
+创建一个基础图形对象`gg`，空白图层 + 数据集 + 美学映射。
+
+## Data
+
 ```{r}
+library(tidyverse)
 library(patchwork)
-library(ggplot2)
-```
-
-## `ggplot`
-
-```{r}
 df <- tibble(
     index = 1:26,
     pch = 0:25,
@@ -21,11 +22,7 @@ df <- tibble(
 )
 ```
 
-`ggplot(data =  ,mapping = aes(x,y,…))`
-
-创建一个基础图形对象`gg`，空白图层 + 数据集 + 美学映射。
-
-### aesthetics mapping
+## Aesthetics mapping
 
 `mapping=aes(x,y,z,..,color,fill,shape,size,group,linewidth,linetype,alpha,...)`
 
@@ -33,176 +30,6 @@ df <- tibble(
 ggplot(data = df,
        mapping = aes(x = index, y = pch ))
 ```
-
-#### color
-
-#### fill
-
-```{r}
-library(grid)
-colours <- scales::viridis_pal()(10)
-patterns <- list(
-  linearGradient(colours, group = FALSE),
-  "limegreen",
-  radialGradient(colours, group = FALSE),
-  pattern(
-    rectGrob(x = c(0.25, 0.75), y = c(0.25, 0.75), width = 0.5, height = 0.5),
-    width = unit(5, "mm"), height = unit(5, "mm"), extend = "repeat",
-    gp = gpar(fill = "limegreen")
-  )
-)
-ggplot(mpg, aes(factor(cyl), fill = factor(cyl))) +
-  geom_bar() +
-  scale_fill_manual(values = patterns)
-
-```
-
-#### shape
-
-```{r}
-ggplot(data = df, mapping = aes(x = index, y = pch)) +
-    geom_point(shape = ".") #像素
-
-
-ggplot(data = df, aes(index, pch)) +
-  geom_point(aes(shape = factor(pch)), fill ="red",size = 4) +
-  scale_shape_manual(values = 0:25) +
-  labs(shape = "点形状" )
-```
-
-```{r}
-shape_names <- c(
-  "circle", paste("circle", c("open", "filled", "cross", "plus", "small")), "bullet",
-  "square", paste("square", c("open", "filled", "cross", "plus", "triangle")),
-  "diamond", paste("diamond", c("open", "filled", "plus")),
-  "triangle", paste("triangle", c("open", "filled", "square")),
-  paste("triangle down", c("open", "filled")),
-  "plus", "cross", "asterisk"
-)
-
-shapes <- data.frame(
-  shape_names = shape_names,
-  x = c(1:7, 1:6, 1:3, 5, 1:3, 6, 2:3, 1:3),
-  y = -rep(1:6, c(7, 6, 4, 4, 2, 3))
-)
-
-ggplot(shapes, aes(x, y)) +
-  geom_point(aes(shape = shape_names), fill = "red", size = 5) +
-  geom_text(aes(label = shape_names), nudge_y = -0.3, size = 3.5) +
-  scale_shape_identity() +
-  theme_void()
-```
-
-### scale
-
-#### x/y_continuous
-
-```{r}
-ggplot(mtcars, aes(x = wt, y = mpg)) + 
-  geom_point() +
-  scale_x_continuous(name = "Weight (1000 lbs.)",   
-                     n.breaks = 10,                 
-                     minor_breaks = NULL,           
-                     limits = c(1.5, 5.5)) +        
-  scale_y_continuous(name = "Miles per gallon",     
-                     breaks = seq(10, 35, 5),       
-                     minor_breaks = seq(10, 35, 1), 
-                     limits = c(10, 35)) +          
-  labs(title = "Fuel efficiency by car weight")
-
-
-```
-
-```{r}
-ggplot(diamonds, aes(x = price, y = cut)) +
-  geom_boxplot(alpha = 0.05) +
-  scale_x_continuous(labels = scales::label_dollar(scale = 1/1000, suffix = "K"))
-
-ggplot(diamonds, aes(x = cut, fill = clarity)) +
-  geom_bar(position = "fill") +
-  scale_y_continuous(name = "Percentage", labels = scales::label_percent())
-```
-
-#### x/y_discrete
-
-```{r}
-ggplot(mpg,aes(x=factor(drv),fill=class))+
-    geom_bar(position = "fill") ->p
-p | p + scale_x_discrete(name = "drv",                                  
-                   limits = c("f", "r"),    
-                   labels = c('f'="drv='f'",'r'= "drv='r'"),
-                   position = "top") 
-```
-
-#### color
-
-```{r}
-RColorBrewer::display.brewer.all()
-p <- ggplot(mpg, aes(x=displ, y=hwy, color=drv)) +
-  geom_point(shape=19, size=3) 
-p + ggthemes::scale_color_colorblind()
-```
-
-```{r}
-p <- ggplot(mpg, aes(x=displ, y=hwy, color=cty)) +
-  geom_point() 
-p + ggtitle("A. Default color gradient")|
-p + scale_color_gradient(low="grey", high="black") +
-  ggtitle("B. Greyscale gradient")|
-p + scale_color_gradient(low="red", high="blue") +
-  ggtitle("C. Red-blue color gradient")
-
-p + scale_color_steps(low="red", high="blue") +
-  ggtitle("D. Red-blue binned color Gradient")|
-p + scale_color_steps2(low="red", mid="white", high="blue",
-                       midpoint=median(mtcars$disp)) +
-  ggtitle("E. Red-white-blue binned gradient")|
-p + scale_color_viridis_c(direction = -1) +    # viridis_c,d,b
-  ggtitle("F. Viridis color gradient")
-
-```
-
-```{r}
-df <- tibble(
-  x = rnorm(10000),
-  y = rnorm(10000)
-)
-
-ggplot(df, aes(x, y)) +
-  geom_hex() +
-  coord_fixed() +
-  labs(title = "Default, continuous", x = NULL, y = NULL)
-
-ggplot(df, aes(x, y)) +
-  geom_hex() +
-  coord_fixed() +
-  scale_fill_viridis_c() +
-  labs(title = "Viridis, continuous", x = NULL, y = NULL)
-
-ggplot(df, aes(x, y)) +
-  geom_hex() +
-  coord_fixed() +
-  scale_fill_viridis_b() +
-  labs(title = "Viridis, binned", x = NULL, y = NULL)
-```
-
-#### fill
-
-```{r}
-p <- ggplot(mpg,aes(drv,fill=class))+
-    geom_bar()
-
-p + ggtitle("A. Default colors")|
-p + scale_fill_brewer(palette="Set2") +
-  ggtitle("B. ColorBrewer Set2 palette")
-
-p + scale_fill_viridis_d() +
-  ggtitle("C. Viridis color scheme")|
-p + scale_fill_manual(values=c("gold4", "orange2", "deepskyblue3", "blue4",
-                               "brown2", "yellowgreen","lightpink")) +
-  ggtitle("D. Manual color selection")
-```
-
 
 ## Geometry
 
@@ -591,15 +418,9 @@ ggplot(mydata, aes(year, cancer)) +
 
 ```
 
-## 统计变换 statistical transformations
+## Statistical transformations
 
 stat_bin()：geom_bar()，geom_freqpoly()，geom_histogram()
-
-```{r}
-mtcars %>% 
-    ggplot(aes(x =cyl , y= mpg))+
-    stat_summary(geom = "bar",fun = mean)
-```
 
 stat_bin2d()：geom_bin2d()
 
@@ -623,15 +444,11 @@ stat_function()：根据 x 值的函数计算 y 值。
 
 stat_summary()：将 Y 值汇总到不同的 X 值。
 
-stat_summary2d() ：汇总分箱值。
-
-stat_summary_hex()
-
-stat_qq()：对分位数-分位数图执行计算。
-
-stat_spoke()：将角度和半径转换为位置。
-
-stat_unique()：删除重复的行。
+```{r}
+mtcars |> 
+    ggplot(aes(x = factor(am) , y= mpg))+
+    stat_summary(geom = "bar",fun = mean)
+```
 
 ```{r}
 ggplot(diamonds) + 
@@ -648,9 +465,19 @@ ggplot(mpg, aes(trans, cty)) +
     stat_summary(geom = "point", fun = "mean", colour = "red", size = 4)
 ```
 
-## 位置调整 position adjustments
+stat_summary2d() ：汇总分箱值。
 
-#### 条偏移
+stat_summary_hex()
+
+stat_qq()：对分位数-分位数图执行计算。
+
+stat_spoke()：将角度和半径转换为位置。
+
+stat_unique()：删除重复的行。
+
+## Position adjustments
+
+### 条偏移
 
 ```{r}
 ggplot(mpg, aes(x = drv, fill = class)) + 
@@ -666,7 +493,7 @@ ggplot(mpg, aes(x = drv, fill = class)) +
   geom_bar(position = "dodge")
 ```
 
-#### 点偏移
+### 点偏移
 
 position_nudge()：按固定偏移量移动点。
 
@@ -687,7 +514,96 @@ ggplot(mpg, aes(x = factor(cyl), y = hwy,color=factor(cyl))) +
 
 ```
 
-## 坐标系 coordinate
+## Scale and Guides
+
+| Argument name | Axis              | Legend    |
+|:--------------|:------------------|:----------|
+| `name`        | Label             | Title     |
+| `breaks`      | Ticks & grid line | Key       |
+| `labels`      | Tick label        | Key label |
+
+![](images/scale-guides.png)
+
+### color
+
+### shape
+
+```{r}
+shape_names <- c(
+  "circle", paste("circle", c("open", "filled", "cross", "plus", "small")), "bullet",
+  "square", paste("square", c("open", "filled", "cross", "plus", "triangle")),
+  "diamond", paste("diamond", c("open", "filled", "plus")),
+  "triangle", paste("triangle", c("open", "filled", "square")),
+  paste("triangle down", c("open", "filled")),
+  "plus", "cross", "asterisk"
+)
+
+shapes <- data.frame(
+  shape_names = shape_names,
+  x = c(1:7, 1:6, 1:3, 5, 1:3, 6, 2:3, 1:3),
+  y = -rep(1:6, c(7, 6, 4, 4, 2, 3))
+)
+
+ggplot(shapes, aes(x, y)) +
+  geom_point(aes(shape = shape_names), fill = "red", size = 5) +
+  geom_text(aes(label = shape_names), nudge_y = -0.3, size = 3.5) +
+  scale_shape_identity() +
+  theme_void()
+```
+
+### fill
+
+填充颜色，形状（ggpattern）
+
+```{r}
+# library(grid)
+# library(scales)
+```
+
+### axis
+
+```{r}
+ggplot(mpg, aes(log10(cty),hwy)) +
+    geom_point()+
+    scale_x_log10()
+```
+
+```{r}
+ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point() +
+  scale_x_continuous(name = "Weight (1000 lbs.)",   
+                     n.breaks = 10,                 
+                     minor_breaks = NULL,           
+                     limits = c(1.5, 5.5)) +        
+  scale_y_continuous(name = "Miles per gallon",     
+                     breaks = seq(10, 35, 5),       
+                     minor_breaks = seq(10, 35, 1), 
+                     limits = c(10, 35)) +          
+  labs(title = "Fuel efficiency by car weight")
+
+
+```
+
+```{r}
+ggplot(diamonds, aes(x = price, y = cut)) +
+  geom_boxplot(alpha = 0.05) +
+  scale_x_continuous(labels = scales::label_dollar(scale = 1/1000, suffix = "K"))
+
+ggplot(diamonds, aes(x = cut, fill = clarity)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(name = "Percentage", labels = scales::label_percent())
+```
+
+```{r}
+ggplot(mpg,aes(x=factor(drv),fill=class))+
+    geom_bar(position = "fill") ->p
+p | p + scale_x_discrete(name = "drv",                                  
+                   limits = c("f", "r"),    
+                   labels = c('f'="drv='f'",'r'= "drv='r'"),
+                   position = "top") 
+```
+
+## Coordinate
 
 默认坐标系是笛卡尔坐标系
 
@@ -705,78 +621,7 @@ bar + coord_flip()| #水平条形图
 bar + coord_polar()#极坐标
 ```
 
-## 标题 titles
-
-### `ggtitle()`
-
-```{r}
-ggplot(mpg, aes(cty, hwy)) +
-    geom_point(alpha = 1 / 3) +
-    xlab("city driving (mpg)") +
-    ylab("highway driving (mpg)")+
-    ggtitle(label = "主标题",
-            subtitle = "副标题")+
-     theme(plot.title.position = "panel") # 默认
-```
-
-### `labs()`
-
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "Fuel efficiency generally decreases with engine size",
-    subtitle = "Two seaters (sports cars) are an 
-    exception because of their light weight",
-    caption = "Data from fueleconomy.gov",
-    tag = "Fig. 1",
-    x = "Engine displacement (L)",
-    y = "Highway fuel economy (mpg)",
-    color = "Car type", # 图例 美学映射color
-  )+
-    theme(plot.title.position = "plot",# 相对于整个绘图进行设置
-          plot.caption.position = "plot",
-          plot.tag.position = "topleft",
-        plot.caption = element_text(hjust = 0))  
-```
-
-```{r}
-ggplot(economics, aes(date, unemploy)) +
-  geom_area(fill = rgb(0, 0.5, 1, alpha = 0.5)) + 
-  labs(title = "Title of the plot",
-       subtitle = "Subtitle of the plot",
-       caption = "This is the caption",
-       tag = "Fig. 1") + 
-  theme(plot.title = element_text(family = "serif",              # Font family
-                                  face = "bold",                 # Font face
-                                  color = 4,                     # Font color
-                                  size = 15,                     # Font size
-                                  hjust = 1,             # Horizontal adjustment
-                                  vjust = 1,             # Vertical adjustment
-                                  angle = -10,                   # Font angle
-                                  lineheight = 1,                # Line spacing
-                                  margin = margin(20, 0, 0, 0)), # Margins (t, r, b, l)
-        plot.subtitle = element_text(hjust = 0),    # Subtitle customization
-        plot.caption = element_text(hjust = 0.25),  # Caption customization
-        plot.tag = element_text(face = "italic"),   # Tag customization
-        plot.title.position = "plot",               # Title and subtitle position ("plot" or "panel")
-        plot.caption.position = "panel",            # Caption position ("plot" or "panel")
-        plot.tag.position = "top")                  # Tag position
-```
-
-
 ## 轴 axis
-
-### 变换
-
-```{r}
-
-ggplot(mpg, aes(log10(cty),hwy)) +
-    geom_point()+
-    scale_x_log10()
-
-```
 
 ### 子集：`xlim(), ylim()`
 
@@ -809,11 +654,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   scale_y_continuous(limits = c(10, 25))  
 ```
 
-### **Axis ticks (breaks)**
+### Axis ticks (breaks)
 
 ```{r}
-# install.packages("ggplot2")
-library(ggplot2)
 
 # Sample data
 x <- droplevels(chickwts$feed[1:36])
@@ -836,7 +679,7 @@ p|p +
 
 ```
 
-### 放大：`coord_cartesian()`
+### Zoom：`coord_cartesian()`
 
 调整绘制的数据,在每个刻度中设置`coord_cartesian(xlim= ,ylim= )`
 
@@ -936,8 +779,69 @@ ggplot(mpg[mpg$class=="compact",], aes(x = displ, y = hwy, color = drv)) +
   col_scale
 ```
 
+## Annotation
 
-## 注释 annotation
+### Labels
+
+#### `ggtitle()`
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) +
+    geom_point(alpha = 1 / 3) +
+    xlab("city driving (mpg)") +
+    ylab("highway driving (mpg)")+
+    ggtitle(label = "主标题",
+            subtitle = "副标题")+
+     theme(plot.title.position = "panel") # 默认
+```
+
+#### `labs()`
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Fuel efficiency generally decreases with engine size",
+    subtitle = "Two seaters (sports cars) are an 
+    exception because of their light weight",
+    caption = "Data from fueleconomy.gov",
+    tag = "Fig. 1",
+    x = "Engine displacement (L)",
+    y = "Highway fuel economy (mpg)",
+    color = "Car type", # 图例 美学映射color
+  )+
+    theme(plot.title.position = "plot",# 相对于整个绘图进行设置
+          plot.caption.position = "plot",
+          plot.tag.position = "topleft",
+        plot.caption = element_text(hjust = 0))  
+```
+
+```{r}
+ggplot(economics, aes(date, unemploy)) +
+  geom_area(fill = rgb(0, 0.5, 1, alpha = 0.5)) + 
+  labs(title = "Title of the plot",
+       subtitle = "Subtitle of the plot",
+       caption = "This is the caption",
+       tag = "Fig. 1") + 
+  theme(plot.title = element_text(family = "serif",              # Font family
+                                  face = "bold",                 # Font face
+                                  color = 4,                     # Font color
+                                  size = 15,                     # Font size
+                                  hjust = 1,             # Horizontal adjustment
+                                  vjust = 1,             # Vertical adjustment
+                                  angle = -10,                   # Font angle
+                                  lineheight = 1,                # Line spacing
+                                  margin = margin(20, 0, 0, 0)), # Margins (t, r, b, l)
+        plot.subtitle = element_text(hjust = 0),    # Subtitle customization
+        plot.caption = element_text(hjust = 0.25),  # Caption customization
+        plot.tag = element_text(face = "italic"),   # Tag customization
+        plot.title.position = "plot",               # Title and subtitle position ("plot" or "panel")
+        plot.caption.position = "panel",            # Caption position ("plot" or "panel")
+        plot.tag.position = "top")                  # Tag position
+```
+
+### Legend merging and splitting
 
 ### 文本注释 text
 
@@ -1022,65 +926,6 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   )
 ```
 
-### 富文本/markdown
-
-```{r}
-df <- data.frame(x = 1:3, y = 1:3)
-base <- ggplot(df, aes(x, y)) + 
-  geom_point() + 
-  labs(x = "Axis title with *italics* and **bold**")
-
-
-library(ggtext)
-base |
-base + 
-  geom_richtext(aes(x = 2, y = 3,
-                    label =  "**title** of <span style = 'color:red'>xy</span>"),
-                angle =-25)  + theme(axis.title.x = ggtext::element_markdown()) 
- 
- 
-
-```
-
-### 数学表达式
-
-`?plotmath`
-
-```{r}
-
-tibble(
-  x = 1:10,
-  y = cumsum(x^2)) %>% 
-  ggplot(aes(x, y)) +
-  geom_point() +
-  labs(
-    x = quote(x[i]),
-    y = quote(sum(x[i] ^ 2, i == 1, n)) #数学方程式
-  )
-
-values <- seq(from = -2, to = 2, by = .01)
-df <- tibble(x = values, y = values ^ 3)
-ggplot(df, aes(x, y)) + 
-  geom_path() + 
-  labs(y = quote(f(x) == x^3))         #数学表达式   ？plotmath
-```
-
-```{r}
-# install.packages("latex2exp")
-library(latex2exp)
-
-volume = function(rho, nu)
-    pi ^ (nu / 2) * rho ^ nu / gamma(nu / 2 + 1)
-
-tibble(nu = 1:15, 
-       Omega = volume(1, nu)) %>% 
-ggplot( aes(x = nu, y = Omega)) +
-    geom_line() +
-    xlab(TeX("$\\mu$")) + 
-    ylab(TeX("$\\Omega$")) +
-    labs(title = TeX("$\\Omega (\\rho,\\nu)=\\frac{\\pi^{\\frac{\\nu}{2}} \\rho^\\nu}{ \\Gamma (\\frac{\\nu}{2}+1 )}"))
-```
-
 ### 参考线：线段 直线 箭头
 
 geom_hline()
@@ -1130,8 +975,50 @@ p +
 
 ```
 
+### 富文本/markdown
 
-## 分面
+```{r}
+df <- data.frame(x = 1:3, y = 1:3)
+base <- ggplot(df, aes(x, y)) + 
+  geom_point() + 
+  labs(x = "Axis title with *italics* and **bold**")
+
+
+library(ggtext)
+base |
+base + 
+  geom_richtext(aes(x = 2, y = 3,
+                    label =  "**title** of <span style = 'color:red'>xy</span>"),
+                angle =-25)  + theme(axis.title.x = ggtext::element_markdown()) 
+ 
+ 
+
+```
+
+### 数学表达式
+
+`?plotmath`
+
+```{r}
+
+tibble(
+  x = 1:10,
+  y = cumsum(x^2)) %>% 
+  ggplot(aes(x, y)) +
+  geom_point() +
+  labs(
+    x = quote(x[i]),
+    y = quote(sum(x[i] ^ 2, i == 1, n)) #数学方程式
+  )
+
+values <- seq(from = -2, to = 2, by = .01)
+df <- tibble(x = values, y = values ^ 3)
+ggplot(df, aes(x, y)) + 
+  geom_path() + 
+  labs(y = quote(f(x) == x^3))         #数学表达式   ？plotmath
+```
+
+## Facet
 
 ```{r}
 q <- ggplot(mpg,aes(x=displ))+
@@ -1156,72 +1043,137 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   facet_grid(drv ~ cyl, scales = "free_y")
 ```
 
-## 主题
+## Themes
 
-### 边距
+plot, axis, legend, panel and facet
+
+### Plot elements + panel
+
+| Element         | Setter           | Description         |
+|-----------------|------------------|---------------------|
+| plot.background | `element_rect()` | plot background     |
+| plot.title      | `element_text()` | plot title          |
+| plot.margin     | `margin()`       | margins around plot |
+
+|                    |                  |                               |
+|--------------------|------------------|-------------------------------|
+| panel.background   | `element_rect()` | panel background (under data) |
+| panel.border       | `element_rect()` | panel border (over data)      |
+| panel.grid.major   | `element_line()` | major grid lines              |
+| panel.grid.major.x | `element_line()` | vertical major grid lines     |
+| panel.grid.major.y | `element_line()` | horizontal major grid lines   |
+| panel.grid.minor   | `element_line()` | minor grid lines              |
+| panel.grid.minor.x | `element_line()` | vertical minor grid lines     |
+| panel.grid.minor.y | `element_line()` | horizontal minor grid lines   |
+| aspect.ratio       | numeric          | plot aspect ratio             |
 
 ```{r}
 library(ggplot2)
 
-ggplot() +
+base <- ggplot() +
   stat_function(fun = dnorm, geom = "density",
                 xlim = c(-4, 4),
-                fill = rgb(0, 0, 1, 0.1)) + 
-  theme(plot.background = element_rect(color = 1,
-                                       linewidth = 1))|
+                fill = rgb(0, 0, 1, 0.1))
 
-ggplot() +
-  stat_function(fun = dnorm, geom = "density",
-                xlim = c(-4, 4),
-                fill = rgb(0, 0, 1, 0.1)) + 
-  theme(plot.background = element_rect(color = 1,
-                                       linewidth = 1),
-        plot.margin = margin(t = 20,  # Top margin
-                             r = 50,  # Right margin
-                             b = 40,  # Bottom margin
-                             l = 10)) |# Left margin 
- ggplot() +
-  stat_function(fun = dnorm, geom = "density",
-                xlim = c(-4, 4),
-                fill = rgb(0, 0, 1, 0.1)) + 
-  theme(plot.background = element_rect(color = 1,
-                                       size = 1),
-        plot.margin = margin(t = 1,  # Top margin
-                             r = 1,  # Right margin
-                             b = 3,  # Bottom margin
-                             l = 2,  # Left margin
-                             unit = "cm")) 
- 
- 
-# 删除边距
 
-ggplot() +
-  stat_function(fun = dnorm, geom = "density",
-                xlim = c(-4, 4),
-                fill = rgb(0, 0, 1, 0.1)) + 
-  theme(plot.background = element_rect(color = 1,
-                                       size = 1),
-        plot.margin = margin(t = 0,  # Top margin
-                             r = 0,  # Right margin
-                             b = 0,  # Bottom margin
-                             l = 0)) # Left margin 
- 
- 
+base + theme(
+    plot.background = element_rect(
+        colour = "red",
+        fill = "lightblue",
+        # 默认 fill = NA
+        linewidth = 2,
+    ),
+    plot.margin = margin(
+        t = 2,
+        # Top margin
+        r = 2,
+        # Right margin
+        b = 2,
+        # Bottom margin
+        l = 2
+    )# Left margin
+) +  theme(
+    panel.background = element_rect(fill = "lightyellow"),
+    panel.grid.major.y = element_line(color = "green", linewidth = 0.8),
+    panel.grid.major.x = element_line(color = "purple", linewidth = 0.8))
+
+
  
 
 ```
 
-### 内置主题
+### Legend elements
+
+| Element | Setter | Description |
+|----|----|----|
+| legend.background | `element_rect()` | legend background |
+| legend.key | `element_rect()` | background of legend keys |
+| legend.key.size | `unit()` | legend key size |
+| legend.key.height | `unit()` | legend key height |
+| legend.key.width | `unit()` | legend key width |
+| legend.margin | `unit()` | legend margin |
+| legend.text | `element_text()` | legend labels |
+| legend.text.align | 0–1 | legend label alignment (0 = right, 1 = left) |
+| legend.title | `element_text()` | legend name |
+| legend.title.align | 0–1 | legend name alignment (0 = right, 1 = left) |
 
 ```{r}
-p <- ggplot(mpg,aes(displ,hwy))
-p + theme_grey() + labs(title = "theme_grey")  |
-p + theme_bw() + labs(title = "theme_bw")  
-p + theme_minimal() + labs(title = "theme_minimal")|  
-p + theme_classic() + labs(title = "theme_classic")
+df <- data.frame(x = 1:4, y = 1:4, z = rep(c("a", "b"), each = 2))
+base <- ggplot(df, aes(x, y, colour = z)) + geom_point()
+
+base + theme(
+  legend.background = element_rect(
+    fill = "lemonchiffon", 
+    colour = "grey50", 
+    linewidth = 1
+  )
+)
+base + theme(
+  legend.key = element_rect(color = "grey50"),
+  legend.key.width = unit(0.9, "cm"),
+  legend.key.height = unit(0.75, "cm")
+)
+base + theme(
+  legend.text = element_text(size = 15),
+  legend.title = element_text(size = 15, face = "bold")
+)
+
+base + 
+  theme(legend.position = "top") +
+  guides(color = guide_legend(nrow = 3))
+base + 
+  theme(legend.position = "bottom") +
+  guides(color = guide_legend(nrow = 2, override.aes = list(size = 4)))
+
+# 文本
+
+ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
+  geom_point(size=3) +
+  scale_color_discrete(name="Cylinders") +
+  theme(legend.position = c(.95, .95),
+        legend.justification = c(1, 1),
+        legend.background = element_rect(fill = "lightgrey",
+                                         color = "white",
+                                         linewidth = 1),
+        legend.key = element_blank(),
+        legend.direction = "horizontal")
 ```
 
-### 字体
+### Axis elements
+
+| Element | Setter | Description |
+|----|----|----|
+| axis.line | `element_line()` | line parallel to axis (hidden in default themes) |
+| axis.text | `element_text()` | tick labels |
+| axis.text.x | `element_text()` | x-axis tick labels |
+| axis.text.y | `element_text()` | y-axis tick labels |
+| axis.title | `element_text()` | axis titles |
+| axis.title.x | `element_text()` | x-axis title |
+| axis.title.y | `element_text()` | y-axis title |
+| axis.ticks | `element_line()` | axis tick marks |
+| axis.ticks.length | `unit()` | length of tick marks |
+
+## 字体
 
 ```{r}
 findfont <- function(x){
@@ -1240,55 +1192,6 @@ findfont("Times New Roman")
 font_families()
 ```
 
-### 自定义主题
-
-```{r}
-mytheme <- theme(plot.title=element_text(face="bold.italic",  size="14", color="brown"),
-                 axis.title=element_text(face="bold.italic",  size=10, color="brown"),
-                 axis.text=element_text(face="bold", size=9,  color="darkblue"), 
-                 panel.background=element_rect(fill="white",  color="darkblue"),  
-                 panel.grid.major.y=element_line(color="grey",  linetype=1),  
-                 panel.grid.minor.y=element_line(color="grey",  linetype=2),  
-                 panel.grid.minor.x=element_blank(),  legend.position="top") 
-ggplot(mpg, aes(x=drv, y=hwy, fill=drv)) +  
-  geom_boxplot() +  
-  mytheme 
-
-```
-
-### 图例
-
-```{r}
-# 位置和布局
-base <- ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class))
-
-base + theme(legend.position = "right") # the default
-base + theme(legend.position = "left")
-base + 
-  theme(legend.position = "top") +
-  guides(color = guide_legend(nrow = 3))
-base + 
-  theme(legend.position = "bottom") +
-  guides(color = guide_legend(nrow = 2, override.aes = list(size = 4)))
-
-# 文本
-
-ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
-  geom_point(size=3) +
-  scale_color_discrete(name="Cylinders") +
-  labs(title = "Fuel Efficiency for 32 Automobiles",
-       x = "Weight (1000 lbs)",
-       y = "Miles per gallon") +
-  theme(legend.position = c(.95, .95),
-        legend.justification = c(1, 1),
-        legend.background = element_rect(fill = "lightgrey",
-                                         color = "white",
-                                         linewidth = 1),
-        legend.key = element_blank(),
-        legend.direction = "horizontal")
-```
-
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_point() +
@@ -1305,37 +1208,4 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
     plot.caption.position = "plot",
     plot.caption = element_text(hjust = 1)
   )
-```
-
-### 绘图区
-
-```{r}
-mtcars$am <- factor(mtcars$am, labels = c("Automatic", "Manual")) 
-ggplot(data=mtcars, aes(x = disp, y = mpg)) +                     
-  geom_point(aes(color=factor(cyl)), size=2) +                   
-  geom_smooth(method="lm", formula = y ~ x + I(x^2),                             
-              linetype="dotted", se=FALSE) +
-  scale_color_discrete("Number of cylinders") +
-  facet_wrap(~am, ncol=2) +                                      
-  labs(title = "Mileage, transmission type, and number of cylinders",
-       x = "Engine displacement (cu. in.)",
-       y = "Miles per gallon") +
-  theme_bw() +                                                  
-  theme(strip.background = element_rect(fill = "white"),
-        panel.grid.major = element_line(color="lightgrey"),
-        panel.grid.minor = element_line(color="lightgrey",
-                                        linetype="dashed"),
-        axis.ticks = element_blank(),
-        legend.position = "bottom",
-        legend.key = element_blank())
-```
-
-```{r}
-library(grid)
-
-gray_gradient <- linearGradient(scales::pal_grey()(10))
-
-ggplot(mpg, aes(displ, hwy)) +
-    geom_point() +
-    theme(panel.background = element_rect(fill = gray_gradient))
 ```

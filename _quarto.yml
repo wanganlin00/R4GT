@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: _dynamic_docs
+  output-dir: docs
 
 website:
   title: "R for Graphics and Tables"
@@ -33,14 +33,14 @@ website:
         - ggproto.qmd
         - ggplot2_extensions.qmd
         - patchwork.qmd
-        - 双y轴.qmd
+        # - 双y轴.qmd
         
         - section: "Point"
           contents: 
             - 点图.qmd
-            # - 气泡图.qmd
-            - Q-Q图.qmd
-            - 曼哈顿图.qmd
+            - 气泡图.qmd
+            # - Q-Q图.qmd
+            # - 曼哈顿图.qmd
             # - 克利夫兰点图.qmd
 
         - section: "Line"
@@ -97,14 +97,14 @@ knitr:
     collapse: TRUE
 
 execute:
-  cache: true
+  cache: false
   message: false
   warning: true
 
 toc-depth: 4
 number-sections: true
 number-depth: 4
-code-fold: show
+code-fold: true
 code-link: true
 
 format:
