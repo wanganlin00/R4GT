@@ -1,0 +1,100 @@
+## 显著性
+
+```{r}
+library(ggplot2)
+pal <- c("#0072B2", "#D55E00","#122cad")
+
+theme_nature <- theme_classic(base_size = 6.5, base_family = "sans") +
+  theme(
+    axis.line        = element_line(linewidth = 0.35, colour = "black"),
+    axis.ticks       = element_line(linewidth = 0.35, colour = "black"),
+    axis.title       = element_text(size = 6.5),
+    axis.text        = element_text(size = 6.0),
+    legend.title     = element_blank(),
+    legend.text      = element_text(size = 6.0),
+    legend.position  = "top",
+    legend.direction = "horizontal",
+    legend.justification = "center",
+    legend.margin    = margin(0, 0, 2, 0, "pt"),
+    legend.key.size  = unit(2.4, "mm"),
+    panel.grid       = element_blank()
+  )
+
+
+
+df <- ToothGrowth
+
+df
+str(df)
+
+df$dose <- as.character(df$dose)
+p <- ggplot(data = df,mapping = aes(dose,len,fill = supp)) +
+  geom_bar(stat = "summary", fun = "mean",position = position_dodge(1))+
+  coord_cartesian(ylim = c(0, 40))+
+  scale_fill_manual(values = pal) +
+  theme_nature
+p
+layer_data(plot = ,i = 1) |> DT:::datatable()
+```
+
+<https://r-graphics.org/RECIPE-ANNOTATE-SEGMENT.html>
+
+```{r}
+p + annotate("segment", x = 0.75, xend = 1.25, y = 20, yend = 20,
+           arrow = arrow(ends = "both", angle = 90, length = unit(.2,"cm")))+
+    annotate("segment", x = 1.75, xend = 2.75, y = 35, yend = 35,
+           arrow = arrow(ends = "both", angle = 90, length = unit(.2,"cm")))
+```
+
+```{r}
+p +
+  # 括号1：剂量 0.5 组，OJ(0.75) ↔ VC(1.25)，y = 20
+  annotate("segment", x = 0.75, xend = 1.25, y = 20, yend = 20, linewidth = 0.35) +
+  annotate("segment", x = 0.75, xend = 0.75, y = 19.2, yend = 20, linewidth = 0.35) +
+  annotate("segment", x = 1.25, xend = 1.25, y = 19.2, yend = 20, linewidth = 0.35) +
+  # 括号2：x = 1.75 ↔ 2.75，y = 35
+  annotate("segment", x = 1.75, xend = 2.75, y = 35, yend = 35, linewidth = 0.35) +
+  annotate("segment", x = 1.75, xend = 1.75, y = 34.2, yend = 35, linewidth = 0.35) +
+  annotate("segment", x = 2.75, xend = 2.75, y = 34.2, yend = 35, linewidth = 0.35)
+```
+
+```{r}
+# 括号数据框：每条括号 3 段 = 1 条横线 + 2 条向下竖线
+brackets <- data.frame(
+  x    = c(0.75, 0.75, 1.25, 1.75, 1.75, 2.75),   # 每段起点 x
+  xend = c(1.25, 0.75, 1.25, 2.75, 1.75, 2.75),   # 每段终点 x
+  y    = c(20,   20,   20,   35,   35,   35),      # 每段起点 y
+  yend = c(20,   19.2, 19.2, 35,   34.2, 34.2)     # 每段终点 y（竖线向下）
+)
+
+p + geom_segment(data = brackets,
+                 aes(x = x, y = y, xend = xend, yend = yend),
+                 linewidth = 0.35, inherit.aes = FALSE)
+```
+
+```{r}
+library(rstatix); library(ggpubr)
+
+stat.test <- df %>%
+  group_by(dose) %>%
+  t_test(len ~ supp) %>%        # 每组内的 OJ vs VC
+  add_significance()
+
+stat.test <- add_xy_position(stat.test, x = "dose", dodge = 1)
+# 自动得到（与手动 layer_data 结果完全一致）：
+#   dose  xmin  xmax  y.position  p.signif
+#   0.5   0.75  1.25  24.2        **
+#   1     1.75  2.25  30.0        **
+#   2     2.75  3.25  36.6        ns
+
+p + stat_pvalue_manual(stat.test, label = "p", tip.length = 0.015)
+stat.test2 <- df |> 
+  filter(supp == "OJ")  |> 
+  t_test(len ~ dose) |> 
+  add_significance() |> 
+  add_xy_position(x = "dose", dodge = 1)
+
+p + stat_pvalue_manual(stat.test2, label = "p.adj", tip.length = 0.015)
+```
+
+l
