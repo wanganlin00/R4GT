@@ -202,10 +202,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="案例1" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="案例1">
 <span class="header-section-number">1.2</span> 案例1</h2>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">read_rds</span><span class="op">(</span><span class="st">"data/三线表/tableone骨科术式.rds"</span><span class="op">)</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"data/三线表/tableone骨科术式.rds"</span><span class="op">)</span> </span>
 <span></span>
 <span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">|&gt;</span> <span class="fu">mutate</span><span class="op">(</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    preoperative_pfirmann_level<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">preoperative_pfirmann_level</span>,</span>
 <span>                                       levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ⅰ"</span>,<span class="st">"Ⅱ"</span>,<span class="st">"Ⅲ"</span>,<span class="st">"Ⅳ"</span>,<span class="st">"Ⅴ"</span><span class="op">)</span>,labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ⅰ"</span>,<span class="st">"Ⅱ"</span>,<span class="st">"Ⅲ"</span>,<span class="st">"Ⅳ"</span>,<span class="st">"Ⅴ"</span><span class="op">)</span>,ordered <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>    preoperative_pfirmann_cranial<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">preoperative_pfirmann_cranial</span>,levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,ordered <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
@@ -244,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; [7] "delta_SL"                    "delta_LL"</span></span>
 <span><span class="va">categories</span> <span class="op">&lt;-</span> <span class="va">interest</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">6</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
-<span><span class="va">tbl1</span> <span class="op">&lt;-</span> <span class="fu">CreateTableOne</span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">17</span><span class="op">:</span><span class="fl">19</span>,<span class="fl">21</span><span class="op">:</span><span class="fl">26</span><span class="op">)</span><span class="op">]</span>,</span>
+<span><span class="va">tbl1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tableone/man/CreateTableOne.html">CreateTableOne</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">17</span><span class="op">:</span><span class="fl">19</span>,<span class="fl">21</span><span class="op">:</span><span class="fl">26</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>               data <span class="op">=</span> <span class="va">data</span>,strata <span class="op">=</span> <span class="st">"group"</span>,</span>
 <span>               addOverall <span class="op">=</span> <span class="cn">T</span>,includeNA <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>               <span class="op">)</span> </span>
@@ -473,7 +474,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt;   group (%)                                               &lt;0.001        </span></span>
 <span><span class="co">#&gt; </span></span>
 <span></span>
-<span><span class="va">tbl1</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span></span>
+<span><span class="va">tbl1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span></span>
 <span>    nonnormal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>   <span class="co"># 非正态分布</span></span>
 <span>        <span class="st">"bmi"</span>,</span>
 <span>        <span class="st">"preoperative_segmented_lordosis"</span>,</span>
@@ -494,7 +495,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    showAllLevels <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>    smd <span class="op">=</span> <span class="cn">F</span>,</span>
 <span>    formatOptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="st">"data/三线表/tableone生成三线表.csv"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                                          Stratified by group</span></span>
 <span><span class="co">#&gt;                                                           level   </span></span>
@@ -723,13 +724,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>分类变量应用 Yate校正 的Pearson卡方检验</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">sex</span>, <span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span>correct <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">sex</span>, <span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span>correct <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Pearson's Chi-squared test with Yates' continuity correction</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  .</span></span>
 <span><span class="co">#&gt; X-squared = 0.25905, df = 1, p-value = 0.6108</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">sex</span>, <span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span>correct <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">sex</span>, <span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span>correct <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Pearson's Chi-squared test</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -739,15 +740,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>可能无法校正</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">preoperative_pfirmann_level</span>,<span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in chisq.test(.): Chi-squared approximation may be incorrect</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">preoperative_pfirmann_level</span>,<span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Pearson's Chi-squared test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  .</span></span>
 <span><span class="co">#&gt; X-squared = 3.1274, df = 2, p-value = 0.2094</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">preoperative_pfirmann_level</span>,<span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/fisher.test.html">fisher.test</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">preoperative_pfirmann_level</span>,<span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/fisher.test.html">fisher.test</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Fisher's Exact Test for Count Data</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -774,7 +774,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 生成表格</span></span>
-<span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu">CreateTableOne</span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"bmi"</span><span class="op">)</span>, </span>
+<span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tableone/man/CreateTableOne.html">CreateTableOne</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"bmi"</span><span class="op">)</span>, </span>
 <span>                      strata <span class="op">=</span> <span class="st">"group"</span>, </span>
 <span>                      data <span class="op">=</span> <span class="va">data</span>, </span>
 <span>                      test <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -784,10 +784,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt;                  Stratified by group</span></span>
 <span><span class="co">#&gt;                   level  A             B             p      test SMD   </span></span>
 <span><span class="co">#&gt;   n                         50            50                           </span></span>
-<span><span class="co">#&gt;   age (mean (SD))        49.68 (10.83) 50.32 (9.41)   0.753       0.063</span></span>
-<span><span class="co">#&gt;   sex (%)         Female    26 (52.0)     18 (36.0)   0.158       0.327</span></span>
-<span><span class="co">#&gt;                   Male      24 (48.0)     32 (64.0)                    </span></span>
-<span><span class="co">#&gt;   bmi (mean (SD))        24.29 (3.07)  24.54 (3.94)   0.716       0.073</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;   age (mean (SD))        52.43 (10.93) 49.84 (10.12)  0.222       0.246</span></span>
+<span><span class="co">#&gt;   sex (%)         Female    26 (52.0)     26 (52.0)   1.000      &lt;0.001</span></span>
+<span><span class="co">#&gt;                   Male      24 (48.0)     24 (48.0)                    </span></span>
+<span><span class="co">#&gt;   bmi (mean (SD))        24.14 (3.84)  24.94 (4.00)   0.312       0.203</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p><img src="images/clipboard-872907885.png" class="img-fluid"></p>

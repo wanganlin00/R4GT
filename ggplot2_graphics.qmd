@@ -1,4 +1,4 @@
-# ggplot2 Graphics {#sec-ggplot2 style="color:red"}
+# ggplot2 Graphics {#sec-ggplot2}
 
 [ggplot2: Elegant Graphics for Data Analysis (3e)](https://ggplot2-book.org/)
 
@@ -22,7 +22,7 @@ df <- tibble(
 )
 ```
 
-## Aesthetics mapping
+## Aesthetics mapping {style="color:red"}
 
 `mapping=aes(x,y,z,..,color,fill,shape,size,group,linewidth,linetype,alpha,...)`
 

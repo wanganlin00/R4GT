@@ -1,0 +1,60 @@
+---
+title: "ggforce: barplot with round angle"
+---
+
+## 先决条件
+
+```{r}
+library(tidyverse)
+library(ggforce)
+```
+
+## `geom_shape()`
+
+### 连续X
+
+```{r}
+shape <- data.frame(
+  x = c(0.25, 0.75,0.75,0.25),
+  y = c(0, 0,1,1)
+)
+
+ggplot(shape, aes(x = x, y = y)) +
+  #geom_polygon(fill = 'red') +
+  geom_shape(radius = unit(0.5, 'cm'))+
+    scale_x_continuous(breaks = seq(0,2,1), limits = c(0,2))
+```
+
+### 分类X
+
+```{r}
+df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
+
+width <- .9
+
+df <- df |>
+    mutate(trt = factor(trt)) |>
+    dplyr::reframe(
+        data.frame(
+            x = rep(as.numeric(trt) + width / 2 * c(-1, 1), each = 2), # 指定条形图四个角的坐标
+            outcome = c(c(0, outcome), rev(c(0, outcome)))
+        ),
+        .by = trt
+    )
+df
+
+ggplot(df, aes(x, outcome, fill = trt)) +
+    geom_shape(radius = .05)+
+    scale_x_continuous(breaks = 1:3,labels = c("a","b","c"))+
+    theme(
+        axis.title.x = element_blank()
+    )
+
+```
+
+```{r}
+library(ggforce)
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+  geom_point() +
+  facet_zoom(x = Species == "versicolor")
+```

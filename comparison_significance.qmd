@@ -1,4 +1,4 @@
-## 显著性
+## 显著性——差异比较
 
 ```{r}
 library(ggplot2)
@@ -34,7 +34,7 @@ p <- ggplot(data = df,mapping = aes(dose,len,fill = supp)) +
   scale_fill_manual(values = pal) +
   theme_nature
 p
-layer_data(plot = ,i = 1) |> DT:::datatable()
+    layer_data(plot = p ,i = 1) |> DT:::datatable()
 ```
 
 <https://r-graphics.org/RECIPE-ANNOTATE-SEGMENT.html>

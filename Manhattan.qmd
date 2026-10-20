@@ -1,0 +1,11 @@
+# 曼哈顿图
+
+<https://r-graph-gallery.com/101_Manhattan_plot.html>
+
+`library(qqman)`
+
+## 环形曼哈顿图
+
+`library(CMplot)`
+
+<https://github.com/YinLiLin/R-CMplot>

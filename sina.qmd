@@ -1,0 +1,25 @@
+---
+title: "sina 图"
+date: "2024-11-02"
+date-modified: today
+categories: [graphics, ggplot2 extension]
+image: "sina.png"
+---
+
+（小提琴图 + 抖散图）= sina 图
+
+```{r}
+library(ggforce)
+
+
+ggplot(mpg,aes(x = drv, y = hwy ))+
+     geom_violin()+
+    geom_sina(size = 0.85)
+
+```
+
+```{r}
+ggplot(mpg,aes(x = drv, y = hwy ))+
+    geom_violin()+
+    geom_jitter(width = 0.25, size = 0.85)
+```

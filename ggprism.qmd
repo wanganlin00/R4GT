@@ -1,0 +1,249 @@
+---
+title: "ggprism: GraphPad Prism 主题风格"
+---
+
+## 先决条件
+
+```{r}
+library(tidyverse)
+library(patchwork)
+ToothGrowth$dose <- as.factor(ToothGrowth$dose)
+
+
+library(ggprism)
+names(ggprism_data$themes)[-44] |> 
+    purrr::map(preview_theme)
+
+ggprism_data$colour_palettes$colorblind_safe
+```
+
+## [ggprism](https://csdaw.github.io/ggprism/index.html)
+
+### 柱状图
+
+```{r}
+p1 <- ggplot(ToothGrowth, aes(x = dose, y = len)) + 
+  stat_summary(aes(fill = dose),
+               geom = "col", fun = mean, colour = "black", linewidth = 0.9) + 
+  scale_y_continuous(limits = c(0, 35), expand = c(0, 0))
+
+p2 <- p1 + theme_prism(base_size = 14,palette = "colorblind_safe")
+
+p1 + p2
+```
+
+### 箱线图
+
+```{r}
+p <- ggplot(ToothGrowth, aes(x = supp, y = len)) + 
+  geom_boxplot(aes(colour = supp, fill = supp)) + 
+  theme_prism(base_size = 12)
+
+p1 <- p + scale_colour_prism(palette = "floral") + 
+  scale_fill_prism(palette = "floral")
+
+p2 <- p + scale_colour_prism(palette = "flames") + 
+  scale_fill_prism(palette = "flames")
+
+p1 + p2
+```
+
+### 小提琴图
+
+```{r}
+p_vals <- tibble::tribble(
+  ~group1, ~group2, ~p.adj,   ~y.position,
+  "0.5",   "1",     8.80e-14, 35,
+  "0.5",   "2",     1.27e-7,  39
+)
+
+
+p1 <- ggplot(ToothGrowth, aes(x = dose, y = len)) + 
+  geom_violin(aes(colour = dose, fill = dose), trim = FALSE) + 
+  geom_boxplot(aes(fill = dose), width = 0.2, colour = "black") + 
+  scale_y_continuous(limits = c(-5, 40))+
+    add_pvalue(p_vals, label = "p = {p.adj}", tip.length = 0, label.size = 4)
+
+
+p2 <- p1 + 
+  scale_color_prism("floral") + 
+  scale_fill_prism("floral") + 
+  theme_prism(base_size = 12) + 
+  theme(legend.position = "none") + 
+  add_pvalue(p_vals, label = "p = {p.adj}", tip.length = 0, label.size = 4)
+
+
+p1+p2
+```
+
+### 轴
+
+```{r}
+p <- ggplot(ToothGrowth, aes(x = dose, y = len)) + 
+  geom_jitter(aes(shape = dose), width = 0.2, size = 2) + 
+  scale_shape_prism() + 
+  theme_prism() + 
+  theme(legend.position = "none")
+
+p1 <- p + scale_y_continuous(limits = c(0, 40), guide = "prism_minor")
+
+p2 <- p + scale_x_discrete(guide = "prism_bracket") + 
+  scale_y_continuous(limits = c(0, 40))
+
+p3 <- p + scale_y_continuous(limits = c(0, 40), guide = "prism_offset")
+
+p4 <- p + scale_y_continuous(limits = c(0, 40), guide = "prism_offset_minor")
+
+(p1 + p2) / (p3 + p4)
+```
+
+#### 不连续轴
+
+```{r}
+# multiply one of the len values by 100
+tg <- ToothGrowth
+tg[2, "len"] <- tg[2, "len"] * 100
+
+
+ggplot(tg, aes(x = dose, y = len)) + 
+  geom_jitter(aes(shape = dose), width = 0.2, size = 2) + 
+  scale_shape_prism() + 
+  theme_prism() + 
+  theme(legend.position = "none")
+```
+
+```{r}
+p_bottom <- ggplot(tg, aes(x = dose, y = len)) + 
+  geom_jitter(aes(shape = dose), width = 0.2, size = 2) + 
+  scale_shape_prism() + 
+  coord_cartesian(ylim = c(0, 60)) + 
+  guides(x = "prism_bracket", y = "prism_offset_minor") + 
+  theme_prism() + 
+  theme(legend.position = "none")
+
+p_bottom
+```
+
+```{r}
+p_top <- ggplot(tg, aes(x = dose, y = len)) + 
+  geom_jitter(aes(shape = dose), width = 0.2, size = 2) + 
+  scale_shape_prism() + 
+  coord_cartesian(ylim = c(1140, 1160)) +
+  scale_y_continuous(breaks = c(1140, 1160)) +
+  guides(y = "prism_offset_minor")
+
+theme_outlier <- function(palette = "black_and_white",
+                          base_size = 14,
+                          base_family = "sans",
+                          base_fontface = "bold",
+                          base_line_size = base_size/14,
+                          base_rect_size = base_size/14,
+                          axis_text_angle = 0,
+                          border = FALSE) {
+  theme_prism(palette = palette,
+              base_size = base_size,
+              base_family = base_family,
+              base_fontface = base_fontface,
+              base_line_size = base_line_size,
+              base_rect_size = base_rect_size,
+              axis_text_angle = axis_text_angle,
+              border = border) %+replace% 
+    theme(axis.title = element_blank(),
+          axis.text.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.line.x = element_blank(),
+          legend.position = "none")
+}
+
+p_top <- p_top + theme_outlier()
+p_top
+
+p_top / p_bottom + 
+  plot_layout(heights = c(1, 4)) & 
+  theme(axis.text.y = element_text(colour = "red"))
+```
+
+### p值
+
+```{r}
+# create a jitter plot of the sleep data set
+# and indicate the means
+p <- ggplot(sleep, aes(x = group, y = extra)) +
+  geom_jitter(aes(shape = group), width = 0.1) + 
+  stat_summary(geom = "crossbar", fun = mean, colour = "red", width = 0.2) + 
+  theme_prism() + 
+  theme(legend.position = "none")
+p
+```
+
+```{r}
+result <- t.test(extra ~ group, data = sleep)$p.value
+result <- signif(result, digits = 3)
+
+
+result
+df_p_val <- data.frame(
+  group1 = "1",
+  group2 = "2",
+  label = result,
+  y.position = 6
+)
+```
+
+```{r}
+colnames(df_p_val) <- c("apple", "banana", "label", "y_position")
+
+# add p-value brackets again
+p + add_pvalue(df_p_val,
+                     xmin = "apple",
+                     xmax = "banana",
+                     label = "label",
+                     y.position = "y_position")
+```
+
+```{r}
+
+colnames(df_p_val) <- c("group1", "group2", "label", "y.position")
+# change bracket and label aesthetics
+p1 <- p + add_pvalue(df_p_val,
+                     colour = "red", # label
+                     label.size = 8, # label
+                     fontface = "bold", # label
+                     fontfamily = "serif", # label
+                     angle = 45, # label
+                     hjust = 1, # label
+                     vjust = 2, # label
+                     bracket.colour = "blue", # bracket
+                     bracket.size = 1, # bracket
+                     linetype = "dashed", # bracket
+                     lineend = "round") # bracket
+
+# use glue expression for label
+p2 <- p + add_pvalue(df_p_val, label = "p = {label}")
+
+# make bracket tips longer and use coord_flip
+p3 <- p + add_pvalue(df_p_val, tip.length = 0.15, coord.flip = TRUE) + 
+  coord_flip()
+
+# change bracket tips independently
+# (make one side disappear and the other longer)
+p4 <- p + add_pvalue(df_p_val, tip.length = c(0.2, 0))
+
+(p1 + p2) / (p3 + p4)
+```
+
+### + `rstatix`
+
+```{r}
+p <- ggplot(ToothGrowth, aes(x = dose, y = len)) +
+  geom_boxplot(aes(fill = dose), colour = "black") + 
+  theme_prism() + 
+  theme(legend.position = "none")
+
+df_p_val <- rstatix::t_test(ToothGrowth, len ~ dose, ref.group = "0.5") |>  
+  rstatix::add_xy_position()
+
+p + add_pvalue(df_p_val, 
+               label = "p = {p.adj}",
+               remove.bracket = TRUE)
+```

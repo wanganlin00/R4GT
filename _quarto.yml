@@ -11,8 +11,8 @@ website:
   navbar:
     background: info
     left:
-      - text: "主页"
-        href: index.qmd
+      - href: index.qmd
+        text: "主页"
       - text: "ggplot2 图形"
         href: ggplot2_graphics.qmd
       - text: "base 图形"
@@ -33,36 +33,45 @@ website:
         - ggproto.qmd
         - ggplot2_extensions.qmd
         - patchwork.qmd
-        # - 双y轴.qmd
+
         
         - section: "Point"
           contents: 
-            - 点图.qmd
-             - 曼哈顿图.qmd
-            # - 气泡图.qmd
+            - point.qmd
+            - Manhattan.qmd
+            
+        - section: "Significance"
+          contents: 
+            - comparison_significance.qmd
+            - ggpubr.qmd
+            - sina.qmd
 
 
         - section: "Line"
           contents: 
-            - 折线图.qmd
-            - 生存曲线.qmd
+            - line.qmd
+            - survival.qmd
             - ROC.qmd
 
-        - section: "Bin"
+        - section: "Rect"
           contents: 
-            - 条形图.qmd
+            - barplot.qmd
+            - ggprism.qmd
             - ggpattern.qmd
-            - 双向条图.qmd
-            - 发散条图.qmd
-            # - 棒棒糖图.qmd
+            - angle_rounded_barplot.qmd
+            - Diverging_Bars.qmd
             
         - section: "Relationship"
           contents: 
-            # - 凹凸图.qmd          # https://github.com/davidsjoberg/ggbump
             - 相关图.qmd
             - 热图.qmd
             # - 韦恩图.qmd           # https://github.com/gaospecial/ggVennDiagram/
-            # - 网络图.qmd
+            # - network.qmd
+            # - 凹凸图.qmd          # https://github.com/davidsjoberg/ggbump
+            
+        - section: "Axis"
+          contents:          
+            - dual_y_axis.qmd
 
     - title: "表格"
       contents: 
@@ -83,7 +92,8 @@ knitr:
 
 execute:
   message: false
-  warning: true
+  warning: false
+  cache: refresh
 
 toc-depth: 4
 number-sections: true

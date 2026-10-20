@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
 <title>ggplot2_extensions – R for Graphics and Tables</title>
 <style>
 code{white-space: pre-wrap;}
@@ -17,42 +20,8 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
+
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -70,7 +39,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-00547a1eaf99f0a186b5781dddb0b62e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-00547a1eaf99f0a186b5781dddb0b62e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -96,12 +66,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><link rel="stylesheet" href="styles.css">
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
 </head>
+
 <body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">R for Graphics and Tables</span>
@@ -113,7 +89,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-<li class="nav-item">
+  <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">主页</span></a>
   </li>  
@@ -130,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">表格</span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -139,7 +115,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </a>
 </div>
       </div> <!-- /container-fluid -->
-    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -147,11 +125,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggplot2_graphics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ggplot2 Graphics</span></a>
@@ -183,33 +165,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./点图.html" class="sidebar-item-text sidebar-link">
+  <a href="./point.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">点图</span></a>
   </div>
 </li>
-      </ul>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Manhattan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">曼哈顿图</span></a>
+  </div>
 </li>
+      </ul>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Line</span></a>
+ <span class="menu-text">Significance</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./折线图.html" class="sidebar-item-text sidebar-link">
+  <a href="./comparison_significance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">显著性——差异比较</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggpubr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggpubr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sina.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sina 图</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Line</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./line.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">折线图</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./生存曲线.html" class="sidebar-item-text sidebar-link">
+  <a href="./survival.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">生存曲线</span></a>
   </div>
 </li>
@@ -220,52 +237,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Bin</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Rect</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./条形图.html" class="sidebar-item-text sidebar-link">
+  <a href="./barplot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">条形图</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ggprism.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggprism: GraphPad Prism 主题风格</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./ggpattern.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><code>ggpattern</code></span></a>
+ <span class="menu-text"><a href="https://trevorldavis.com/R/ggpattern/dev/"><code>ggpattern</code></a></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./双向条图.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">双向条图</span></a>
+  <a href="./angle_rounded_barplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggforce: barplot with round angle</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./发散条图.html" class="sidebar-item-text sidebar-link">
+  <a href="./Diverging_Bars.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">发散条图</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Relationship</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./相关图.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">相关图</span></a>
@@ -278,397 +301,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Axis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dual_y_axis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">双y轴</span></a>
+  </div>
 </li>
+      </ul>
+  </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
-<li>
-<a href="#ggplot2-extensions" id="toc-ggplot2-extensions" class="nav-link active" data-scroll-target="#ggplot2-extensions"><span class="header-section-number">1</span> ggplot2 extensions</a>
+  <li><a href="#ggplot2-extensions" id="toc-ggplot2-extensions" class="nav-link active" data-scroll-target="#ggplot2-extensions"><span class="header-section-number">1</span> ggplot2 extensions</a>
   <ul>
-<li><a href="#ggprismgraphpad-prism-%E9%A3%8E%E6%A0%BC" id="toc-ggprismgraphpad-prism-风格" class="nav-link" data-scroll-target="#ggprismgraphpad-prism-%E9%A3%8E%E6%A0%BC"><span class="header-section-number">1.1</span> <code>ggprism</code>：GraphPad Prism 风格</a></li>
-  <li>
-<a href="#ggpubr" id="toc-ggpubr" class="nav-link" data-scroll-target="#ggpubr"><span class="header-section-number">1.2</span> ggpubr</a>
-  <ul class="collapse">
-<li><a href="#ggboxplot" id="toc-ggboxplot" class="nav-link" data-scroll-target="#ggboxplot"><span class="header-section-number">1.2.1</span> ggboxplot</a></li>
-  <li><a href="#ggviolin" id="toc-ggviolin" class="nav-link" data-scroll-target="#ggviolin"><span class="header-section-number">1.2.2</span> ggviolin</a></li>
-  <li><a href="#ggbarplot" id="toc-ggbarplot" class="nav-link" data-scroll-target="#ggbarplot"><span class="header-section-number">1.2.3</span> ggbarplot</a></li>
-  <li>
-<a href="#grouped-bar-plots-significance" id="toc-grouped-bar-plots-significance" class="nav-link" data-scroll-target="#grouped-bar-plots-significance"><span class="header-section-number">1.2.4</span> Grouped bar plots + significance</a>
-  <ul class="collapse">
-<li><a href="#%E5%88%86%E7%BB%84%E5%B9%B6%E5%88%97%E7%BB%84%E5%86%85%E7%BB%84%E9%97%B4%E6%98%BE%E8%91%97%E6%80%A7p%E5%80%BC" id="toc-分组并列组内组间显著性p值" class="nav-link" data-scroll-target="#%E5%88%86%E7%BB%84%E5%B9%B6%E5%88%97%E7%BB%84%E5%86%85%E7%BB%84%E9%97%B4%E6%98%BE%E8%91%97%E6%80%A7p%E5%80%BC"><span class="header-section-number">1.2.4.1</span> 分组并列，组内组间显著性p值</a></li>
+  <li><a href="#ggpubr" id="toc-ggpubr" class="nav-link" data-scroll-target="#ggpubr"><span class="header-section-number">1.1</span> <code>ggpubr</code></a></li>
+  <li><a href="#ggprismgraphpad-prism-风格" id="toc-ggprismgraphpad-prism-风格" class="nav-link" data-scroll-target="#ggprismgraphpad-prism-风格"><span class="header-section-number">1.2</span> <code>ggprism</code>：GraphPad Prism 风格</a></li>
+  <li><a href="#ggforce" id="toc-ggforce" class="nav-link" data-scroll-target="#ggforce"><span class="header-section-number">1.3</span> <code>ggforce</code></a></li>
+  <li><a href="#ggrepel" id="toc-ggrepel" class="nav-link" data-scroll-target="#ggrepel"><span class="header-section-number">1.4</span> <code>ggrepel</code></a></li>
+  <li><a href="#plotly" id="toc-plotly" class="nav-link" data-scroll-target="#plotly"><span class="header-section-number">1.5</span> <code>plotly</code></a></li>
+  </ul></li>
   </ul>
-</li>
-  <li><a href="#ggdotchart-clevelands-dot-plots" id="toc-ggdotchart-clevelands-dot-plots" class="nav-link" data-scroll-target="#ggdotchart-clevelands-dot-plots"><span class="header-section-number">1.2.5</span> ggdotchart Cleveland’s Dot Plots</a></li>
-  <li><a href="#ggdotplot" id="toc-ggdotplot" class="nav-link" data-scroll-target="#ggdotplot"><span class="header-section-number">1.2.6</span> ggdotplot</a></li>
-  </ul>
-</li>
-  <li><a href="#ggrepel" id="toc-ggrepel" class="nav-link" data-scroll-target="#ggrepel"><span class="header-section-number">1.3</span> ggrepel</a></li>
-  <li><a href="#plotly%E4%BA%A4%E4%BA%92" id="toc-plotly交互" class="nav-link" data-scroll-target="#plotly%E4%BA%A4%E4%BA%92"><span class="header-section-number">1.4</span> plotly：交互</a></li>
-  </ul>
-</li>
-  </ul></nav>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header><section id="ggplot2-extensions" class="level1" data-number="1"><h1 data-number="1">
-<span class="header-section-number">1</span> ggplot2 extensions</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="ggplot2-extensions" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> ggplot2 extensions</h1>
 <p><a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a></p>
-<section id="ggprismgraphpad-prism-风格" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="ggprismgraphpad-prism-风格">
-<span class="header-section-number">1.1</span> <code>ggprism</code>：GraphPad Prism 风格</h2>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'purrr' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'stringr' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'forcats' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──</span></span>
-<span><span class="co">#&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.6</span></span>
-<span><span class="co">#&gt; ✔ forcats   1.0.1     ✔ stringr   1.6.0</span></span>
-<span><span class="co">#&gt; ✔ ggplot2   4.0.1     ✔ tibble    3.3.0</span></span>
-<span><span class="co">#&gt; ✔ lubridate 1.9.4     ✔ tidyr     1.3.1</span></span>
-<span><span class="co">#&gt; ✔ purrr     1.2.0     </span></span>
-<span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
-<span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span>
-<span><span class="co">#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://csdaw.github.io/ggprism/">ggprism</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'ggprism' was built under R version 4.5.2</span></span>
-<span><span class="va">df_p_val</span> <span class="op">&lt;-</span> <span class="fu">rstatix</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/t_test.html">t_test</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, <span class="va">len</span> <span class="op">~</span> <span class="va">dose</span>, ref.group <span class="op">=</span> <span class="st">"0.5"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">rstatix</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/get_pvalue_position.html">add_xy_position</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">dose</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">len</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"col"</span>, fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"errorbar"</span>, </span>
-<span>               fun <span class="op">=</span> <span class="va">mean</span>,</span>
-<span>               fun.min <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>               fun.max <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>               width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://csdaw.github.io/ggprism/reference/theme_prism.html">theme_prism</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span>, <span class="fl">5</span><span class="op">)</span>, expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># with brackets</span></span>
-<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://csdaw.github.io/ggprism/reference/add_pvalue.html">add_pvalue</a></span><span class="op">(</span><span class="va">df_p_val</span>, label <span class="op">=</span> <span class="st">"p.adj.signif"</span>,label.size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
-<span><span class="co"># without brackets</span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://csdaw.github.io/ggprism/reference/add_pvalue.html">add_pvalue</a></span><span class="op">(</span><span class="va">df_p_val</span>, label <span class="op">=</span> <span class="st">"p.adj.signif"</span>, remove.bracket <span class="op">=</span> <span class="cn">TRUE</span>,label.size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'patchwork' was built under R version 4.5.2</span></span>
-<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggplot2_extensions_files/figure-html/unnamed-chunk-1-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="ggpubr" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="ggpubr">
-<span class="header-section-number">1.2</span> ggpubr</h2>
-<p>ggplot2 with Publication Ready Graphics in R</p>
-<p><a href="https://rpkgs.datanovia.com/ggpubr/" class="uri">https://rpkgs.datanovia.com/ggpubr/</a></p>
-<p><a href="https://www.datanovia.com/en/blog/tag/ggpubr/" class="uri">https://www.datanovia.com/en/blog/tag/ggpubr/</a></p>
-<section id="ggboxplot" class="level3" data-number="1.2.1"><h3 data-number="1.2.1" class="anchored" data-anchor-id="ggboxplot">
-<span class="header-section-number">1.2.1</span> ggboxplot</h3>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'ggpubr' was built under R version 4.5.2</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"ToothGrowth"</span><span class="op">)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">ToothGrowth</span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggboxplot.html">ggboxplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>,</span>
-<span>               x <span class="op">=</span> <span class="st">"dose"</span>,</span>
-<span>               y <span class="op">=</span> <span class="st">"len"</span>,</span>
-<span>               color <span class="op">=</span> <span class="st">"dose"</span>,</span>
-<span>               palette <span class="op">=</span> <span class="st">"gsea"</span>,</span>
-<span>               </span>
-<span>               add <span class="op">=</span> <span class="st">"jitter"</span>,</span>
-<span>               shape <span class="op">=</span><span class="st">"dose"</span>,</span>
-<span>               bxp.errorbar <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>               bxp.errorbar.width <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>               <span class="op">)</span></span>
-<span><span class="va">p</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggplot2_extensions_files/figure-html/unnamed-chunk-2-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_compare</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0.5"</span>,<span class="st">"1"</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>,<span class="st">"2"</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0.5"</span>,<span class="st">"2"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">p</span><span class="op">+</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/stat_compare_means.html">stat_compare_means</a></span><span class="op">(</span>comparisons <span class="op">=</span> <span class="va">my_compare</span>,method <span class="op">=</span> <span class="st">"t.test"</span><span class="op">)</span><span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/stat_compare_means.html">stat_compare_means</a></span><span class="op">(</span>label.y <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>  <span class="co"># 总体p值</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggplot2_extensions_files/figure-html/unnamed-chunk-2-2.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="ggviolin" class="level3" data-number="1.2.2"><h3 data-number="1.2.2" class="anchored" data-anchor-id="ggviolin">
-<span class="header-section-number">1.2.2</span> ggviolin</h3>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggviolin.html">ggviolin</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>,</span>
-<span>               x <span class="op">=</span> <span class="st">"dose"</span>,</span>
-<span>               y <span class="op">=</span> <span class="st">"len"</span>,</span>
-<span>               fill <span class="op">=</span> <span class="st">"dose"</span>,</span>
-<span>               palette <span class="op">=</span> <span class="st">"gsea"</span>,</span>
-<span>               </span>
-<span>               add <span class="op">=</span> <span class="st">"boxplot"</span>,</span>
-<span>               add.params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill<span class="op">=</span><span class="st">"white"</span><span class="op">)</span>,</span>
-<span>               <span class="op">)</span><span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/stat_compare_means.html">stat_compare_means</a></span><span class="op">(</span>comparisons <span class="op">=</span> <span class="va">my_compare</span>,</span>
-<span>                       label <span class="op">=</span> <span class="st">"p.signif"</span>,</span>
-<span>                       method <span class="op">=</span> <span class="st">"t.test"</span><span class="op">)</span><span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/stat_compare_means.html">stat_compare_means</a></span><span class="op">(</span>label.y <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>  <span class="co"># 总体p值</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggplot2_extensions_files/figure-html/unnamed-chunk-3-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="ggbarplot" class="level3" data-number="1.2.3"><h3 data-number="1.2.3" class="anchored" data-anchor-id="ggbarplot">
-<span class="header-section-number">1.2.3</span> ggbarplot</h3>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggbarplot.html">ggbarplot</a></span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="va">df</span>,</span>
-<span>    x <span class="op">=</span> <span class="st">"dose"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"len"</span>,</span>
-<span>    fill <span class="op">=</span> <span class="st">"supp"</span>,</span>
-<span>    color <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span></span>
-<span>    palette <span class="op">=</span> <span class="st">"lancet"</span>,</span>
-<span>    add <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mean_se"</span><span class="op">)</span>,</span>
-<span>    <span class="co">#  mean_sd, mean_ci</span></span>
-<span>    </span>
-<span>    error.plot <span class="op">=</span> <span class="st">"errorbar"</span>,</span>
-<span>    <span class="co"># upper_errorbar,"lower_errorbar",pointrange,"linerange", "crossbar",</span></span>
-<span>  </span>
-<span>    label <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    lab.pos <span class="op">=</span> <span class="st">"in"</span>,</span>
-<span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    orientation <span class="op">=</span> <span class="st">"vertical"</span>,</span>
-<span>    order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0.5"</span>, <span class="st">"2"</span>, <span class="st">"1"</span><span class="op">)</span>,</span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggplot2_extensions_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="grouped-bar-plots-significance" class="level3" data-number="1.2.4"><h3 data-number="1.2.4" class="anchored" data-anchor-id="grouped-bar-plots-significance">
-<span class="header-section-number">1.2.4</span> Grouped bar plots + significance</h3>
-<p><a href="https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/" class="uri">https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/</a></p>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ToothGrowth</span><span class="op">$</span><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">ToothGrowth</span><span class="op">$</span><span class="va">dose</span><span class="op">)</span></span>
-<span><span class="co"># Comparisons against reference</span></span>
-<span><span class="va">stat.test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/compare_means.html">compare_means</a></span><span class="op">(</span></span>
-<span>  <span class="va">len</span> <span class="op">~</span> <span class="va">dose</span>, data <span class="op">=</span> <span class="va">ToothGrowth</span>, group.by <span class="op">=</span> <span class="st">"supp"</span>,</span>
-<span>  method <span class="op">=</span> <span class="st">"t.test"</span>, ref.group <span class="op">=</span> <span class="st">"0.5"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">stat.test</span></span>
-<span><span class="co">#&gt; # A tibble: 4 × 9</span></span>
-<span><span class="co">#&gt;   supp  .y.   group1 group2            p      p.adj p.format p.signif method</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1 VC    len   0.5    1      0.000000681  0.000002   6.8e-07  ****     T-test</span></span>
-<span><span class="co">#&gt; 2 VC    len   0.5    2      0.0000000468 0.00000019 4.7e-08  ****     T-test</span></span>
-<span><span class="co">#&gt; 3 OJ    len   0.5    1      0.0000878    0.000088   8.8e-05  ****     T-test</span></span>
-<span><span class="co">#&gt; 4 OJ    len   0.5    2      0.00000132   0.0000026  1.3e-06  ****     T-test</span></span>
-<span><span class="va">bp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggbarplot.html">ggbarplot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, x <span class="op">=</span> <span class="st">"supp"</span>, y <span class="op">=</span> <span class="st">"len"</span>,</span>
-<span>                fill <span class="op">=</span> <span class="st">"dose"</span>, palette <span class="op">=</span> <span class="st">"jco"</span>,</span>
-<span>                add <span class="op">=</span> <span class="st">"mean_sd"</span>, add.params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>group <span class="op">=</span> <span class="st">"dose"</span><span class="op">)</span>,</span>
-<span>                position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">bp</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggplot2_extensions_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bp</span> <span class="op">+</span> <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/stat_pvalue_manual.html">stat_pvalue_manual</a></span><span class="op">(</span></span>
-<span>  <span class="va">stat.test</span>, x <span class="op">=</span> <span class="st">"supp"</span>, y.position <span class="op">=</span> <span class="fl">33</span>,</span>
-<span>  label <span class="op">=</span> <span class="st">"p={p.format}"</span>,</span>
-<span>  position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggplot2_extensions_files/figure-html/unnamed-chunk-5-2.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="分组并列组内组间显著性p值" class="level4" data-number="1.2.4.1"><h4 data-number="1.2.4.1" class="anchored" data-anchor-id="分组并列组内组间显著性p值">
-<span class="header-section-number">1.2.4.1</span> 分组并列，组内组间显著性p值</h4>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/rstatix/">rstatix</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'rstatix' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'rstatix'</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     filter</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">ToothGrowth</span></span>
-<span><span class="va">df</span><span class="op">$</span><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">dose</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">bp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggbarplot.html">ggbarplot</a></span><span class="op">(</span></span>
-<span>    <span class="va">df</span>,</span>
-<span>    x <span class="op">=</span> <span class="st">"dose"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"len"</span>,</span>
-<span>    add <span class="op">=</span> <span class="st">"mean_sd"</span>,</span>
-<span>    color <span class="op">=</span> <span class="st">"supp"</span>,</span>
-<span>    palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#00AFBB"</span>, <span class="st">"#E7B800"</span><span class="op">)</span>,</span>
-<span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># 统计检验</span></span>
-<span><span class="va">stat.test</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dose</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/t_test.html">t_test</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">supp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/adjust_pvalue.html">adjust_pvalue</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"bonferroni"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/add_significance.html">add_significance</a></span><span class="op">(</span><span class="st">"p.adj"</span><span class="op">)</span></span>
-<span><span class="va">stat.test</span> <span class="op">&lt;-</span> <span class="va">stat.test</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/get_pvalue_position.html">add_xy_position</a></span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean_sd"</span>, x <span class="op">=</span> <span class="st">"dose"</span>, dodge <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="va">stat.test2</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/t_test.html">t_test</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">dose</span>, p.adjust.method <span class="op">=</span> <span class="st">"bonferroni"</span><span class="op">)</span></span>
-<span><span class="va">stat.test2</span> <span class="op">&lt;-</span> <span class="va">stat.test2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/get_pvalue_position.html">add_xy_position</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"dose"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">pwc</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/t_test.html">t_test</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">dose</span>, p.adjust.method <span class="op">=</span> <span class="st">"bonferroni"</span><span class="op">)</span></span>
-<span><span class="va">pwc</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 11</span></span>
-<span><span class="co">#&gt;   supp  .y.   group1 group2    n1    n2 statistic    df            p      p.adj</span></span>
-<span><span class="co">#&gt; * &lt;fct&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 OJ    len   0.5    1         10    10     -5.05  17.7 0.0000878    0.000263  </span></span>
-<span><span class="co">#&gt; 2 OJ    len   0.5    2         10    10     -7.82  14.7 0.00000132   0.00000396</span></span>
-<span><span class="co">#&gt; 3 OJ    len   1      2         10    10     -2.25  15.8 0.039        0.118     </span></span>
-<span><span class="co">#&gt; 4 VC    len   0.5    1         10    10     -7.46  17.9 0.000000681  0.00000204</span></span>
-<span><span class="co">#&gt; 5 VC    len   0.5    2         10    10    -10.4   14.3 0.0000000468 0.00000014</span></span>
-<span><span class="co">#&gt; 6 VC    len   1      2         10    10     -5.47  13.6 0.0000916    0.000275  </span></span>
-<span><span class="co">#&gt; # ℹ 1 more variable: p.adj.signif &lt;chr&gt;</span></span>
-<span><span class="va">pwc</span> <span class="op">&lt;-</span> <span class="va">pwc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/get_pvalue_position.html">add_xy_position</a></span><span class="op">(</span></span>
-<span>        x <span class="op">=</span> <span class="st">"dose"</span>,</span>
-<span>        fun <span class="op">=</span> <span class="st">"mean_sd"</span>,</span>
-<span>        group <span class="op">=</span> <span class="st">"supp"</span>,</span>
-<span>        dodge <span class="op">=</span> <span class="fl">0.8</span></span>
-<span>    <span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 组间组内复合</span></span>
-<span></span>
-<span></span>
-<span><span class="va">bp</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/stat_pvalue_manual.html">stat_pvalue_manual</a></span><span class="op">(</span><span class="va">stat.test</span>,  label <span class="op">=</span> <span class="st">"p.adj.signif"</span>, tip.length <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/stat_pvalue_manual.html">stat_pvalue_manual</a></span><span class="op">(</span></span>
-<span>        <span class="va">stat.test2</span>,</span>
-<span>        label <span class="op">=</span> <span class="st">"p"</span>,</span>
-<span>        tip.length <span class="op">=</span> <span class="fl">0.02</span>,</span>
-<span>        step.increase <span class="op">=</span> <span class="fl">0.05</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/stat_pvalue_manual.html">stat_pvalue_manual</a></span><span class="op">(</span></span>
-<span>        <span class="va">pwc</span>,</span>
-<span>        color <span class="op">=</span> <span class="st">"supp"</span>,</span>
-<span>        step.group.by <span class="op">=</span> <span class="st">"supp"</span>,</span>
-<span>        tip.length <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>        step.increase <span class="op">=</span> <span class="fl">0.1</span></span>
-<span>    <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggplot2_extensions_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section></section><section id="ggdotchart-clevelands-dot-plots" class="level3" data-number="1.2.5"><h3 data-number="1.2.5" class="anchored" data-anchor-id="ggdotchart-clevelands-dot-plots">
-<span class="header-section-number">1.2.5</span> ggdotchart Cleveland’s Dot Plots</h3>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 滑珠图</span></span>
-<span><span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>        cyl<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggdotchart.html">ggdotchart</a></span><span class="op">(</span></span>
-<span>        x <span class="op">=</span> <span class="st">"name"</span>,</span>
-<span>        y <span class="op">=</span> <span class="st">"mpg"</span>,</span>
-<span>        color <span class="op">=</span> <span class="st">"cyl"</span>,</span>
-<span>        palette <span class="op">=</span> <span class="st">"jco"</span>,</span>
-<span></span>
-<span>        sorting <span class="op">=</span> <span class="st">"ascending"</span>,</span>
-<span>        add <span class="op">=</span> <span class="st">"segments"</span>,</span>
-<span>        ggtheme <span class="op">=</span> <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/theme_pubr.html">theme_pubr</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op">|</span></span>
-<span><span class="co">#克利夫兰点图</span></span>
-<span><span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>        cyl<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggdotchart.html">ggdotchart</a></span><span class="op">(</span></span>
-<span>        x <span class="op">=</span> <span class="st">"name"</span>,</span>
-<span>        y <span class="op">=</span> <span class="st">"mpg"</span>,</span>
-<span>        color <span class="op">=</span> <span class="st">"cyl"</span>,</span>
-<span>        palette <span class="op">=</span> <span class="st">"jco"</span>,</span>
-<span></span>
-<span>        sorting <span class="op">=</span> <span class="st">"descending"</span>,</span>
-<span>        add <span class="op">=</span> <span class="st">"segments"</span>,</span>
-<span>        </span>
-<span>        rotate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        group <span class="op">=</span> <span class="st">"cyl"</span>,</span>
-<span>        dot.size <span class="op">=</span> <span class="fl">6</span>,</span>
-<span>        label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span>,</span>
-<span>        font.label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"white"</span>,size<span class="op">=</span><span class="fl">9</span>,vjust<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>,</span>
-<span>        ggtheme <span class="op">=</span> <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/theme_pubr.html">theme_pubr</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggplot2_extensions_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="ggdotplot" class="level3" data-number="1.2.6"><h3 data-number="1.2.6" class="anchored" data-anchor-id="ggdotplot">
-<span class="header-section-number">1.2.6</span> ggdotplot</h3>
-</section></section><section id="ggrepel" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="ggrepel">
-<span class="header-section-number">1.3</span> ggrepel</h2>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggrepel.slowkow.com/">ggrepel</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span> <span class="va">wt</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span>,                     </span>
-<span>             linetype <span class="op">=</span> <span class="st">"dashed"</span>,</span>
-<span>             color <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">5.2</span>, y <span class="op">=</span> <span class="fl">20.5</span>,                                      </span>
-<span>             label <span class="op">=</span> <span class="st">"median MPG"</span>, </span>
-<span>             color <span class="op">=</span> <span class="st">"white"</span>, </span>
-<span>             fill <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
-<span>             size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html">geom_text_repel</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggplot2_extensions_files/figure-html/unnamed-chunk-8-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
-<span><span class="co"># geom_label_repel 带白底外框</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section><section id="plotly交互" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="plotly交互">
-<span class="header-section-number">1.4</span> plotly：交互</h2>
+<section id="ggpubr" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="ggpubr"><span class="header-section-number">1.1</span> <code>ggpubr</code></h2>
+</section>
+<section id="ggprismgraphpad-prism-风格" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="ggprismgraphpad-prism-风格"><span class="header-section-number">1.2</span> <code>ggprism</code>：GraphPad Prism 风格</h2>
+</section>
+<section id="ggforce" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="ggforce"><span class="header-section-number">1.3</span> <code>ggforce</code></h2>
+</section>
+<section id="ggrepel" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="ggrepel"><span class="header-section-number">1.4</span> <code>ggrepel</code></h2>
+</section>
+<section id="plotly" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="plotly"><span class="header-section-number">1.5</span> <code>plotly</code></h2>
+<p>Converting a ggplot2 graph to an interactive plotly graph</p>
 <p><a href="https://github.com/plotly/plotly.R" class="uri">https://github.com/plotly/plotly.R</a></p>
 <p><a href="https://plotly-r.com/" class="uri">https://plotly-r.com/</a></p>
 <p><a href="https://plotly.com/ggplot2/" class="uri">https://plotly.com/ggplot2/</a></p>
-<p>Converting a ggplot2 graph to an interactive plotly graph</p>
 
 
-</section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -1068,6 +773,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script>
 </div> <!-- /content -->
+
 
 
 

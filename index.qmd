@@ -1,10 +1,12 @@
-# 前言 {.unnumbered}
+# R for Graphics and Tables {.unnumbered}
 
-## 推荐阅读 {.unnumbered}
+## 前言 {.unnumbered}
 
--   [ggplot2：用于数据分析的优雅图形](https://ggplot2-book.org/mastery)
+## Graphics推荐阅读 {.unnumbered}
 
--   [The R Graph Gallery](https://r-graph-gallery.com/best-dataviz-packages.html)
+-   [ggplot2：用于数据分析的优雅图形](https://ggplot2-book.org/)
+
+-   [The R Graph Gallery](https://r-graph-gallery.com/)
 
 -   [R Graphics Cookbook, 2nd edition](https://r-graphics.org/)
 
@@ -20,8 +22,12 @@
 
 -   <https://plotly.com/ggplot2/>
 
-## 工具 {.unnumbered}
+## Tables推荐阅读 {.unnumbered}
 
-[十六进制颜色](https://encycolorpedia.cn/named)
+-   <https://www.danieldsjoberg.com/gtsummary/index.html>
 
-[图像颜色提取器](https://imgonline.tools/zh/image-color-picker)
+-   <https://ardata-fr.github.io/flextable-book/index.html>
+
+-   <https://gt.rstudio.com>
+
+-   <https://rstudio.github.io/DT/>

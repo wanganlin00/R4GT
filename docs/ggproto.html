@@ -96,7 +96,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><link rel="stylesheet" href="styles.css">
+}</script><link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="site_libs/datatables-binding-0.34.0/datatables.js"></script><script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script><link rel="stylesheet" href="styles.css">
 </head>
 <body class="nav-sidebar docked nav-fixed quarto-light">
 
@@ -186,8 +191,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./点图.html" class="sidebar-item-text sidebar-link">
+  <a href="./point.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">点图</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Manhattan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">曼哈顿图</span></a>
   </div>
 </li>
       </ul>
@@ -195,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Line</span></a>
+ <span class="menu-text">Significance</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -203,13 +214,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./折线图.html" class="sidebar-item-text sidebar-link">
+  <a href="./comparison_significance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">显著性——差异比较</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggpubr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggpubr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sina.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sina 图</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Line</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./line.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">折线图</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./生存曲线.html" class="sidebar-item-text sidebar-link">
+  <a href="./survival.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">生存曲线</span></a>
   </div>
 </li>
@@ -223,34 +263,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Bin</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Rect</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./条形图.html" class="sidebar-item-text sidebar-link">
+  <a href="./barplot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">条形图</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ggprism.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggprism: GraphPad Prism 主题风格</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./ggpattern.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><code>ggpattern</code></span></a>
+ <span class="menu-text"><a href="https://trevorldavis.com/R/ggpattern/dev/"><code>ggpattern</code></a></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./双向条图.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">双向条图</span></a>
+  <a href="./angle_rounded_barplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggforce: barplot with round angle</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./发散条图.html" class="sidebar-item-text sidebar-link">
+  <a href="./Diverging_Bars.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">发散条图</span></a>
   </div>
 </li>
@@ -258,13 +304,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Relationship</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./相关图.html" class="sidebar-item-text sidebar-link">
@@ -275,6 +321,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./热图.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">热图</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Axis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dual_y_axis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">双y轴</span></a>
   </div>
 </li>
       </ul>
@@ -291,8 +354,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <a href="#ggproto-%E5%AF%B9%E8%B1%A1" id="toc-ggproto-对象" class="nav-link active" data-scroll-target="#ggproto-%E5%AF%B9%E8%B1%A1"><span class="header-section-number">1</span> <code>ggproto</code> 对象</a>
   <ul>
 <li><a href="#ggplot2-%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84" id="toc-ggplot2-的内部结构" class="nav-link" data-scroll-target="#ggplot2-%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="header-section-number">1.1</span> ggplot2 的内部结构</a></li>
-  <li><a href="#ggproto" id="toc-ggproto" class="nav-link" data-scroll-target="#ggproto"><span class="header-section-number">1.2</span> <code>ggproto</code></a></li>
-  <li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89geom_signif" id="toc-自定义geom_signif" class="nav-link" data-scroll-target="#%E8%87%AA%E5%AE%9A%E4%B9%89geom_signif"><span class="header-section-number">1.3</span> 自定义geom_signif</a></li>
+  <li><a href="#%E5%9B%BE%E5%BD%A2%E5%9D%90%E6%A0%87" id="toc-图形坐标" class="nav-link" data-scroll-target="#%E5%9B%BE%E5%BD%A2%E5%9D%90%E6%A0%87"><span class="header-section-number">1.2</span> 图形坐标</a></li>
+  <li><a href="#ggproto" id="toc-ggproto" class="nav-link" data-scroll-target="#ggproto"><span class="header-section-number">1.3</span> <code>ggproto</code></a></li>
   </ul>
 </li>
   </ul></nav>
@@ -302,26 +365,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="header-section-number">1</span> <code>ggproto</code> 对象</h1>
 <section id="ggplot2-的内部结构" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="ggplot2-的内部结构">
 <span class="header-section-number">1.1</span> ggplot2 的内部结构</h2>
+<p><a href="https://ggplot2-book.org/internals.html" class="uri">https://ggplot2-book.org/internals.html</a></p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'purrr' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'stringr' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'forcats' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──</span></span>
-<span><span class="co">#&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.6</span></span>
-<span><span class="co">#&gt; ✔ forcats   1.0.1     ✔ stringr   1.6.0</span></span>
-<span><span class="co">#&gt; ✔ ggplot2   4.0.1     ✔ tibble    3.3.0</span></span>
-<span><span class="co">#&gt; ✔ lubridate 1.9.4     ✔ tidyr     1.3.1</span></span>
-<span><span class="co">#&gt; ✔ purrr     1.2.0     </span></span>
-<span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
-<span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span>
-<span><span class="co">#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"jitter"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"A plot for expository purposes"</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">ToothGrowth</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">dose</span><span class="op">)</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>,mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">dose</span>,<span class="va">len</span>,fill <span class="op">=</span> <span class="va">supp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"summary"</span>, fun <span class="op">=</span> <span class="st">"mean"</span>,position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">p</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
@@ -330,204 +381,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section><section id="图形坐标" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="图形坐标">
+<span class="header-section-number">1.2</span> 图形坐标</h2>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ggprint</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot_build.html">ggplot_build</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span>  <span class="va">gtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot_gtable.html">ggplot_gtable</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span>  <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.newpage.html">grid.newpage</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html">grid.draw</a></span><span class="op">(</span><span class="va">gtable</span><span class="op">)</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu">ggprint</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot_build.html">layer_data</a></span><span class="op">(</span>plot <span class="op">=</span> <span class="va">p</span> ,i <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">DT</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggproto_files/figure-html/unnamed-chunk-2-1.svg" class="img-fluid figure-img"></p>
-</figure>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-295da873a069c9fd660b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-295da873a069c9fd660b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[0.75,1.25,1.75,2.25,2.75,3.25],[1,2,3,4,5,6],[13.23,7.98,22.7,16.77,26.06,26.14],[0,0,0,0,0,0],[13.23,7.98,22.7,16.77,26.06,26.14],["#F8766D","#00BFC4","#F8766D","#00BFC4","#F8766D","#00BFC4"],["1","1","1","1","1","1"],[false,false,false,false,false,false],[0.525,1.025,1.525,2.025,2.525,3.025],[0.975,1.475,1.975,2.475,2.975,3.475],[1,2,1,2,1,2],[null,null,null,null,null,null],[0.5,0.5,0.5,0.5,0.5,0.5],[1,1,1,1,1,1],[null,null,null,null,null,null],[0.9,0.9,0.9,0.9,0.9,0.9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>x<\/th>\n      <th>group<\/th>\n      <th>y<\/th>\n      <th>ymin<\/th>\n      <th>ymax<\/th>\n      <th>fill<\/th>\n      <th>PANEL<\/th>\n      <th>flipped_aes<\/th>\n      <th>xmin<\/th>\n      <th>xmax<\/th>\n      <th>order<\/th>\n      <th>colour<\/th>\n      <th>linewidth<\/th>\n      <th>linetype<\/th>\n      <th>alpha<\/th>\n      <th>width<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,9,10,11,13,14,16]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"x","targets":1},{"name":"group","targets":2},{"name":"y","targets":3},{"name":"ymin","targets":4},{"name":"ymax","targets":5},{"name":"fill","targets":6},{"name":"PANEL","targets":7},{"name":"flipped_aes","targets":8},{"name":"xmin","targets":9},{"name":"xmax","targets":10},{"name":"order","targets":11},{"name":"colour","targets":12},{"name":"linewidth","targets":13},{"name":"linetype","targets":14},{"name":"alpha","targets":15},{"name":"width","targets":16}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</div>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p_built</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot_build.html">ggplot_build</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p_built</span> <span class="op">$</span><span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">head</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">as_tibble</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 10</span></span>
-<span><span class="co">#&gt;       x     y colour  PANEL group shape fill   size alpha stroke</span></span>
-<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1  1.81  28.7 #00BA38 1         2    19 NA      1.5 NA       0.5</span></span>
-<span><span class="co">#&gt; 2  1.83  28.7 #00BA38 1         2    19 NA      1.5 NA       0.5</span></span>
-<span><span class="co">#&gt; 3  2.79  26.2 #00BA38 1         2    19 NA      1.5 NA       0.5</span></span>
-<span><span class="co">#&gt; 4  2.82  25.9 #00BA38 1         2    19 NA      1.5 NA       0.5</span></span>
-<span><span class="co">#&gt; 5  1.82  25.6 #F8766D 1         1    19 NA      1.5 NA       0.5</span></span>
-<span><span class="co">#&gt; 6  1.79  25.4 #F8766D 1         1    19 NA      1.5 NA       0.5</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 14</span></span>
-<span><span class="co">#&gt;       x     y  ymin  ymax    se flipped_aes colour  PANEL group fill   linewidth</span></span>
-<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;       &lt;chr&gt;   &lt;fct&gt; &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1  1.8   24.3  23.1  25.6 0.625 FALSE       #F8766D 1         1 #9999…         1</span></span>
-<span><span class="co">#&gt; 2  1.86  24.2  22.9  25.4 0.612 FALSE       #F8766D 1         1 #9999…         1</span></span>
-<span><span class="co">#&gt; 3  1.92  24.0  22.8  25.2 0.598 FALSE       #F8766D 1         1 #9999…         1</span></span>
-<span><span class="co">#&gt; 4  1.98  23.9  22.7  25.0 0.585 FALSE       #F8766D 1         1 #9999…         1</span></span>
-<span><span class="co">#&gt; 5  2.04  23.7  22.6  24.9 0.572 FALSE       #F8766D 1         1 #9999…         1</span></span>
-<span><span class="co">#&gt; 6  2.10  23.5  22.4  24.7 0.559 FALSE       #F8766D 1         1 #9999…         1</span></span>
-<span><span class="co">#&gt; # ℹ 3 more variables: linetype &lt;int&gt;, weight &lt;dbl&gt;, alpha &lt;dbl&gt;</span></span>
-<span><span class="va">p_built</span> <span class="op">$</span><span class="va">layout</span></span>
-<span><span class="co">#&gt; &lt;ggproto object: Class Layout, gg&gt;</span></span>
-<span><span class="co">#&gt;     coord: &lt;ggproto object: Class CoordCartesian, Coord, gg&gt;</span></span>
-<span><span class="co">#&gt;         aspect: function</span></span>
-<span><span class="co">#&gt;         backtransform_range: function</span></span>
-<span><span class="co">#&gt;         clip: on</span></span>
-<span><span class="co">#&gt;         default: TRUE</span></span>
-<span><span class="co">#&gt;         distance: function</span></span>
-<span><span class="co">#&gt;         draw_panel: function</span></span>
-<span><span class="co">#&gt;         expand: TRUE</span></span>
-<span><span class="co">#&gt;         is_free: function</span></span>
-<span><span class="co">#&gt;         is_linear: function</span></span>
-<span><span class="co">#&gt;         labels: function</span></span>
-<span><span class="co">#&gt;         limits: list</span></span>
-<span><span class="co">#&gt;         modify_scales: function</span></span>
-<span><span class="co">#&gt;         range: function</span></span>
-<span><span class="co">#&gt;         ratio: NULL</span></span>
-<span><span class="co">#&gt;         render_axis_h: function</span></span>
-<span><span class="co">#&gt;         render_axis_v: function</span></span>
-<span><span class="co">#&gt;         render_bg: function</span></span>
-<span><span class="co">#&gt;         render_fg: function</span></span>
-<span><span class="co">#&gt;         reverse: none</span></span>
-<span><span class="co">#&gt;         setup_data: function</span></span>
-<span><span class="co">#&gt;         setup_layout: function</span></span>
-<span><span class="co">#&gt;         setup_panel_guides: function</span></span>
-<span><span class="co">#&gt;         setup_panel_params: function</span></span>
-<span><span class="co">#&gt;         setup_params: function</span></span>
-<span><span class="co">#&gt;         train_panel_guides: function</span></span>
-<span><span class="co">#&gt;         transform: function</span></span>
-<span><span class="co">#&gt;         super:  &lt;ggproto object: Class CoordCartesian, Coord, gg&gt;</span></span>
-<span><span class="co">#&gt;     coord_params: list</span></span>
-<span><span class="co">#&gt;     facet: &lt;ggproto object: Class FacetWrap, Facet, gg&gt;</span></span>
-<span><span class="co">#&gt;         attach_axes: function</span></span>
-<span><span class="co">#&gt;         attach_strips: function</span></span>
-<span><span class="co">#&gt;         compute_layout: function</span></span>
-<span><span class="co">#&gt;         draw_back: function</span></span>
-<span><span class="co">#&gt;         draw_front: function</span></span>
-<span><span class="co">#&gt;         draw_labels: function</span></span>
-<span><span class="co">#&gt;         draw_panel_content: function</span></span>
-<span><span class="co">#&gt;         draw_panels: function</span></span>
-<span><span class="co">#&gt;         finish_data: function</span></span>
-<span><span class="co">#&gt;         format_strip_labels: function</span></span>
-<span><span class="co">#&gt;         init_gtable: function</span></span>
-<span><span class="co">#&gt;         init_scales: function</span></span>
-<span><span class="co">#&gt;         map_data: function</span></span>
-<span><span class="co">#&gt;         params: list</span></span>
-<span><span class="co">#&gt;         set_panel_size: function</span></span>
-<span><span class="co">#&gt;         setup_data: function</span></span>
-<span><span class="co">#&gt;         setup_panel_params: function</span></span>
-<span><span class="co">#&gt;         setup_params: function</span></span>
-<span><span class="co">#&gt;         shrink: TRUE</span></span>
-<span><span class="co">#&gt;         train_scales: function</span></span>
-<span><span class="co">#&gt;         vars: function</span></span>
-<span><span class="co">#&gt;         super:  &lt;ggproto object: Class FacetWrap, Facet, gg&gt;</span></span>
-<span><span class="co">#&gt;     facet_params: list</span></span>
-<span><span class="co">#&gt;     finish_data: function</span></span>
-<span><span class="co">#&gt;     get_scales: function</span></span>
-<span><span class="co">#&gt;     layout: data.frame</span></span>
-<span><span class="co">#&gt;     map_position: function</span></span>
-<span><span class="co">#&gt;     panel_params: list</span></span>
-<span><span class="co">#&gt;     panel_scales_x: list</span></span>
-<span><span class="co">#&gt;     panel_scales_y: list</span></span>
-<span><span class="co">#&gt;     render: function</span></span>
-<span><span class="co">#&gt;     render_labels: function</span></span>
-<span><span class="co">#&gt;     reset_scales: function</span></span>
-<span><span class="co">#&gt;     resolve_label: function</span></span>
-<span><span class="co">#&gt;     setup: function</span></span>
-<span><span class="co">#&gt;     setup_panel_guides: function</span></span>
-<span><span class="co">#&gt;     setup_panel_params: function</span></span>
-<span><span class="co">#&gt;     train_position: function</span></span>
-<span><span class="co">#&gt;     super:  &lt;ggproto object: Class Layout, gg&gt;</span></span>
-<span><span class="va">p_built</span> <span class="op">$</span><span class="va">plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggproto_files/figure-html/unnamed-chunk-3-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p_gtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot_gtable.html">ggplot_gtable</a></span><span class="op">(</span><span class="va">p_built</span><span class="op">)</span></span>
-<span><span class="va">p_gtable</span></span>
-<span><span class="co">#&gt; TableGrob (17 x 17) "layout": 25 grobs</span></span>
-<span><span class="co">#&gt;     z         cells             name</span></span>
-<span><span class="co">#&gt; 1   0 ( 1-17, 1-17)       background</span></span>
-<span><span class="co">#&gt; 2   1 (10-10, 7- 7)        panel-1-1</span></span>
-<span><span class="co">#&gt; 3   1 (10-10,11-11)        panel-2-1</span></span>
-<span><span class="co">#&gt; 4   3 ( 8- 8, 7- 7)       axis-t-1-1</span></span>
-<span><span class="co">#&gt; 5   3 ( 8- 8,11-11)       axis-t-2-1</span></span>
-<span><span class="co">#&gt; 6   3 (11-11, 7- 7)       axis-b-1-1</span></span>
-<span><span class="co">#&gt; 7   3 (11-11,11-11)       axis-b-2-1</span></span>
-<span><span class="co">#&gt; 8   3 (10-10,10-10)       axis-l-1-2</span></span>
-<span><span class="co">#&gt; 9   3 (10-10, 6- 6)       axis-l-1-1</span></span>
-<span><span class="co">#&gt; 10  3 (10-10,12-12)       axis-r-1-2</span></span>
-<span><span class="co">#&gt; 11  3 (10-10, 8- 8)       axis-r-1-1</span></span>
-<span><span class="co">#&gt; 12  2 ( 9- 9, 7- 7)      strip-t-1-1</span></span>
-<span><span class="co">#&gt; 13  2 ( 9- 9,11-11)      strip-t-2-1</span></span>
-<span><span class="co">#&gt; 14  4 ( 7- 7, 7-11)           xlab-t</span></span>
-<span><span class="co">#&gt; 15  5 (12-12, 7-11)           xlab-b</span></span>
-<span><span class="co">#&gt; 16  6 (10-10, 5- 5)           ylab-l</span></span>
-<span><span class="co">#&gt; 17  7 (10-10,13-13)           ylab-r</span></span>
-<span><span class="co">#&gt; 18  8 (10-10,15-15)  guide-box-right</span></span>
-<span><span class="co">#&gt; 19  9 (10-10, 3- 3)   guide-box-left</span></span>
-<span><span class="co">#&gt; 20 10 (14-14, 7-11) guide-box-bottom</span></span>
-<span><span class="co">#&gt; 21 11 ( 5- 5, 7-11)    guide-box-top</span></span>
-<span><span class="co">#&gt; 22 12 (10-10, 7-11) guide-box-inside</span></span>
-<span><span class="co">#&gt; 23 13 ( 4- 4, 7-11)         subtitle</span></span>
-<span><span class="co">#&gt; 24 14 ( 3- 3, 7-11)            title</span></span>
-<span><span class="co">#&gt; 25 15 (15-15, 7-11)          caption</span></span>
-<span><span class="co">#&gt;                                             grob</span></span>
-<span><span class="co">#&gt; 1                rect[plot.background..rect.717]</span></span>
-<span><span class="co">#&gt; 2                       gTree[panel-1.gTree.594]</span></span>
-<span><span class="co">#&gt; 3                       gTree[panel-2.gTree.609]</span></span>
-<span><span class="co">#&gt; 4                                 zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 5                                 zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 6            absoluteGrob[GRID.absoluteGrob.613]</span></span>
-<span><span class="co">#&gt; 7            absoluteGrob[GRID.absoluteGrob.613]</span></span>
-<span><span class="co">#&gt; 8                                 zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 9            absoluteGrob[GRID.absoluteGrob.621]</span></span>
-<span><span class="co">#&gt; 10                                zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 11                                zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 12                                 gtable[strip]</span></span>
-<span><span class="co">#&gt; 13                                 gtable[strip]</span></span>
-<span><span class="co">#&gt; 14                                zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 15 titleGrob[axis.title.x.bottom..titleGrob.676]</span></span>
-<span><span class="co">#&gt; 16   titleGrob[axis.title.y.left..titleGrob.679]</span></span>
-<span><span class="co">#&gt; 17                                zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 18                             gtable[guide-box]</span></span>
-<span><span class="co">#&gt; 19                                zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 20                                zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 21                                zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 22                                zeroGrob[NULL]</span></span>
-<span><span class="co">#&gt; 23         zeroGrob[plot.subtitle..zeroGrob.714]</span></span>
-<span><span class="co">#&gt; 24          titleGrob[plot.title..titleGrob.713]</span></span>
-<span><span class="co">#&gt; 25          zeroGrob[plot.caption..zeroGrob.715]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.newpage.html">grid.newpage</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.newpage.html">grid.newpage</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html">grid.draw</a></span><span class="op">(</span><span class="va">p_gtable</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="ggproto_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="ggproto" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="ggproto">
-<span class="header-section-number">1.2</span> <code>ggproto</code>
+</section><section id="ggproto" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="ggproto">
+<span class="header-section-number">1.3</span> <code>ggproto</code>
 </h2>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/methods/representation.html">prototype</a></span><span class="op">(</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/methods/representation.html">prototype</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; An object of class "classPrototypeDef"</span></span>
 <span><span class="co">#&gt; Slot "object":</span></span>
 <span><span class="co">#&gt; &lt;S4 Type Object&gt;</span></span>
@@ -537,135 +404,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Slot "dataPart":</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p><a href="https://ggplot2-book.org/internals#sec-ggproto">参考 ggplot2-book.org/internals#sec-ggproto</a></p>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
-<span><span class="co"># 创建新类，子类继承</span></span>
-<span><span class="va">NewObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggproto.html">ggproto</a></span><span class="op">(</span></span>
-<span>  `_class` <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># 类</span></span>
-<span>  `_inherits` <span class="op">=</span> <span class="cn">NULL</span> <span class="co"># 继承</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">NewObject</span> </span>
-<span><span class="co">#&gt; &lt;ggproto object: Class gg&gt;</span></span>
-<span><span class="co">#&gt;     _inherits: NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 新类</span></span>
-<span><span class="va">NewClass</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"NewClass"</span>, <span class="cn">NULL</span>,</span>
-<span>                    <span class="co"># fields     默认值 </span></span>
-<span>                    geom<span class="op">=</span><span class="cn">NA</span>,</span>
-<span>                    <span class="co"># methods</span></span>
-<span>                    </span>
-<span>                    <span class="op">)</span></span>
-<span></span>
-<span><span class="va">NewClass</span></span>
-<span><span class="co">#&gt; &lt;ggproto object: Class NewClass, gg&gt;</span></span>
-<span><span class="co">#&gt;     geom: NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 实例</span></span>
-<span><span class="va">instance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">NewClass</span>,</span>
-<span>                    <span class="co"># 字段赋值</span></span>
-<span>                    geom<span class="op">=</span><span class="st">"point"</span></span>
-<span>                    <span class="op">)</span></span>
-<span><span class="va">instance</span></span>
-<span><span class="co">#&gt; &lt;ggproto object: Class NewClass, gg&gt;</span></span>
-<span><span class="co">#&gt;     geom: point</span></span>
-<span><span class="co">#&gt;     super:  &lt;ggproto object: Class NewClass, gg&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 继承</span></span>
-<span><span class="va">NewSubClass</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"NewSubClass"</span>, <span class="va">NewClass</span><span class="op">)</span></span>
-<span><span class="va">NewSubClass</span></span>
-<span><span class="co">#&gt; &lt;ggproto object: Class NewSubClass, NewClass, gg&gt;</span></span>
-<span><span class="co">#&gt;     geom: NA</span></span>
-<span><span class="co">#&gt;     super:  &lt;ggproto object: Class NewClass, gg&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section><section id="自定义geom_signif" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="自定义geom_signif">
-<span class="header-section-number">1.3</span> 自定义geom_signif</h2>
-<div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 自定义 GeomSignif 对象</span></span>
-<span><span class="va">GeomSignif</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggproto.html">ggproto</a></span><span class="op">(</span>`_class` <span class="op">=</span> <span class="st">"GeomSignif"</span>,</span>
-<span>                      `_inherits` <span class="op">=</span> <span class="va">Geom</span>,</span>
-<span>  required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,</span>
-<span>  </span>
-<span>  default_aes <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
-<span>    comparisons <span class="op">=</span> <span class="cn">NULL</span>, step_increase <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>    map_signif_level <span class="op">=</span> <span class="cn">TRUE</span>, test <span class="op">=</span> <span class="st">"t.test"</span>,</span>
-<span>    test.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>, y_position <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>    annotations <span class="op">=</span> <span class="cn">NULL</span>, tip_length <span class="op">=</span> <span class="fl">0.03</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  </span>
-<span>  draw_group <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">panel_scales</span>, <span class="va">coord</span>, <span class="va">comparisons</span>, <span class="va">step_increase</span>,</span>
-<span>                        <span class="va">map_signif_level</span>, <span class="va">test</span>, <span class="va">test.args</span>, <span class="va">y_position</span>, <span class="va">annotations</span>, <span class="va">tip_length</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    </span>
-<span>    <span class="co"># 提取比较组</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">comparisons</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Comparisons must be provided."</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span>    </span>
-<span>    <span class="co"># 计算每组的 y 坐标位置</span></span>
-<span>    <span class="va">y_max</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">y</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">y_position</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">y_position</span> <span class="op">&lt;-</span> <span class="va">y_max</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">step_increase</span>, by <span class="op">=</span> <span class="va">step_increase</span>, length.out <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">comparisons</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span>    </span>
-<span>    <span class="co"># 创建标记的绘图对象列表</span></span>
-<span>    <span class="va">grobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">comparisons</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">comp</span> <span class="op">&lt;-</span> <span class="va">comparisons</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span></span>
-<span>      <span class="va">group1</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">x</span> <span class="op">==</span> <span class="va">comp</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">"y"</span><span class="op">]</span></span>
-<span>      <span class="va">group2</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">x</span> <span class="op">==</span> <span class="va">comp</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="st">"y"</span><span class="op">]</span></span>
-<span>      </span>
-<span>      <span class="co"># 进行显著性测试</span></span>
-<span>      <span class="va">test_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">test</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">group1</span>, <span class="va">group2</span><span class="op">)</span>, <span class="va">test.args</span><span class="op">)</span><span class="op">)</span></span>
-<span>      <span class="va">p_value</span> <span class="op">&lt;-</span> <span class="va">test_result</span><span class="op">$</span><span class="va">p.value</span></span>
-<span>      <span class="va">label</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="va">map_signif_level</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="kw">if</span> <span class="op">(</span><span class="va">p_value</span> <span class="op">&lt;</span> <span class="fl">0.001</span><span class="op">)</span> <span class="st">"***"</span></span>
-<span>        <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">p_value</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">)</span> <span class="st">"**"</span></span>
-<span>        <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">p_value</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span> <span class="st">"*"</span></span>
-<span>        <span class="kw">else</span> <span class="st">"ns"</span></span>
-<span>      <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">p_value</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>      <span class="op">}</span></span>
-<span>      </span>
-<span>      <span class="co"># 绘制显著性标记线条和标签</span></span>
-<span>      <span class="va">grobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">grobs</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>        <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.lines.html">linesGrob</a></span><span class="op">(</span></span>
-<span>          x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">comp</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">comp</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>          y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">y_position</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="fl">2</span><span class="op">)</span>,</span>
-<span>          gp <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span>, lwd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html">textGrob</a></span><span class="op">(</span></span>
-<span>          <span class="va">label</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">comp</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">y_position</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="va">tip_length</span>,</span>
-<span>          gp <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span>, fontsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
-<span>      <span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span>    </span>
-<span>    <span class="co"># 返回绘图对象列表</span></span>
-<span>    <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.grob.html">grobTree</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">grobs</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 创建自定义 geom_signif 函数</span></span>
-<span><span class="va">geom_signif</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mapping</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">data</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">stat</span> <span class="op">=</span> <span class="st">"identity"</span>, <span class="va">position</span> <span class="op">=</span> <span class="st">"identity"</span>,</span>
-<span>                        <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">show.legend</span> <span class="op">=</span> <span class="cn">NA</span>, <span class="va">inherit.aes</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/layer.html">layer</a></span><span class="op">(</span></span>
-<span>    geom <span class="op">=</span> <span class="va">GeomSignif</span>, mapping <span class="op">=</span> <span class="va">mapping</span>, data <span class="op">=</span> <span class="va">data</span>, stat <span class="op">=</span> <span class="va">stat</span>,</span>
-<span>    position <span class="op">=</span> <span class="va">position</span>, show.legend <span class="op">=</span> <span class="va">show.legend</span>, inherit.aes <span class="op">=</span> <span class="va">inherit.aes</span>,</span>
-<span>    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="va">na.rm</span>, <span class="va">...</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 

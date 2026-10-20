@@ -5,6 +5,7 @@
 ## 案例1
 
 ```{r}
+library(tidyverse)
 data <- read_rds("data/三线表/tableone骨科术式.rds") 
 
 

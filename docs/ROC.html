@@ -143,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./折线图.html">Line</a></li><li class="breadcrumb-item"><a href="./ROC.html">ROC</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./line.html">Line</a></li><li class="breadcrumb-item"><a href="./ROC.html">ROC</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -186,8 +186,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./点图.html" class="sidebar-item-text sidebar-link">
+  <a href="./point.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">点图</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Manhattan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">曼哈顿图</span></a>
   </div>
 </li>
       </ul>
@@ -195,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Line</span></a>
+ <span class="menu-text">Significance</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -203,13 +209,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./折线图.html" class="sidebar-item-text sidebar-link">
+  <a href="./comparison_significance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">显著性——差异比较</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggpubr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggpubr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sina.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sina 图</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Line</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./line.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">折线图</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./生存曲线.html" class="sidebar-item-text sidebar-link">
+  <a href="./survival.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">生存曲线</span></a>
   </div>
 </li>
@@ -223,34 +258,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Bin</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Rect</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./条形图.html" class="sidebar-item-text sidebar-link">
+  <a href="./barplot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">条形图</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ggprism.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggprism: GraphPad Prism 主题风格</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./ggpattern.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><code>ggpattern</code></span></a>
+ <span class="menu-text"><a href="https://trevorldavis.com/R/ggpattern/dev/"><code>ggpattern</code></a></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./双向条图.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">双向条图</span></a>
+  <a href="./angle_rounded_barplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggforce: barplot with round angle</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./发散条图.html" class="sidebar-item-text sidebar-link">
+  <a href="./Diverging_Bars.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">发散条图</span></a>
   </div>
 </li>
@@ -258,13 +299,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Relationship</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./相关图.html" class="sidebar-item-text sidebar-link">
@@ -275,6 +316,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./热图.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">热图</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Axis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dual_y_axis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">双y轴</span></a>
   </div>
 </li>
       </ul>
@@ -300,49 +358,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./折线图.html">Line</a></li><li class="breadcrumb-item"><a href="./ROC.html">ROC</a></li></ol></nav></header><section id="roc" class="level1" data-number="1"><h1 data-number="1">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./line.html">Line</a></li><li class="breadcrumb-item"><a href="./ROC.html">ROC</a></li></ol></nav></header><section id="roc" class="level1" data-number="1"><h1 data-number="1">
 <span class="header-section-number">1</span> ROC</h1>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'tidymodels' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; ── Attaching packages ────────────────────────────────────── tidymodels 1.4.1 ──</span></span>
-<span><span class="co">#&gt; ✔ broom        1.0.10     ✔ recipes      1.3.1 </span></span>
-<span><span class="co">#&gt; ✔ dials        1.4.2      ✔ rsample      1.3.1 </span></span>
-<span><span class="co">#&gt; ✔ dplyr        1.1.4      ✔ tailor       0.1.0 </span></span>
-<span><span class="co">#&gt; ✔ ggplot2      4.0.1      ✔ tidyr        1.3.1 </span></span>
-<span><span class="co">#&gt; ✔ infer        1.0.9      ✔ tune         2.0.1 </span></span>
-<span><span class="co">#&gt; ✔ modeldata    1.5.1      ✔ workflows    1.3.0 </span></span>
-<span><span class="co">#&gt; ✔ parsnip      1.3.3      ✔ workflowsets 1.1.1 </span></span>
-<span><span class="co">#&gt; ✔ purrr        1.2.0      ✔ yardstick    1.3.2</span></span>
-<span><span class="co">#&gt; Warning: package 'broom' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'dials' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'modeldata' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'parsnip' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'purrr' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'rsample' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'tailor' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'tune' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'workflows' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──</span></span>
-<span><span class="co">#&gt; ✖ purrr::discard() masks scales::discard()</span></span>
-<span><span class="co">#&gt; ✖ dplyr::filter()  masks stats::filter()</span></span>
-<span><span class="co">#&gt; ✖ dplyr::lag()     masks stats::lag()</span></span>
-<span><span class="co">#&gt; ✖ recipes::step()  masks stats::step()</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'stringr' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Warning: package 'forcats' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──</span></span>
-<span><span class="co">#&gt; ✔ forcats   1.0.1     ✔ stringr   1.6.0</span></span>
-<span><span class="co">#&gt; ✔ lubridate 1.9.4     ✔ tibble    3.3.0</span></span>
-<span><span class="co">#&gt; ✔ readr     2.1.6</span></span>
-<span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span><span class="co">#&gt; ✖ readr::col_factor() masks scales::col_factor()</span></span>
-<span><span class="co">#&gt; ✖ purrr::discard()    masks scales::discard()</span></span>
-<span><span class="co">#&gt; ✖ dplyr::filter()     masks stats::filter()</span></span>
-<span><span class="co">#&gt; ✖ stringr::fixed()    masks recipes::fixed()</span></span>
-<span><span class="co">#&gt; ✖ dplyr::lag()        masks stats::lag()</span></span>
-<span><span class="co">#&gt; ✖ readr::spec()       masks yardstick::spec()</span></span>
-<span><span class="co">#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_example</span>,package <span class="op">=</span> <span class="st">"yardstick"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">two_class_example</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 500 × 4</span></span>
@@ -440,14 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="proc" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="proc">
 <span class="header-section-number">1.5</span> pROC</h2>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'pROC' was built under R version 4.5.2</span></span>
-<span><span class="co">#&gt; Type 'citation("pROC")' for a citation.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'pROC'</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     cov, smooth, var</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -458,8 +471,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">roc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">group</span>,<span class="va">df</span><span class="op">$</span><span class="va">value</span>, smooth <span class="op">=</span> <span class="cn">F</span>,ci<span class="op">=</span><span class="cn">T</span>,auc<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Setting levels: control = 0, case = 1</span></span>
-<span><span class="co">#&gt; Setting direction: controls &lt; cases</span></span>
 <span></span>
 <span><span class="va">roc</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -525,13 +536,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">-</span><span class="va">specificity</span>,y<span class="op">=</span><span class="va">sensitivity</span>,label<span class="op">=</span><span class="va">cutoff_text</span><span class="op">)</span>,</span>
 <span>        data <span class="op">=</span> <span class="va">cutoff</span>,</span>
 <span>        vjust<span class="op">=</span><span class="op">-</span><span class="fl">1</span>,</span>
-<span>    <span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
-<span><span class="co">#&gt; ℹ The deprecated feature was likely used in the pROC package.</span></span>
-<span><span class="co">#&gt;   Please report the issue at &lt;https://github.com/xrobin/pROC/issues&gt;.</span></span>
-<span><span class="co">#&gt; Scale for x is already present.</span></span>
-<span><span class="co">#&gt; Adding another scale for x, which will replace the existing scale.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="ROC_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img"></p>
@@ -543,8 +548,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">two_class_example</span></span>
 <span><span class="va">roc_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span>response <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">truth</span>, predictor <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">Class1</span>,ci<span class="op">=</span><span class="cn">TRUE</span>,auc<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Setting levels: control = Class1, case = Class2</span></span>
-<span><span class="co">#&gt; Setting direction: controls &gt; cases</span></span>
 <span><span class="va">roc_obj</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Call:</span></span>
